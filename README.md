@@ -1,2 +1,2 @@
 # CoolBooks
-Tenta - Huvudmeny BUV21 Fördjupning Systemutveckling
+Tenta - BUV21 Fördjupning Systemutveckling
