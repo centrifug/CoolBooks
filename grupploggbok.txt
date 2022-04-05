@@ -15,6 +15,7 @@ Skapa projekt på GITHUB
 Gemensamt: 
   Förfinat userstories
   Tidsestimerat userstories
+  Identifiera 3 spikes
   Mobbprogrammerat delar av projektet. Bland annat databasstrukturen
   Läst på om agilt och burndowncharts, samt github.
   
