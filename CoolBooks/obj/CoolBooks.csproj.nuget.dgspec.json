@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\staff\\Source\\Repos\\CoolBooks\\CoolBooks\\CoolBooks.csproj": {}
+    "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj": {}
   },
   "projects": {
-    "C:\\Users\\staff\\Source\\Repos\\CoolBooks\\CoolBooks\\CoolBooks.csproj": {
+    "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\staff\\Source\\Repos\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
+        "projectUniqueName": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
         "projectName": "CoolBooks",
-        "projectPath": "C:\\Users\\staff\\Source\\Repos\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
-        "packagesPath": "C:\\Users\\staff\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\staff\\Source\\Repos\\CoolBooks\\CoolBooks\\obj\\",
+        "projectPath": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
+        "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\staff\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +44,22 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -57,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

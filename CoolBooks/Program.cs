@@ -1,4 +1,10 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CoolBooks.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<CoolBooksContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CoolBooksContext")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
