@@ -16,3 +16,6 @@ Gemensamt:
   Förfinat userstories
   Tidsestimerat userstories
   Mobbprogrammerat delar av projektet. Bland annat databasstrukturen
+  Läst på om agilt och burndowncharts, samt github.
+  
+  Spreadsheet med information för att burndownchart ska skapas.
