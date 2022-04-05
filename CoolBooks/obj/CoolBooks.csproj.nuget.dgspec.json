@@ -1,25 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj": {}
+    "D:\\Users\\User\\source\\repos\\CoolBooksGithub\\CoolBooks\\CoolBooks.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj": {
+    "D:\\Users\\User\\source\\repos\\CoolBooksGithub\\CoolBooks\\CoolBooks.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
+        "projectUniqueName": "D:\\Users\\User\\source\\repos\\CoolBooksGithub\\CoolBooks\\CoolBooks.csproj",
         "projectName": "CoolBooks",
-        "projectPath": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
-        "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\obj\\",
+        "projectPath": "D:\\Users\\User\\source\\repos\\CoolBooksGithub\\CoolBooks\\CoolBooks.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\User\\source\\repos\\CoolBooksGithub\\CoolBooks\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
