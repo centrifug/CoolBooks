@@ -1,0 +1,18 @@
+Grupplogbok
+
+2022-04-04
+
+Gemensamt:
+Skapa projekt på GITHUB
+  Skapa en kanban board innuti GITHUB för att slippa trello
+  Diskutera Razor eller MVC? Valet landade på MVC + Entity Framework
+  Diskutera VG Kriterier, Individuellt men EFTER vi har kommit en lång bit eller nästan klara!
+  Rita upp Databasmodell samt diskussion kring detta
+  Skapa tomt MVC projekt samt Grupplogbok och pusha till GITHUB.
+
+2022-04-05:
+
+Gemensamt: 
+  Förfinat userstories
+  Tidsestimerat userstories
+  Mobbprogrammerat delar av projektet. Bland annat databasstrukturen
