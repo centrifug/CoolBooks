@@ -1,12 +1,37 @@
-﻿@{
+﻿@model HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to CoolBooks!</h1>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RandomBook.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RandomBook.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RandomBook.ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RandomBook.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RandomBook.Created)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <partial name="_Book" model="Model.RandomBook"/>
+    </thead>
+    </table>
 </div>
+<div> 
 
-@{
-    
-}
+<p>Här kommer karusellen vara :)</p>
+</div>
