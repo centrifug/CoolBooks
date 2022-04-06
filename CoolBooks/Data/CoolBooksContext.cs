@@ -40,7 +40,15 @@ namespace CoolBooks.Data
                  (bg => bg.HasOne<Genre>().WithMany(),
                  bg => bg.HasOne<Book>().WithMany()).Property(ba => ba.Created);
 
+            modelBuilder.SeedBook(); // Kör min Seed extension metod.
+            modelBuilder.SeedAuthor(); // Kör min Seed author metod.
+            modelBuilder.SeedGenre(); //  Kör min Seed genre metod.
+            modelBuilder.SeedReview(); // Kör min Seed review metod.
+
         }
+        public DbSet<CoolBooks.Models.Author> Author { get; set; }
+        public DbSet<CoolBooks.Models.Review> Review { get; set; }
+        public DbSet<CoolBooks.Models.Genre> Genre { get; set; }
 
         
     }
