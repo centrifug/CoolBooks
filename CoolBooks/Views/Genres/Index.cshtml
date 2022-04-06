@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CoolBooks.Models.Book>
+﻿@model IEnumerable<CoolBooks.Models.Genre>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ISBN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Created)
@@ -32,18 +26,12 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        @*<tr>
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
@@ -53,8 +41,7 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
-        </tr>*@
-        <partial name="_Book" model="item"/>
+        </tr>
 }
     </tbody>
 </table>

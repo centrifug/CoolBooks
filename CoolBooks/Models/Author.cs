@@ -12,7 +12,7 @@ namespace CoolBooks.Models
 
         [Required]
         [MaxLength(20)]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         public DateTime BirthDate { get; set; }

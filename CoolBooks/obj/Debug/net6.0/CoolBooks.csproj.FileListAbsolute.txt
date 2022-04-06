@@ -532,3 +532,11 @@ C:\Users\staff\source\repos\CoolBooks\CoolBooks\obj\Debug\net6.0\scopedcss\proje
 C:\Users\staff\source\repos\CoolBooks\CoolBooks\obj\Debug\net6.0\CoolBooks.csproj.CopyComplete
 C:\Users\staff\source\repos\CoolBooks\CoolBooks\obj\Debug\net6.0\CoolBooks.genruntimeconfig.cache
 C:\Users\staff\source\repos\CoolBooks\CoolBooks\obj\Debug\net6.0\ref\CoolBooks.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\obj\Debug\net6.0\CoolBooks.MvcApplicationPartsAssemblyInfo.cs

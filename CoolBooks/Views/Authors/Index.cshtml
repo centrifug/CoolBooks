@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CoolBooks.Models.Book>
+﻿@model IEnumerable<CoolBooks.Models.Author>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ISBN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
+                @Html.DisplayNameFor(model => model.BirthDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Created)
@@ -32,18 +29,15 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        @*<tr>
+        <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
+                @Html.DisplayFor(modelItem => item.BirthDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
@@ -53,8 +47,7 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
-        </tr>*@
-        <partial name="_Book" model="item"/>
+        </tr>
 }
     </tbody>
 </table>

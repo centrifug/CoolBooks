@@ -7,7 +7,7 @@ namespace CoolBooks.Models
         [Required][Key]
         public int Id { get; set; }
 
-        [Required][MaxLength(25)]
+        [Required][MaxLength(50)]
         public string Title { get; set; }
 
         [Required]
