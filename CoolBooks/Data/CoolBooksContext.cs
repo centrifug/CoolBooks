@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CoolBooks.Data
 {
-    public class CoolBooksContext : IdentityDbContext<IdentityUser>
+    public class CoolBooksContext : IdentityDbContext<CoolBooksUser>
     {
         public DbSet<CoolBooks.Models.Book> Book { get; set; }
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)

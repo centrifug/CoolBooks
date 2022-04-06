@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBooks.Models
 {
+
+    [Authorize] //[Authorize(Roles = "Administrator")]
     public class BooksController : Controller
     {
         private readonly CoolBooksContext _context;

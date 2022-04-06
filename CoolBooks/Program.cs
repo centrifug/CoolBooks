@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using CoolBooks.Data;
 using Microsoft.AspNetCore.Identity;
+using CoolBooks.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("CoolBooksContext");
@@ -11,15 +13,20 @@ builder.Services.AddDbContext<CoolBooksContext>(options =>
 
 //builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<CoolBooksContext>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<CoolBooksUser>(options =>  options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CoolBooksContext>();
 
-
+builder.Services.ConfigureApplicationCookie(options => 
+{
+    options.AccessDeniedPath = "/account/login";
+    options.LoginPath = "/account/login";
+});
 
 // Add services to the container.
 builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+//builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -35,6 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -43,6 +51,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages();
+//app.MapRazorPages();
 
 app.Run();

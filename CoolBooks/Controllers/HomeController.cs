@@ -1,6 +1,7 @@
 ﻿using CoolBooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using CoolBooks.ViewModels;
 
 namespace CoolBooks.Controllers
 {
@@ -14,7 +15,7 @@ namespace CoolBooks.Controllers
         }
 
         public IActionResult Index()
-        {
+        {  
             return View();
         }
 
