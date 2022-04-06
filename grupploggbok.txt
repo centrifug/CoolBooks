@@ -20,3 +20,15 @@ Gemensamt:
   Läst på om agilt och burndowncharts, samt github.
   
   Spreadsheet med information för att burndownchart ska skapas.
+  
+  2022-04-06:
+  
+  Stefan:
+  Fixat metod för seed-data samt stoppat in 5 böcker, authors, genres, reviews.
+  Fixat Partial View för book Viewmodel (går att återanvända kod så vi kan få mer Partial views)
+  Fixat ViewModel Mapp som vi kan använda under projektets gång.
+  
+  Börjat med random funktionen för view/index. Har felsökning kvar att göra men kommit en bra bit.
+  Staffan:
+  
+  Milda: 
