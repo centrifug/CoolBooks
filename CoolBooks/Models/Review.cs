@@ -10,13 +10,13 @@ namespace CoolBooks.Models
         [Required]
         public int BookId { get; set; }
 
-        [Required]
+        //[Required]
         public Book Book { get; set; }
 
         [Required][MaxLength(25)]
         public string Title { get; set; }
 
-        [Required][MaxLength(50)]
+        [Required][MaxLength(500)]
         public string Text { get; set; }
 
         [Required][Range(1,5)]

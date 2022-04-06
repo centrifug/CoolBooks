@@ -8,89 +8,149 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CoolBooks
 build_property.RootNamespace = CoolBooks
-build_property.ProjectDir = C:\Users\staff\source\repos\CoolBooks\CoolBooks\
+build_property.ProjectDir = C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\staff\source\repos\CoolBooks\CoolBooks
+build_property.MSBuildProjectDirectory = C:\Users\Stefan\Desktop\Backend\GIT\CoolBooks\CoolBooks
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/Logout.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/Register.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Books/Create.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Authors/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Authors/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Authors/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Authors/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Authors/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Books/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Books/Delete.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Books/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Books/Details.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Books/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Books/Edit.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Books/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Books/Index.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Books/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Home/Index.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Genres/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Genres/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Genres/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Genres/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Genres/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VucmVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Home/Privacy.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Shared/Error.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Reviews/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Reviews/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Reviews/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Reviews/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Reviews/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/_ViewImports.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/_ViewStart.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/staff/source/repos/CoolBooks/CoolBooks/Views/Shared/_Layout.cshtml]
+[C:/Users/Stefan/Desktop/Backend/GIT/CoolBooks/CoolBooks/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-032ic65rx6
