@@ -1,0 +1,24 @@
+﻿@model Book
+        
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Created)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            </td>
+        </tr>
