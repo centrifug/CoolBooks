@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoolBooks.Data
 {
-    public class CoolBooksContext : DbContext
+    public class CoolBooksContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<CoolBooks.Models.Book> Book { get; set; }
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
@@ -18,6 +20,8 @@ namespace CoolBooks.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Review>()
                 .Property(r => r.Created)
                 .HasDefaultValueSql("getdate()");
