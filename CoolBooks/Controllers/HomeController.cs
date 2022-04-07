@@ -22,10 +22,10 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> Index()
         {
             HomeIndexViewModel vm = new HomeIndexViewModel();
+
             var random = new Random();
             int randomnr = random.Next(0, _context.Book.Count());
-
-       
+      
             vm.RandomBook = _context.Book.OrderBy(x => Guid.NewGuid()).First();
             vm.Books = _context.Book.OrderBy(x => x.Created).Take(3).ToList();
 
