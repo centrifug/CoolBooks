@@ -26,10 +26,10 @@ namespace CoolBooks.Controllers
 
             var random = new Random();
             int randomnr = random.Next(1, _context.Book.Count());
-            //vm.RandomBook = await _context.Book.
-            //    OrderBy(x => x.Id == randomnr)
-            //    //.Take(1) 
-            //    .FirstOrDefaultAsync();
+            vm.RandomBook = await _context.Book.
+                OrderBy(x => x.Id == randomnr)
+                //.Take(1) 
+                .FirstOrDefaultAsync();
 
             //Just nu funkar det bara på #1 och #2 även fast vi har 5 böcker, titta på detta asap!
 

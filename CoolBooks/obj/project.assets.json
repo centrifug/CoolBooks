@@ -9828,26 +9828,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Stefan\\.nuget\\packages\\": {},
-    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\staff\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
+      "projectUniqueName": "C:\\Users\\staff\\source\\repos\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
       "projectName": "CoolBooks",
-      "projectPath": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
-      "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Stefan\\Desktop\\Backend\\GIT\\CoolBooks\\CoolBooks\\obj\\",
+      "projectPath": "C:\\Users\\staff\\source\\repos\\CoolBooks\\CoolBooks\\CoolBooks.csproj",
+      "packagesPath": "C:\\Users\\staff\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\staff\\source\\repos\\CoolBooks\\CoolBooks\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\staff\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9914,16 +9907,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\staff\\source\\repos\\CoolBooks\\CoolBooks\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
