@@ -31,10 +31,11 @@ namespace CoolBooks.Models
         //[Required]
         public List<Genre> Genres { get; set; } = new List<Genre>();
 
+        public string ImagePath { get; set; }
+
         // UserID?
         // CreatedBy?
         // Updated?
         // UPdatedBy?
-        // public something Image { get; set; }
     }
 }

@@ -23,12 +23,12 @@ namespace CoolBooks.Models
         //[Required]
         public List<Book> Books { get; set; } = new List<Book>();
 
+        public string ImagePath { get; set; }
 
         // UserID?
         // CreatedBy?
         // Updated?
         // UPdatedBy?
-        // public something Image { get; set; }
 
     }
 }
