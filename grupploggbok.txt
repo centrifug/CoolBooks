@@ -1,9 +1,8 @@
 Grupplogbok
 
 2022-04-04
-
 Gemensamt:
-Skapa projekt på GITHUB
+  Skapa projekt på GITHUB
   Skapa en kanban board innuti GITHUB för att slippa trello
   Diskutera Razor eller MVC? Valet landade på MVC + Entity Framework
   Diskutera VG Kriterier, Individuellt men EFTER vi har kommit en lång bit eller nästan klara!
@@ -11,18 +10,15 @@ Skapa projekt på GITHUB
   Skapa tomt MVC projekt samt Grupplogbok och pusha till GITHUB.
 
 2022-04-05:
-
 Gemensamt: 
   Förfinat userstories
   Tidsestimerat userstories
   Identifiera 3 spikes
   Mobbprogrammerat delar av projektet. Bland annat databasstrukturen
-  Läst på om agilt och burndowncharts, samt github.
-  
+  Läst på om agilt och burndowncharts, samt github.  
   Spreadsheet med information för att burndownchart ska skapas.
   
-  2022-04-06:
-  
+2022-04-06:
 Stefan:
   Fixat metod för seed-data samt stoppat in 5 böcker, authors, genres, reviews.
   Fixat Partial View för book Viewmodel (går att återanvända kod så vi kan få mer Partial views)
@@ -32,8 +28,7 @@ Stefan:
   
 Staffan:
   Läst på om identity i dot.net "kört en spike" och anser att det är det här vi ska använda för inloggning
-
-	Scaffoldade identity > login, logout, register och fick det att fungera 	
+  Scaffoldade identity > login, logout, register och fick det att fungera 	
   Efter detta landade login och registering av användare på en funktionell nivå. 
 
   Läst på mer om identity och har ångrat mig angånde upplägget och därför börjat konvertera dom scaffoldade 
@@ -42,6 +37,12 @@ Staffan:
   
 2022-04-07:
 Stefan: 
-Fixat bildhantering för våran seed-data, både books/authors.
-Fixat random-hantering på index sida.
-Börjat med Karusellen på index sida. Behöver felsökning! 
+  Fixat bildhantering för våran seed-data, både books/authors.
+  Fixat random-hantering på index sida.
+  Börjat med Karusellen på index sida. Behöver felsökning! 
+
+Staffan:
+  Kollat på .gitignore. Lagt till det och rensat bort massa "oöndigt" i projektet för att minimiera storlek(Mb) och antalet konflikter.
+  Fortsatt med Identity och konverterat allt till MVC. Nu finns det möjlighet att lägga till och tabort roller på användare. 
+  (Det börjar närma sig en funktionell grund där vi kan separera content för användare med olika rättigheter :D)
+
