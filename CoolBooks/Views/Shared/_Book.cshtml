@@ -2,6 +2,9 @@
         
         <tr>
             <td>
+                <img src=" @Html.DisplayFor(model => Model.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px">
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => Model.Title)
             </td>
             <td>
@@ -15,7 +18,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.Created)
-            </td>
+            </td>       
             <td>
                 <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |

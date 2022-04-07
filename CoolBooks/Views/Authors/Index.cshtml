@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
@@ -23,13 +26,16 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Created)
-            </th>
+            </th> 
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                <img src=" @Html.DisplayFor(modelItem => item.ImagePath)" class="card-img-thumbnail" alt="..." width="188px" height="266px">
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -41,7 +47,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
-            </td>
+            </td>      
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

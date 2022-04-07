@@ -22,29 +22,14 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> Index()
         {
             HomeIndexViewModel vm = new HomeIndexViewModel();
-            // vm.RandomBook = await _context.Book.Take(1).FirstOrDefaultAsync();
 
-            //var random = new Random();
-            //int randomnr = random.Next(0, _context.Book.Count());
-
-            //IEnumerable<Book> result = emp.OrderBy(x => ran.Next()).Take(3);
-            
-
-            //var  = books.ElementAt(randomnr);
-
-
-            
+            var random = new Random();
+            int randomnr = random.Next(0, _context.Book.Count());
+      
             vm.RandomBook = _context.Book.OrderBy(x => Guid.NewGuid()).First();
-                //OrderBy(x => x.Id == randomnr)
-          
-            vm.Books = _context.Book.OrderBy(x =>x.Created).Take(3).ToList();
-
-            //Just nu funkar det bara på #1 och #2 även fast vi har 5 böcker, titta på detta asap!
+            vm.Books = _context.Book.OrderBy(x => x.Created).Take(3).ToList();
 
             return View(vm);
-            
-            //return View(await _context.Book.Take(1)
-            //    .FirstOrDefaultAsync());
         }
 
         public IActionResult Privacy()

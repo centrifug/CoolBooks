@@ -40,4 +40,8 @@ Staffan:
   razorpage-identity-delarna till MVC för att få bättre kontroll samt överblick och för att hålla samma standard genom hela projektet.
 
   
-Milda: 
+2022-04-07:
+Stefan: 
+Fixat bildhantering för våran seed-data, både books/authors.
+Fixat random-hantering på index sida.
+Börjat med Karusellen på index sida. Behöver felsökning! 
