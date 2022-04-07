@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿
 @model IEnumerable<IdentityRole>
 
 
@@ -20,8 +20,12 @@
                 <h5 class="card-title">@role.Name</h5>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <a class="btn btn-primary" asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id">Edit</a>
+                
+                <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">                    
+                    <button type="submit" class="btn btn-lg btn-primary">Delete</button>
+                </form>
+                
             </div>
         </div>
     }
