@@ -1,4 +1,4 @@
-﻿@model CoolBooks.Models.Book
+﻿@model BookWithReviewsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -15,7 +15,7 @@
                     <div class="row no-gutters">
                 <div class="col-md-4">
 
-                   <img src=" @Html.DisplayFor(model => model.ImagePath)" class="card-img" alt="...">
+                   <img src=" @Html.DisplayFor(model => model.book.ImagePath)" class="card-img" alt="...">
 
 
                  </div>
@@ -23,34 +23,28 @@
                         <div class="card-body">
 
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.book.Title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.book.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.book.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.book.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ISBN)
+            @Html.DisplayNameFor(model => model.book.ISBN)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ISBN)
+            @Html.DisplayFor(model => model.book.ISBN)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsDeleted)
+            @Html.DisplayNameFor(model => model.book.Created)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Created)
+            @Html.DisplayFor(model => model.book.Created)
         </dd>
                      </div>
                 </div>
@@ -62,6 +56,70 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.book.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+@if (Model.reviews.Any())
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.reviews[0].Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reviews[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reviews[0].Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reviews[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reviews[0].IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reviews[0].Created)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.reviews) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+    </table>
+
+}
+else
+{
+<h3>Det finns inga reviews ännu... var den första som rescenserar?</h3>   
+
+}

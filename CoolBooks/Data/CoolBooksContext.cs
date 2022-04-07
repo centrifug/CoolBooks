@@ -44,6 +44,9 @@ namespace CoolBooks.Data
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.
             modelBuilder.SeedGenre(); //  Kör min Seed genre metod.
             modelBuilder.SeedReview(); // Kör min Seed review metod.
+            modelBuilder.SeedUser();
+            modelBuilder.SeedRole();
+            modelBuilder.SeedUserRole();
 
         }
         public DbSet<CoolBooks.Models.Author> Author { get; set; }

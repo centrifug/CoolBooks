@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using Microsoft.AspNetCore.Authorization;
+using CoolBooks.ViewModels;
 
 namespace CoolBooks.Models
 {
 
-    [Authorize] //[Authorize(Roles = "Administrator")]
+    
     public class BooksController : Controller
     {
         private readonly CoolBooksContext _context;
@@ -31,19 +32,24 @@ namespace CoolBooks.Models
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
+            BookWithReviewsViewModel vm = new BookWithReviewsViewModel();
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (book == null)
+            vm.book = await _context.Book.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (vm.book == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            vm.reviews = await _context.Review.Where(r => r.BookId == id).ToListAsync();
+
+            return View(vm);
         }
 
         // GET: Books/Create

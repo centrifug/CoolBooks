@@ -1,4 +1,5 @@
 ﻿using CoolBooks.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoolBooks.Data
@@ -56,6 +57,41 @@ namespace CoolBooks.Data
                 new Review { Id = 5, BookId = 5, Title = "Shannons review", Text = "This had great pacing, characters, & “lessons”. **Important to note, however: the entire plot is about a kid who’s hiding a gun in his backpack on a mission to his father’s convenience store during the LA riots in order to provide him protection from looting. Not a light subject or for super young readers.**", Rating = 3, Created = DateTime.Now}
                 // new Review { Id = , BookId = , Title = "", Text = "", Rating = , Created = DateTime.Now}
                 // Den utkommenterade raden är en mall så man kan lägga till mer seed-data med snabbare copy paste arbete. Glöm inte , på raden innan!
+                );
+        }
+
+        public static void SeedUser(this ModelBuilder modelBuilder)
+        {
+            CoolBooksUser user = new CoolBooksUser()
+            {
+                Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                UserName = "admin@coolbooks.com",
+                NormalizedUserName = "ADMIN@COOLBOOKS.COM",
+                Email = "admin@coolbooks.com",
+                NormalizedEmail = "ADMIN@COOLBOOKS.COM",
+                Name = "Admin Adminson",
+                LockoutEnabled = false,
+                PhoneNumber = "1234567890"
+            };
+
+            PasswordHasher<CoolBooksUser> passwordHasher = new PasswordHasher<CoolBooksUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, "Hej123!");
+    
+            modelBuilder.Entity<CoolBooksUser>().HasData(user);
+        }
+
+        public static void SeedRole(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
+                new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "Moderator", ConcurrencyStamp = "2", NormalizedName = "Moderator" }
+                );
+        }
+
+        public static void SeedUserRole(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" }
                 );
         }
     }
