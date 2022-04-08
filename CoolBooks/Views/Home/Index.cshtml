@@ -34,15 +34,12 @@
     </thead>
     </table>
 </div>
-
-
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="200" style="width:192px;">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
     <div class="carousel-inner">
     @{bool loopOnce = true;}
     @foreach (Book book in Model.Books)
@@ -50,33 +47,45 @@
             if (loopOnce == true)
             {
                 <div class="carousel-item active">
-                 @{string imgpath = book.ImagePath;}
-                 <img src="@imgpath"/>               
+                    @{
+                        string imgpath = book.ImagePath;
+                        string title = book.Title;
+                        string text = book.Description;
+                    }            
+                 <img src="@imgpath" style="width:150px; height:223px;"/> 
+                 <h2>@title</h2>
+                 <a href="Books/Details/@book.Id">Details</a>
+                 <p>@text</p>
                  @*<partial name="_Book" model="book"/> Om vi vill ha hela boken inte bara img kör partial view inte <img> *@
                  </div>
                  loopOnce = false;
             }
             else {
                 <div class="carousel-item">
-                @{string imgpath2 = book.ImagePath;}
-                <img src="@imgpath2"/>
+                @{
+                        string imgpath2 = book.ImagePath;
+                        string title = book.Title;
+                        string text = book.Description;
+                    }               
+                <img src="@imgpath2" style="width:150px; height:223px;"/>
+                <h2>@title</h2>
+                <a href="Books/Details/@book.Id">Details</a>
+                <p>@text</p>
                 @*<partial name="_Book" model="book"/> Om vi vill ha hela boken inte bara img kör partial view inte <img> *@
                 </div>
-             }
-        @*https://getbootstrap.com/docs/4.0/components/carousel/ 
-          Prev/Next Controllers funkar inte! Kolla detta ASAP!
-        *@
+
+                @*Prev/Next Knappar & Indicators behöver flyttas men funktionaliteten finns. *@
+            }      
     } 
 </div>
-<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 <div>     
 </div>
