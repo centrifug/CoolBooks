@@ -46,3 +46,15 @@ Staffan:
   Fortsatt med Identity och konverterat allt till MVC. Nu finns det möjlighet att lägga till och tabort roller på användare. 
   (Det börjar närma sig en funktionell grund där vi kan separera content för användare med olika rättigheter :D)
 
+2022-04-08
+Stefan:
+
+
+Staffan:
+  Lagt till seed data för Admin, roller och UserRole
+  Lagt till seeddata för bridgetables: BookAuthor & BookGenre
+  När man går in på en bok (/books/details/id) så listas nu tillhörande rescensioner under bokinfon
+  När man går in på en författare (/author/details/id) så listas tillhörande böcker
+  Lagt till lite funktionalitet: i /books visas endast edit och delete om du är inloggad som admin
+  Städat upp lite i _books partial och visar nu genre istället för isbn/isdeleted/created
+
