@@ -2,7 +2,8 @@
         
         <tr>
             <td>
-                <img src=" @Html.DisplayFor(model => Model.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px">
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.Id"><img src=" @Html.DisplayFor(model => Model.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px"></a> |
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.Title)
@@ -11,17 +12,26 @@
                 @Html.DisplayFor(modelItem => Model.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.IsDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Created)
+        @if (Model.Genres.Any())
+        {
+            foreach(var item in Model.Genres)
+            {
+                @Html.DisplayFor(modelItem => item.Name)
+            }            
+        }
+        else
+        {
+            <p>no genre</p>
+        }
+
             </td>       
             <td>
-                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.Id">Details</a>
+        @if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+                    <a asp-controller="Books" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>                
+                <a asp-controller="Books" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        }
+
             </td>
         </tr>

@@ -33,6 +33,20 @@ namespace CoolBooks.Data
                 // Den utkommenterade raden är en mall så man kan lägga till mer seed-data med snabbare copy paste arbete. Glöm inte , på raden innan!
                 );
         }
+
+        public static void SeedBookAuthor(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuthorBook>()
+                .HasData(
+                new AuthorBook { AuthorId = 1, BookId = 1, Created = DateTime.Now },
+                new AuthorBook { AuthorId = 2, BookId = 2, Created = DateTime.Now },
+                new AuthorBook { AuthorId = 3, BookId = 3, Created = DateTime.Now },
+                new AuthorBook { AuthorId = 4, BookId = 4, Created = DateTime.Now },
+                new AuthorBook { AuthorId = 5, BookId = 5, Created = DateTime.Now }
+                // new BookAuthor { AuthorId = , BookId = , Created = DateTime.Now }
+                // Den utkommenterade raden är en mall så man kan lägga till mer seed-data med snabbare copy paste arbete. Glöm inte , på raden innan!
+                );
+        }
         public static void SeedGenre(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Genre>()
@@ -45,6 +59,22 @@ namespace CoolBooks.Data
                 // new Genre { Id = , Name = "", Description = "", Created = DateTime.Now}
                 // Den utkommenterade raden är en mall så man kan lägga till mer seed-data med snabbare copy paste arbete. Glöm inte , på raden innan!
                 );
+        }
+
+        public static void SeedBookGenre(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BookGenre>()
+                .HasData(
+                new BookGenre { BookId = 1, GenreId = 1, Created = DateTime.Now },
+                new BookGenre { BookId = 2, GenreId = 2, Created = DateTime.Now },
+                new BookGenre { BookId = 3, GenreId = 3, Created = DateTime.Now },
+                new BookGenre { BookId = 4, GenreId = 4, Created = DateTime.Now },
+                new BookGenre { BookId = 5, GenreId = 5, Created = DateTime.Now }
+
+                // new BookGenre { BookId = , GenreId = , Created = DateTime.Now }
+                // Den utkommenterade raden är en mall så man kan lägga till mer seed-data med snabbare copy paste arbete. Glöm inte , på raden innan!
+                );
+
         }
         public static void SeedReview(this ModelBuilder modelBuilder)
         {

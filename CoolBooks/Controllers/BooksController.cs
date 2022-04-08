@@ -26,7 +26,11 @@ namespace CoolBooks.Models
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Book.ToListAsync());
+            var books = await _context.Book
+                .Include(b => b.Genres)
+                .ToListAsync();
+
+            return View(books);
         }
 
         // GET: Books/Details/5
