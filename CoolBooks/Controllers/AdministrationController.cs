@@ -99,8 +99,7 @@ namespace CoolBooks.Controllers
 
         [HttpGet]
         public async Task<IActionResult> EditRole(string id)
-        {
-            
+        {            
 
             var role = await roleManager.FindByIdAsync(id);
 

@@ -29,6 +29,7 @@ namespace CoolBooks.Models
         public List<Author> Authors { get; set; } = new List<Author>();
 
         //[Required]
+        [Display(Name = "Genre")]
         public List<Genre> Genres { get; set; } = new List<Genre>();
 
         public string ImagePath { get; set; }

@@ -3,3 +3,6 @@
 @using CoolBooks.ViewModels
 @using Microsoft.AspNetCore.Identity
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject SignInManager<CoolBooksUser> signInManager
+@inject UserManager<CoolBooksUser> userManager

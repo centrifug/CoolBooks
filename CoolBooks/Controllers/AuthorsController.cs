@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using CoolBooks.Models;
+using CoolBooks.ViewModels;
 
 namespace CoolBooks.Controllers
 {
@@ -35,11 +36,14 @@ namespace CoolBooks.Controllers
             }
 
             var author = await _context.Author
+                .Include(a => a.Books) //inkludera alla böcker av den här författaren
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (author == null)
             {
                 return NotFound();
             }
+
 
             return View(author);
         }

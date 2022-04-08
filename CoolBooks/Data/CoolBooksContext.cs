@@ -13,6 +13,11 @@ namespace CoolBooks.Data
     public class CoolBooksContext : IdentityDbContext<CoolBooksUser>
     {
         public DbSet<CoolBooks.Models.Book> Book { get; set; }
+        public DbSet<CoolBooks.Models.Author> Author { get; set; }
+        public DbSet<CoolBooks.Models.Review> Review { get; set; }
+        public DbSet<CoolBooks.Models.Genre> Genre { get; set; }
+        public DbSet<AuthorBook> AuthorBook { get; set; }
+
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
             : base(options)
         {
@@ -42,16 +47,16 @@ namespace CoolBooks.Data
 
             modelBuilder.SeedBook(); // Kör min Seed extension metod.
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.
+            modelBuilder.SeedBookAuthor();
             modelBuilder.SeedGenre(); //  Kör min Seed genre metod.
+            modelBuilder.SeedBookGenre();
             modelBuilder.SeedReview(); // Kör min Seed review metod.
             modelBuilder.SeedUser();
             modelBuilder.SeedRole();
             modelBuilder.SeedUserRole();
 
         }
-        public DbSet<CoolBooks.Models.Author> Author { get; set; }
-        public DbSet<CoolBooks.Models.Review> Review { get; set; }
-        public DbSet<CoolBooks.Models.Genre> Genre { get; set; }
+
 
         
     }
