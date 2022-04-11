@@ -24,13 +24,35 @@ namespace CoolBooks.Models
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString) // DEN HÄR FUNGERAR :)
         {
-            var books = await _context.Book
-                .Include(b => b.Genres)
-                .ToListAsync();
+            var books = _context.Book.Include(g => g.Genres)
+                                     .Include(a => a.Authors)
+                                     .Select(b => b);
 
-            return View(books);
+            if (!string.IsNullOrEmpty(searchString)) // Söker på boktitel
+            {
+                books = books.Where(t => t.Title!.Contains(searchString) || // Sök på Titel
+                
+                                         t.Authors // Sök på Author
+                                         .All(t => t.FirstName // du får inte köra where innuti where! därför .all                                                      
+                                         .Contains(searchString)) ||
+
+                                         t.Genres // Sök på Genre
+                                         .All(t => t.Name
+                                         .Contains(searchString))
+                );
+                                   
+            }
+            //if (!string.isnullorempty(searchstring)) // söker på boktitel
+            //{
+            //    books = books.where(t => t.authors
+            //                 .all(t => t.firstname // du får inte köra where innuti where! därför .all                                                      
+            //                 .contains(searchstring)));
+            //}
+
+
+            return View(await books.ToListAsync());
         }
 
         // GET: Books/Details/5
