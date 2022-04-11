@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using CoolBooks.Models;
+using CoolBooks.ViewModels;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBooks.Controllers
 {
@@ -56,18 +59,70 @@ namespace CoolBooks.Controllers
         // POST: Reviews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BookId,Title,Text,Rating,IsDeleted,Created")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Rating")] CreateReviewViewModel review, string? returnUrl,int id)
         {
+
+            if (!ModelState.IsValid)
+            {
+                //TempData["ViewData"] = ViewData;
+                //return Redirect(returnUrl);
+
+                return View();
+
+
+                //return RedirectToAction("Details","Books", new {id = id});
+
+                //BookWithReviewsViewModel vm = new BookWithReviewsViewModel();
+
+                //if (id == null)
+                //{
+                //    return NotFound();
+                //}
+
+                //vm.book = await _context.Book.FirstOrDefaultAsync(b => b.Id == id);
+
+                //if (vm.book == null)
+                //{
+                //    return NotFound();
+                //}
+
+                //vm.reviews = await _context.Review.Where(r => r.BookId == id).ToListAsync();
+
+                //vm.review = review;
+
+                //return View("~/Views/Books/Details.cshtml", vm );
+            }
+
+            review.BookId = id;
+
+            Review reviewToSave = new Review { 
+                BookId = id, 
+                Title =  review.Title,
+                Text = review.Text,
+                Rating = review.Rating
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Add(review);
+                _context.Add(reviewToSave);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect(returnUrl);
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Description", review.BookId);
-            return View(review);
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl);
+                //return View("~/Views/Books/Details");
+            }
+            else
+            {
+                return RedirectToAction("Home", "Index");
+            }
+
         }
 
         // GET: Reviews/Edit/5

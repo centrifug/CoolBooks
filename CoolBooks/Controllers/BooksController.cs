@@ -9,11 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using Microsoft.AspNetCore.Authorization;
 using CoolBooks.ViewModels;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace CoolBooks.Models
 {
-
-    
     public class BooksController : Controller
     {
         private readonly CoolBooksContext _context;
@@ -26,6 +25,7 @@ namespace CoolBooks.Models
         // GET: Books
         public async Task<IActionResult> Index(string searchString) // DEN HÄR FUNGERAR :)
         {
+
             var books = _context.Book.Include(g => g.Genres)
                                      .Include(a => a.Authors)
                                      .Select(b => b);
@@ -56,6 +56,7 @@ namespace CoolBooks.Models
         }
 
         // GET: Books/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
 
@@ -73,15 +74,14 @@ namespace CoolBooks.Models
                 return NotFound();
             }
 
+            if (TempData["ViewData"] != null)
+            {
+                ViewData = (ViewDataDictionary)TempData["ViewData"];
+            }
+
             vm.reviews = await _context.Review.Where(r => r.BookId == id).ToListAsync();
 
             return View(vm);
-        }
-
-        // GET: Books/Create
-        public IActionResult Create()
-        {
-            return View();
         }
 
         // POST: Books/Create
@@ -89,15 +89,25 @@ namespace CoolBooks.Models
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,ISBN,isDeleted,Created")] Book book)
+        public async Task<IActionResult> Create(CreateBookViewModel inputBook)
         {
+            
             if (ModelState.IsValid)
             {
-                _context.Add(book);
+                Book bookToCeate = new Book();
+
+                bookToCeate.Title = inputBook.Title;
+                bookToCeate.Description = inputBook.Description;
+                bookToCeate.ISBN = inputBook.ISBN;
+                bookToCeate.Created = DateTime.Now;
+                bookToCeate.IsDeleted = false;
+                bookToCeate.ImagePath = "";
+
+                _context.Add(bookToCeate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return RedirectToAction("CreateBook","Administration");
         }
 
         // GET: Books/Edit/5

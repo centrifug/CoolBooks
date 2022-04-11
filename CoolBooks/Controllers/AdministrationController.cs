@@ -25,6 +25,11 @@ namespace CoolBooks.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult CreateBook()
+        {
+            return View("/Views/Books/Create.cshtml");
+        }
 
         [HttpGet]
         public IActionResult CreateRole()

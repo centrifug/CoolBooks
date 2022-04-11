@@ -13,10 +13,7 @@
         <div class="card mb-3" style="max-width: 100%;">
                     <div class="row no-gutters">
                 <div class="col-md-4">
-
                    <img src=" @Html.DisplayFor(model => model.ImagePath)" class="card-img" alt="...">
-
-
                  </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -58,7 +55,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
+                @Html.DisplayNameFor(model => model.Books[0].ImagePath)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].Title)
@@ -67,14 +64,8 @@
                 @Html.DisplayNameFor(model => model.Books[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].ISBN)
+                @Html.DisplayNameFor(model => model.Books[0].Genres)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].Created)
-            </th>     
             <th></th>
         </tr>
     </thead>

@@ -6,6 +6,6 @@ namespace CoolBooks.ViewModels
     {
         public Book book    { get; set; }
         public List<Review> reviews { get; set; } = new List<Review>();
-        public Review review { get; set; }
+        public CreateReviewViewModel review { get; set; }
     }
 }
