@@ -60,7 +60,10 @@ Staffan:
 
 2022-04-11
 Stefan:
-Fixat sökfunktion för att söka på böcker, fixat formulär för att använda sökfunktionen.
-Tog hela dagen då det var mycket felsökning som behövdes. Samt lite krångel med CSS för formuläret.
+  Fixat sökfunktion för att söka på böcker, fixat formulär för att använda sökfunktionen.
+  Tog hela dagen då det var mycket felsökning som behövdes. Samt lite krångel med CSS för formuläret.
 
 Staffan:
+  Fixat lite buggar med validering när man postar till en annan controller.
+  Börjat gömma funktionallitet för användare utan behörighet. Tex: skriva review formuläret syns inte om du inte är inloggad
+  Lagt till enkel "add-book" funktionalitet. Saknas ett snyggt sätt att välja genre och author samt ladda upp bild.
