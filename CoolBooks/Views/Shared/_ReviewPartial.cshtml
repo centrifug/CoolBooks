@@ -1,9 +1,10 @@
-﻿@model Review
+﻿@model CreateReviewViewModel
 @{
-    var returnUrl = @Context.Request.Query["returnurl"];
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+    var routeId = Context.Request.RouteValues["id"];
 }
 
-<form asp-controller="Reviews" asp-action="Create" asp-route-returnurl="test" method="post">
+<form asp-controller="Reviews" asp-action="Create" asp-route-id="@routeId" asp-route-returnurl="@routeUrl" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Title" class="control-label"></label>

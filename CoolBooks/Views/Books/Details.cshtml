@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
-
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
 }
 
 <h1>Details</h1>
@@ -12,15 +12,13 @@
     <hr />
 
     <dl class="row">
-           <div class="card mb-3" style="max-width: 100%;">
-                    <div class="row no-gutters">
+        <div class="card mb-3" style="max-width: 100%;">
+            <div class="row no-gutters">
                 <div class="col-md-4">
-
-                   <img src=" @Html.DisplayFor(model => model.book.ImagePath)" class="card-img" alt="...">
-                 </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-
+                    <img src=" @Html.DisplayFor(model => model.book.ImagePath)" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body"
                         <dt class = "col-sm-2">
                             @Html.DisplayNameFor(model => model.book.Title)
                         </dt>
@@ -48,9 +46,7 @@
                      </div>
                 </div>
            </div>
-       </div>
-
-
+        </div>
     </dl>
 </div>
 
@@ -59,7 +55,17 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<partial name="_ReviewPartial" model="Model.review"/>
+
+@if (signInManager.IsSignedIn(User)){
+
+<partial name="_ReviewPartial" model="Model.review" />
+
+   
+}
+else {
+    <p>Logga in för att kunna skriva en recension. <a asp-controller="account" asp-action="login" asp-route-returnurl="@routeUrl"> Logga in </a></p>
+}
+
 
 @if (Model.reviews.Any())
 {
@@ -119,4 +125,9 @@ else
 {
 <h3>Det finns inga reviews ännu... var den första som rescenserar?</h3>   
 
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

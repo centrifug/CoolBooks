@@ -37,9 +37,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Genres" asp-action="Index">Genres</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="ListRoles">ADMIN</a>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+
+                       <li class="nav-item">
+                            <p>ADMIN [</p>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="ListRoles">Roller</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="CreateBook">Böcker</a>
+                        </li>
+                           <li class="nav-item">
+                            ]
+                        </li>
+                        }                       
+
+
 
                         <partial name="_LoginPartial" />
                     </ul>
