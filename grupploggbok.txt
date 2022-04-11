@@ -58,3 +58,9 @@ Staffan:
   Lagt till lite funktionalitet: i /books visas endast edit och delete om du är inloggad som admin
   Städat upp lite i _books partial och visar nu genre istället för isbn/isdeleted/created
 
+2022-04-11
+Stefan:
+Fixat sökfunktion för att söka på böcker, fixat formulär för att använda sökfunktionen.
+Tog hela dagen då det var mycket felsökning som behövdes. Samt lite krångel med CSS för formuläret.
+
+Staffan:
