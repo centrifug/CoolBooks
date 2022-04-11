@@ -40,8 +40,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="ListRoles">ADMIN</a>
                         </li>
-
-                        <partial name="_LoginPartial" />
+                        <li class="nav-item-right">
+                        <div>                      
+                        </div>
+                        </li>
+                        </div>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                            <form name="sok" class="sok-form" action="Books" accept-charset="UTF-8" method="get">
+                            <input type="text" placeholder="Sök efter en bok." class="sok-fält" name="searchString" />
+                            <button type="submit" class="sok-knapp">
+                                <img src="~/images/search.png"/>
+                            </button>
+                        </form>
+                            </li>
+                        <li class="nav-item">
+                            <partial name="_LoginPartial" />
+                        </li>
+                        </ul>
                     </ul>
                 </div>
             </div>
