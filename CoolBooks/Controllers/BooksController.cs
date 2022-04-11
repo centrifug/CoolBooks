@@ -16,10 +16,12 @@ namespace CoolBooks.Models
     public class BooksController : Controller
     {
         private readonly CoolBooksContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public BooksController(CoolBooksContext context)
+        public BooksController(CoolBooksContext context, IWebHostEnvironment hostEnvironment)
         {
-            _context = context;
+            this._context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Books
@@ -103,8 +105,55 @@ namespace CoolBooks.Models
                 bookToCeate.IsDeleted = false;
                 bookToCeate.ImagePath = "";
 
+                foreach (var genre in inputBook.Genres)
+                {
+                    if (genre.IsSelected)
+                    {
+                        Genre bookGenre = new Genre { Id = genre.GenreId };
+                        _context.Genre.Attach(bookGenre);
+                        bookToCeate.Genres.Add(bookGenre);                        
+                    }               
+                 }
+
+                foreach (var author in inputBook.Authors)
+                {
+                    if (author.IsSelected)
+                    {
+                        Author bookAuthor = new Author { Id = author.AuthorId };
+                        _context.Author.Attach(bookAuthor);
+                        bookToCeate.Authors.Add(bookAuthor);
+                    }
+                }
+
+
+                //Insert record        
                 _context.Add(bookToCeate);
                 await _context.SaveChangesAsync();
+
+
+                //save image
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(inputBook.ImageFile.FileName);
+                string extension = Path.GetExtension(inputBook.ImageFile.FileName);
+
+                fileName = bookToCeate.Id + extension; //name it after the books Id
+
+                string path = Path.Combine(wwwRootPath + "/Images/Books/", fileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await inputBook.ImageFile.CopyToAsync(fileStream);
+                }
+
+                //update imagepath (kanske inte nödvändig.. men for now!)
+                bookToCeate.ImagePath = Path.Combine("/Images/Books/", fileName);
+                _context.Book.Attach(bookToCeate);
+                _context.Entry(bookToCeate).State = EntityState.Modified;
+                _context.SaveChanges();
+
+
+
+
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("CreateBook","Administration");

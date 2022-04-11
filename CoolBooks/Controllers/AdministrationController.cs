@@ -1,4 +1,5 @@
-﻿using CoolBooks.Models;
+﻿using CoolBooks.Data;
+using CoolBooks.Models;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,11 +11,13 @@ namespace CoolBooks.Controllers
     [Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
+        private readonly CoolBooksContext _context;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<CoolBooksUser> userManager;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<CoolBooksUser> userManager)
+        public AdministrationController(CoolBooksContext context, RoleManager<IdentityRole> roleManager, UserManager<CoolBooksUser> userManager)
         {
+            _context = context;
             this.roleManager = roleManager;
             this.userManager = userManager;
         }
@@ -28,7 +31,37 @@ namespace CoolBooks.Controllers
         [HttpGet]
         public IActionResult CreateBook()
         {
-            return View("/Views/Books/Create.cshtml");
+            CreateBookViewModel vm = new CreateBookViewModel();
+
+            var authors = _context.Author.ToList();
+
+            var genres = _context.Genre.ToList();
+
+            foreach (Author author in authors)
+            {
+                BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
+
+                bookAuthorViewModel.AuthorId = author.Id;
+                bookAuthorViewModel.AuthorFirstName = author.FirstName;
+                bookAuthorViewModel.AuthorLastName = author.LastName;
+                bookAuthorViewModel.IsSelected = false;
+                
+                vm.Authors.Add(bookAuthorViewModel);
+            }
+
+            foreach (Genre genre in genres)
+            {
+                BookGenreViewModel bookGenreViewModel = new BookGenreViewModel();
+                bookGenreViewModel.GenreId = genre.Id;
+                bookGenreViewModel.GenreName = genre.Name;
+                bookGenreViewModel.IsSelected = false;
+
+                vm.Genres.Add(bookGenreViewModel);
+            }
+
+            
+
+            return View("/Views/Books/Create.cshtml", vm);
         }
 
         [HttpGet]

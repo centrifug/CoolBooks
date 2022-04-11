@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-
-namespace CoolBooks.Models
+﻿namespace CoolBooks.ViewModels
 {
     public class BookGenreViewModel
     {
-        public List<Book>? Books { get; set; }
-        public SelectList? Genres { get; set; }
-        public string? BookGenre { get; set; }
-        public string? SearchString { get; set; }
+
+        public int GenreId { get; set; }
+        public string GenreName { get; set; }
+        public bool IsSelected { get; set; }
+
     }
 }

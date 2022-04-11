@@ -1,5 +1,6 @@
 ﻿using CoolBooks.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoolBooks.ViewModels
 {
@@ -15,16 +16,16 @@ namespace CoolBooks.ViewModels
 
         public string ISBN { get; set; }
 
-
         //[Required]
-        public List<Author> Authors { get; set; } = new List<Author>();
+        public List<BookAuthorViewModel > Authors { get; set; } = new List<BookAuthorViewModel>();
 
         //[Required]
         [Display(Name = "Genre")]
-        public List<Genre> Genres { get; set; } = new List<Genre>();
+        public List<BookGenreViewModel> Genres { get; set; } = new List<BookGenreViewModel>();
 
-        public string ImagePath { get; set; }
-
+        [NotMapped]
+        [Display(Name = "Upload File")]
+        public IFormFile ImageFile { get; set; }
         // UserID?
         // CreatedBy?
         // Updated?

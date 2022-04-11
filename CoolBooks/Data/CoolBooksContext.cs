@@ -36,14 +36,16 @@ namespace CoolBooks.Data
                 .WithMany(a => a.Books)
                 .UsingEntity<AuthorBook>
                  (ba => ba.HasOne<Author>().WithMany(),
-                 ba => ba.HasOne<Book>().WithMany()).Property(ba => ba.Created);
+                 ba => ba.HasOne<Book>().WithMany())
+                 .Property(ba => ba.Created);
 
             modelBuilder.Entity<Book>()
                 .HasMany(b => b.Genres)
                 .WithMany(g => g.Books)
                 .UsingEntity<BookGenre>
                  (bg => bg.HasOne<Genre>().WithMany(),
-                 bg => bg.HasOne<Book>().WithMany()).Property(ba => ba.Created);
+                 bg => bg.HasOne<Book>().WithMany())
+                 .Property(ba => ba.Created);
 
             modelBuilder.SeedBook(); // Kör min Seed extension metod.
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.
