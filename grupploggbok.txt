@@ -48,7 +48,7 @@ Staffan:
 
 2022-04-08
 Stefan:
-
+Fixat karusellen som inte fungerade.
 
 Staffan:
   Lagt till seed data för Admin, roller och UserRole
