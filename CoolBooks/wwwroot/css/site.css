@@ -34,3 +34,34 @@ karusellknapp {
     opacity: 0.5;
     transition: opacity 0.15s ease;
 }
+.sok-form {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+}
+.sok-container {
+    margin: 200px auto;
+    width: 500px;
+    height: 60px
+}
+.sokfält {
+    width: 100%;
+    padding: 10px 35px 10px 15px;
+    border: none;
+    border-radius: 100px;
+    outline: none;
+}
+.sok-knapp {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: -33px; 
+}
+.sok-knapp img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}
+nav-item-right {
+    flex-direction:column-reverse;
+}
