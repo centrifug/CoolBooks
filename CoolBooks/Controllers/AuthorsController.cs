@@ -37,6 +37,7 @@ namespace CoolBooks.Controllers
 
             var author = await _context.Author
                 .Include(a => a.Books) //inkludera alla böcker av den här författaren
+                .ThenInclude(b => b.Genres)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (author == null)
