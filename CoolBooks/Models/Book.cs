@@ -15,7 +15,10 @@ namespace CoolBooks.Models
 
         [MaxLength(17)][Required] // 13 siffrigt med 4 bindesstreck.
         public string ISBN { get; set; }
-
+        
+        [Required]
+        [Range (0.00, 5.00)]
+        public double Rating { get; set; }
         [Required]
         public bool IsDeleted { get; set; }
 
