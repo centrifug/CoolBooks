@@ -67,3 +67,4 @@ Staffan:
   Fixat lite buggar med validering när man postar till en annan controller.
   Börjat gömma funktionallitet för användare utan behörighet. Tex: skriva review formuläret syns inte om du inte är inloggad
   Lagt till enkel "add-book" funktionalitet. Saknas ett snyggt sätt att välja genre och author samt ladda upp bild.
+      (forsatte lite till... lagt till bildupload och möjlighetat välja genre och author)
