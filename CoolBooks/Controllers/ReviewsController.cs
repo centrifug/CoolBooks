@@ -11,16 +11,22 @@ using CoolBooks.Models;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoolBooks.Controllers
 {
     public class ReviewsController : Controller
     {
         private readonly CoolBooksContext _context;
+        private readonly UserManager<CoolBooksUser> userManager;
+        private readonly SignInManager<CoolBooksUser> signInManager;
 
-        public ReviewsController(CoolBooksContext context)
+
+        public ReviewsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
         {
             _context = context;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         // GET: Reviews
@@ -144,18 +150,21 @@ namespace CoolBooks.Controllers
                 //return View("~/Views/Books/Details.cshtml", vm );
             }
 
-            review.BookId = id;
+            //review.BookId = id;
 
-            Review reviewToSave = new Review { 
-                BookId = id, 
-                Title =  review.Title,
-                Text = review.Text,
-                Rating = review.Rating
-            };
 
             if (ModelState.IsValid)
             {
-       
+
+                Review reviewToSave = new Review
+                {
+                    BookId = id,
+                    Title = review.Title,
+                    Text = review.Text,
+                    Rating = review.Rating,
+                    CreatedBy = userManager.GetUserId(User)
+                };
+
                 _context.Add(reviewToSave);
                 await _context.SaveChangesAsync();
 
@@ -187,18 +196,32 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Reviews/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+           
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var review = await _context.Review.FindAsync(id);
+
             if (review == null)
             {
-                return NotFound();
+                return NotFound();                
             }
+
+            //låt bara skaparen och admin editera
+            if (userManager.GetUserId(User) != review.CreatedBy)
+            {
+                if (!User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }                
+            }
+
             ViewData["BookId"] = new SelectList(_context.Book, "Id", "Description", review.BookId);
             return View(review);
         }
