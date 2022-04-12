@@ -13,22 +13,27 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book)
+                @Html.ActionLink("Book ASC/DESC", "Index", new { sortOrder = ViewBag.BookAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Book)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.ActionLink("Title ASC/DESC", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Title)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Text)
+                @Html.ActionLink("Text ASC/DESC", "Index", new { sortOrder = ViewBag.TextAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Text)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
+                @Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Rating)*@
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
+            </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.Created)
+                @Html.ActionLink("Created ASC/DESC", "Index", new { sortOrder = ViewBag.CreatedAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Created)*@
             </th>
             <th></th>
         </tr>
@@ -48,9 +53,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
             </td>

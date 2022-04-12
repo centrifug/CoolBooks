@@ -25,17 +25,59 @@ namespace CoolBooks.Models
         }
 
         // GET: Books
-        public async Task<IActionResult> Index(string searchString) // DEN HÄR FUNGERAR :)
+        public async Task<IActionResult> Index(string searchString, string sortOrder) // DEN HÄR FUNGERAR :)
         {
+            ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";
+            ViewBag.DescriptionAscDescSortParam = sortOrder == "Description ASC" ? "Description DESC" : "Description ASC";
+            ViewBag.GenreAscDescSortParam = sortOrder == "Genre ASC" ? "Genre DESC" : "Genre ASC";
+            ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
+            ViewBag.AuthorAscDescSortParam = sortOrder == "Authors ASC" ? "Authors DESC" : "Authors ASC";
 
             var books = _context.Book.Include(g => g.Genres)
                                      .Include(a => a.Authors)
                                      .Select(b => b);
-
+            switch (sortOrder)
+            {
+                case "Title DESC":
+                    books = books.OrderByDescending(b => b.Title);
+                    break;
+                case "Title ASC":
+                    books = books.OrderBy(b => b.Title);
+                    break;
+                case "Description DESC":
+                    books = books.OrderByDescending(b => b.Description);
+                    break;
+                case "Description ASC":
+                    books = books.OrderBy(b => b.Description);
+                    break;
+                case "Genre DESC":
+                    books = books.OrderByDescending(b => b.Genres);
+                    break;
+                case "Genre ASC":
+                    books = books.OrderBy(b => b.Genres);
+                    break;
+                case "Rating DESC":
+                    books = books.OrderByDescending(b => b.Rating);
+                    break;
+                case "Rating ASC":
+                    books = books.OrderBy(b => b.Rating);
+                    break;
+                case "Authors DESC":
+                    books = books.Include(a => a.Authors
+                                                .OrderByDescending(b => b.FirstName));
+                    break;
+                case "Authors ASC":
+                    books = books.Include(a => a.Authors
+                                                .OrderBy(b => b.FirstName));
+                    break;
+                default:
+                    books = books.OrderBy(b => b.Id);
+                    break;                   
+            }
             if (!string.IsNullOrEmpty(searchString)) // Söker på boktitel
             {
                 books = books.Where(t => t.Title!.Contains(searchString) || // Sök på Titel
-                
+
                                          t.Authors // Sök på Author
                                          .All(t => t.FirstName // du får inte köra where innuti where! därför .all                                                      
                                          .Contains(searchString)) ||
@@ -44,16 +86,8 @@ namespace CoolBooks.Models
                                          .All(t => t.Name
                                          .Contains(searchString))
                 );
-                                   
+
             }
-            //if (!string.isnullorempty(searchstring)) // söker på boktitel
-            //{
-            //    books = books.where(t => t.authors
-            //                 .all(t => t.firstname // du får inte köra where innuti where! därför .all                                                      
-            //                 .contains(searchstring)));
-            //}
-
-
             return View(await books.ToListAsync());
         }
 
