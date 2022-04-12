@@ -68,3 +68,14 @@ Staffan:
   Börjat gömma funktionallitet för användare utan behörighet. Tex: skriva review formuläret syns inte om du inte är inloggad
   Lagt till enkel "add-book" funktionalitet. Saknas ett snyggt sätt att välja genre och author samt ladda upp bild.
       (forsatte lite till... lagt till bildupload och möjlighetat välja genre och author)
+
+2022-04-12
+Stefan:
+Seedat 20 böcker istället för 5, tog långt tid även om det var trivialt. Var färdig vid lunch.
+
+Efter lunch så har jag lagt till filtrering för böcker. Originaltanken var att vi skulle filtrera efter vi har sökt.
+Men efter att vi såg ett bra exempel online så kom vi fram till att det är bättre att filtrera det vi visar. 
+Då kan vi filtera även om vi inte har sökt, men även om vi har sökt! 
+Kommit ganska långt med filtreringen, det som är kvar är att se till så man kan filtrera authors,reviews,genres också. Inte bara böcker!
+
+Staffan:
