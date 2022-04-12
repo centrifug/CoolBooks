@@ -203,7 +203,8 @@ namespace CoolBooks.Models
 
             EditBookViewModel editBookViewModel = new EditBookViewModel();
 
-            var book = _context.Book.Include(b => b.Authors)
+            var book = _context.Book
+                .Include(b => b.Authors)
                 .Include(b => b.Genres)
                 .Where(b => b.Id == id).FirstOrDefault();
 
@@ -224,21 +225,17 @@ namespace CoolBooks.Models
                 bookAuthorViewModel.AuthorId = author.Id;
                 bookAuthorViewModel.AuthorFirstName = author.FirstName;
                 bookAuthorViewModel.AuthorLastName = author.LastName;
-
+                bookAuthorViewModel.IsSelected = false;
                 //kolla om boken tillhör en genre och bocka för den checkboxen
+
                 foreach (var a in book.Authors)
                 {
                     if (a.Id == author.Id)
                     {
                         bookAuthorViewModel.IsSelected = true;
+                        break;
                     }
-                    else
-                    {
-                        bookAuthorViewModel.IsSelected = false;
-                    }
-
-                }
-                
+                }               
 
                 editBookViewModel.Authors.Add(bookAuthorViewModel);
             }
@@ -250,22 +247,17 @@ namespace CoolBooks.Models
                 bookGenreViewModel.GenreName = genre.Name;
                 bookGenreViewModel.IsSelected = false;
 
-                editBookViewModel.Genres.Add(bookGenreViewModel);
-
                 //kolla om boken tillhör en genre och bocka för den checkboxen
                 foreach (var g in book.Genres)
                 {
                     if (g.Id == genre.Id)
                     {
                         bookGenreViewModel.IsSelected = true;
-                    }
-                    else
-                    {
-                        bookGenreViewModel.IsSelected = false;
-                    }
-
+                        break;
+                    } 
                 }
 
+                editBookViewModel.Genres.Add(bookGenreViewModel);
             }
 
             //if (book == null)
@@ -283,39 +275,66 @@ namespace CoolBooks.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditBookViewModel bookInput)
         {
-            if (id != bookInput.BookId)
-            {
-                return NotFound();
-            }
+            //if (id != bookInput.BookId)
+            //{
+            //    return NotFound();
+            //}
                      
 
             if (ModelState.IsValid)
             {
 
-                Book bookToUpdate = await _context.Book.Where(b => b.Id == id).FirstOrDefaultAsync();
+                Book bookToUpdate = await _context.Book
+                                                    .Include(b => b.Authors)
+                                                    .Include(b => b.Genres)
+                                                    .Where(b => b.Id == id)
+                                                    .FirstOrDefaultAsync();
 
                 bookToUpdate.Title = bookInput.Title;
                 bookToUpdate.Description = bookInput.Description;
                 bookToUpdate.ISBN = bookInput.ISBN;
+                bookToUpdate.Id = id;
                 bookToUpdate.IsDeleted = bookInput.IsDeleted;
+
 
                 foreach (var author in bookInput.Authors)
                 {
                     if (author.IsSelected)
                     {
-                        Author a = new Author { Id = author.AuthorId };
-                        _context.Author.Attach(a);
-                        bookToUpdate.Authors.Add(a);
+                        if (bookToUpdate.Authors.Where(a => a.Id == author.AuthorId).Count() == 0) 
+                        {
+                            Author a = new Author { Id = author.AuthorId };
+                            _context.Author.Attach(a);
+                            bookToUpdate.Authors.Add(a);
+                        }
+                    }
+                    else //inte checkad
+                    {
+                        if (bookToUpdate.Authors.Where(a => a.Id == author.AuthorId).Count() > 0)
+                        {
+                            bookToUpdate.Authors.Remove(bookToUpdate.Authors.Single(a => a.Id == author.AuthorId));                            
+                        }
                     }
                 }
 
-                foreach (var genre in bookInput.Genres  )
+
+                foreach (var genre in bookInput.Genres)
                 {
                     if (genre.IsSelected)
                     {
-                        Genre g = new Genre { Id = genre.GenreId };
-                        _context.Genre.Attach(g);
-                        bookToUpdate.Genres.Add(g);
+                        if (bookToUpdate.Authors.Where(a => a.Id == genre.GenreId).Count() == 0)
+                        {
+                            Genre g = new Genre { Id = genre.GenreId };
+                            _context.Genre.Attach(g);
+                            bookToUpdate.Genres.Add(g);
+                        }
+                    }
+                    else //inte checkad
+                    {
+                        if (bookToUpdate.Genres.Where(a => a.Id == genre.GenreId).Count() > 0)
+                        {
+                            bookToUpdate.Genres.Remove(bookToUpdate.Genres.Single(a => a.Id == genre.GenreId));
+                        }
                     }
                 }
 
@@ -337,7 +356,7 @@ namespace CoolBooks.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(bookInput);
         }
 
         // GET: Books/Delete/5

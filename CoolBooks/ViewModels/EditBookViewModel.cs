@@ -25,9 +25,9 @@ namespace CoolBooks.ViewModels
 
         public bool IsDeleted { get; set; }
 
-        [NotMapped]
-        [Display(Name = "Upload File")]
-        public IFormFile ImageFile { get; set; }
+        //[NotMapped]
+        //[Display(Name = "Upload File")]
+        //public IFormFile ImageFile { get; set; }
 
 
         // UserID?
