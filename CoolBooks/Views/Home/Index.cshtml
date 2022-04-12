@@ -5,28 +5,9 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to CoolBooks!</h1>
-    <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RandomBook.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RandomBook.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RandomBook.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RandomBook.Genres)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+
     <partial name="_Book" model="Model.RandomBook"/>
-    </thead>
-    </table>
+
 </div>
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-indicators">

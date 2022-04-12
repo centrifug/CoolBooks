@@ -30,5 +30,13 @@ namespace CoolBooks.Models
         // Updated?
         // UPdatedBy?
 
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
     }
 }

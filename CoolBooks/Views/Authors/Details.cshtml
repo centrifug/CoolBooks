@@ -51,31 +51,7 @@
 
 @if (Model.Books.Any())
 {
-    <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].Genres)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Books) {
-
-            <partial name="_Book" model="item"/>
-        }
-    </tbody>
-</table>
+    <partial name="_BooksTable" model="Model.Books"/>
 }
 else
 {

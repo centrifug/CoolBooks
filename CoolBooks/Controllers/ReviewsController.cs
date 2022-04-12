@@ -108,8 +108,22 @@ namespace CoolBooks.Controllers
 
             if (ModelState.IsValid)
             {
+       
                 _context.Add(reviewToSave);
                 await _context.SaveChangesAsync();
+
+                //update rating on book
+                var book = _context.Book.Where(b => b.Id == reviewToSave.BookId).FirstOrDefault();
+                
+                if (book != null)
+                {
+                    var rating = _context.Review.Where(r => r.BookId == reviewToSave.BookId).Average(r => r.Rating);
+
+                    book.Rating = rating;
+                }
+
+                await _context.SaveChangesAsync();
+
                 return Redirect(returnUrl);
             }
 

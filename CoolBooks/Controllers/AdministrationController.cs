@@ -34,7 +34,7 @@ namespace CoolBooks.Controllers
             CreateBookViewModel vm = new CreateBookViewModel();
 
             var authors = _context.Author.ToList();
-
+            
             var genres = _context.Genre.ToList();
 
             foreach (Author author in authors)
