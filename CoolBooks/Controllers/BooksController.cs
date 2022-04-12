@@ -35,6 +35,7 @@ namespace CoolBooks.Models
 
             var books = _context.Book.Include(g => g.Genres)
                                      .Include(a => a.Authors)
+                                     .Where(b => b.IsDeleted != true)
                                      .Select(b => b);
             switch (sortOrder)
             {

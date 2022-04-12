@@ -28,6 +28,8 @@ namespace CoolBooks.Models
         [Required]
         public DateTime Created { get; set; }
 
+        [Required]
+        public string CreatedBy { get; set; }
         // UserID?
         // CreatedBy?
         // Updated?
