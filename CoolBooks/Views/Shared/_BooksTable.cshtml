@@ -1,6 +1,6 @@
-﻿@model Book
+﻿@model IEnumerable<CoolBooks.Models.Book>
         
-    <table class="table">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -25,36 +25,37 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+@foreach (var item in Model) {
+         <tr>
             <td>
-                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.Id"><img src=" @Html.DisplayFor(model => Model.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px"></a>   
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id"><img src=" @Html.DisplayFor(model => item.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px"></a>   
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Title)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Description)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @if (Model.Genres.Any())
+                @if (item.Genres.Any())
                 {
-                    foreach(var genre in Model.Genres)
+                    foreach(var genre in item.Genres)
                     {
-                        @Html.DisplayFor(modelItem => genre.Name)
+                        @Html.DisplayFor(modelItem => genre.Name)<br />
                     }            
                 }
                 else
                 {
                     <p>no genre</p>
                 }
-            </td> 
-            <td>
-                @Html.DisplayFor(modelItem => Model.Rating)
             </td>
             <td>
-                @if (Model.Genres.Any())
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @if (item.Genres.Any())
                 {
-                    foreach(var author in Model.Authors)
+                    foreach(var author in item.Authors)
                     {
                         @Html.DisplayFor(modelItem => author.FullName)<br />
                     }            
@@ -64,20 +65,20 @@
                     <p>no author</p>
                 }
             </td>
-
             <td>
-                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.Id">Details</a>
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">Details</a>
         @if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         {
-                <a asp-controller="Books" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>                
-                <a asp-controller="Books" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <a asp-controller="Books" asp-action="Edit" asp-route-id="@item.Id">Edit</a>                
+                <a asp-controller="Books" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
         }
             </td>
         </tr>
-    </thead>
-    </table>
+}
+
+    </tbody>
+</table>
 
 
 
-
-        
+       
