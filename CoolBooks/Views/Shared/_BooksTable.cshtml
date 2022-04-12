@@ -4,21 +4,26 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
+                @*@Html.DisplayNameFor(model => model.ImagePath)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.ActionLink("Title ASC/DESC", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Title)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.ActionLink("Description ASC/DESC", "Index", new { sortOrder = ViewBag.DescriptionAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Description)*@
             </th>
             <th>
+                @*@Html.ActionLink("Genre ASC/DESC", "Index", new { sortOrder = ViewBag.GenreAscDescSortParam })*@
                 @Html.DisplayNameFor(model => model.Genres)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
+                @Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })
+                @*@Html.DisplayNameFor(model => model.Rating)*@
             </th>
             <th>
+                @*@Html.ActionLink("Author ASC/DESC", "Index", new { sortOrder = ViewBag.AuthorAscDescSortParam })*@
                 @Html.DisplayNameFor(model => model.Authors)
             </th>
             <th></th>

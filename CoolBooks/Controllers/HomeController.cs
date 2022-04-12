@@ -26,7 +26,10 @@ namespace CoolBooks.Controllers
             var random = new Random();
             int randomnr = random.Next(0, _context.Book.Count());
       
-            vm.RandomBook = _context.Book.Include(b => b.Genres).OrderBy(x => Guid.NewGuid()).First();
+            vm.RandomBook = _context.Book.Include(b => b.Genres)
+                                         .Include(b => b.Authors)
+                                         .OrderBy(x => Guid.NewGuid())
+                                         .First();
             vm.Books = _context.Book.OrderBy(x => x.Created).Take(3).ToList();
 
             return View(vm);

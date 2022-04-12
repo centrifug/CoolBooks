@@ -24,9 +24,56 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Reviews
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var coolBooksContext = _context.Review.Include(r => r.Book);
+            ViewBag.BookAscDescSortParam = sortOrder == "Book ASC" ? "Book DESC" : "Book ASC";
+            ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";
+            ViewBag.TextAscDescSortParam = sortOrder == "Text ASC" ? "Text DESC" : "Text ASC";
+            ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
+            ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
+            //ViewBag.CreatedbyAscDescSortParam = sortOrder == "CreatedBy ASC" ? "CreatedBy DESC" : "CreatedBy ASC"; 
+            // TODO CREATEDBY SORTERING??
+
+            var coolBooksContext = _context.Review.Include(r => r.Book)
+                                                  .Select(r => r);
+
+            switch (sortOrder)
+            {
+                case "Book DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.Book.Title);
+                    break;
+                case "Book ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.Book.Title);
+                    break;
+                case "Title DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.Title);
+                    break;
+                case "Title ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.Title);
+                    break;
+                case "Text DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.Text);
+                    break;
+                case "Text ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.Text);
+                    break;
+                case "Rating DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.Rating);
+                    break;
+                case "Rating ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.Rating);
+                    break;
+                case "Created DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.Created);
+                    break;
+                case "Created ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.Created);
+                    break;            
+                default:
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.Id);
+                    break;
+            }
+            
             return View(await coolBooksContext.ToListAsync());
         }
 
