@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<CoolBooks.Models.Book>
-
 @{
     var controller = this.ViewContext.RouteData.Values["controller"].ToString();
     var action = this.ViewContext.RouteData.Values["action"].ToString();
@@ -12,12 +11,13 @@
                 @*@Html.DisplayNameFor(model => model.ImagePath)*@
             </th>
             <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">test</a>
-                @Html.ActionLink("Title ASC/DESC", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
+                @*@Html.ActionLink("Title ASC/DESC", "", new { sortOrder = ViewBag.TitleAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Title)*@
             </th>
             <th>
-                @Html.ActionLink("Description ASC/DESC", "Index", new { sortOrder = ViewBag.DescriptionAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description ASC/DESC</a>
+                @*@Html.ActionLink("Description ASC/DESC", "", new { sortOrder = ViewBag.DescriptionAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Description)*@
             </th>
             <th>
@@ -25,7 +25,8 @@
                 @Html.DisplayNameFor(model => model.Genres)
             </th>
             <th>
-                @Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
+                @*@Html.ActionLink("Rating ASC/DESC", "", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Rating)*@
             </th>
             <th>
@@ -52,7 +53,11 @@
                 {
                     foreach(var genre in item.Genres)
                     {
-                        @Html.DisplayFor(modelItem => genre.Name)<br />
+                        string name = genre.Name;
+                        string id = genre.Id.ToString();
+                        @* @Html.ActionLink(name, id, "Genres/Details", "", "", "", "", ""); *@
+                        <a asp-action="Details" asp-controller="Genres" asp-route-id="@id">@name</a>
+                        @*@Html.DisplayFor(modelItem => genre.Name);*@
                     }            
                 }
                 else
@@ -68,7 +73,10 @@
                 {
                     foreach(var author in item.Authors)
                     {
-                        @Html.DisplayFor(modelItem => author.FullName)<br />
+                        string name = author.FullName;
+                        string id = author.Id.ToString();
+                        <a asp-action="Details" asp-controller="Authors" asp-route-id="@id">@name</a>
+                        @*@Html.DisplayFor(modelItem => author.FullName)<br />*@
                     }            
                 }
                 else
