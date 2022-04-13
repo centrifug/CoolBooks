@@ -9,16 +9,24 @@ using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using CoolBooks.Models;
 using CoolBooks.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoolBooks.Controllers
 {
     public class AuthorsController : Controller
     {
         private readonly CoolBooksContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<CoolBooksUser> userManager;
+        private readonly SignInManager<CoolBooksUser> signInManager;
 
-        public AuthorsController(CoolBooksContext context)
+        public AuthorsController(CoolBooksContext context, IWebHostEnvironment hostEnvironment, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         // GET: Authors
@@ -130,6 +138,7 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Authors/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -139,56 +148,108 @@ namespace CoolBooks.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,Created")] Author author)
+        public async Task<IActionResult> Create(CreateAuthorViewModel authorInput)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(author);
+                Author authorToCreate = new Author();
+                var user = await userManager.GetUserAsync(User);
+
+                authorToCreate.FirstName = authorInput.FirstName;
+                authorToCreate.LastName = authorInput.LastName;
+                authorToCreate.BirthDate = authorInput.BirthDate;
+                authorToCreate.CreatedBy = user.Id;
+                authorToCreate.Created = DateTime.Now;
+                authorToCreate.ImagePath = "";
+
+                _context.Add(authorToCreate);
                 await _context.SaveChangesAsync();
+
+
+                //save image
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(authorInput.ImageFile.FileName);
+                string extension = Path.GetExtension(authorInput.ImageFile.FileName);
+
+                fileName = authorToCreate.Id + extension; //name it after the books Id
+
+                string path = Path.Combine(wwwRootPath + "/Images/Authors/", fileName);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await authorInput.ImageFile.CopyToAsync(fileStream);
+                }
+
+                //update imagepath (kanske inte nödvändig.. men for now!)
+                authorToCreate.ImagePath = Path.Combine("/Images/Authors/", fileName);
+                _context.Author.Attach(authorToCreate);
+                _context.Entry(authorToCreate).State = EntityState.Modified;
+                _context.SaveChanges();
+
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(author);
+            return View(authorInput);
         }
 
         // GET: Authors/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            EditAuthorViewModel vm = new EditAuthorViewModel();
             var author = await _context.Author.FindAsync(id);
+
+            vm.FirstName = author.FirstName;
+            vm.LastName = author.LastName;
+            vm.BirthDate = author.BirthDate;                
+            
             if (author == null)
             {
                 return NotFound();
             }
-            return View(author);
+            return View(vm);
         }
 
         // POST: Authors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,Created")] Author author)
+        public async Task<IActionResult> Edit(int id, EditAuthorViewModel authorInput)
         {
-            if (id != author.Id)
+            if (id != authorInput.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                Author authorToUpdate = new Author();
+                var user = await userManager.GetUserAsync(User);
+                                
+                authorToUpdate = await _context.Author.FirstOrDefaultAsync(a => a.Id == authorInput.Id);
+
+                authorToUpdate.FirstName = authorInput.FirstName;
+                authorToUpdate.LastName = authorInput.LastName;
+                authorToUpdate.BirthDate = authorInput.BirthDate;
+                authorToUpdate.LastUpdated = DateTime.Now;
+                authorToUpdate.UpdatedBy = user.Id;
+
                 try
                 {
-                    _context.Update(author);
+                    _context.Update(authorToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AuthorExists(author.Id))
+                    if (!AuthorExists(authorToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -199,10 +260,11 @@ namespace CoolBooks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(author);
+            return View(authorInput);
         }
 
         // GET: Authors/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -222,6 +284,7 @@ namespace CoolBooks.Controllers
 
         // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

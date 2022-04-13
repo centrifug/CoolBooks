@@ -68,6 +68,7 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres/Details/5
+        
         public async Task<IActionResult> Details(int? id, string sortOrder)
         {
             GenreDetailsViewModel vm = new GenreDetailsViewModel();
@@ -142,16 +143,25 @@ namespace CoolBooks.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Created")] Genre genre)
+        public async Task<IActionResult> Create(CreateGenreViewModel genreInput)
         {
+
             if (ModelState.IsValid)
             {
-                genre.CreatedBy = userManager.GetUserId(User);
-                _context.Add(genre);
+                Genre genreToCreate = new Genre();
+
+                var user = await userManager.GetUserAsync(User);
+
+                genreToCreate.Name = genreInput.Name;
+                genreToCreate.Description = genreInput.Description;
+                genreToCreate.Created = DateTime.Now;
+                genreToCreate.CreatedBy = user.Id;
+
+                _context.Add(genreToCreate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            return View(genreInput);
         }
 
         // GET: Genres/Edit/5
@@ -163,12 +173,20 @@ namespace CoolBooks.Controllers
                 return NotFound();
             }
 
+            EditGenreViewModel vm = new EditGenreViewModel();
+
+            
             var genre = await _context.Genre.FindAsync(id);
+
+            vm.Id = genre.Id;
+            vm.Name = genre.Name;
+            vm.Description = genre.Description;
+
             if (genre == null)
             {
                 return NotFound();
             }
-            return View(genre);
+            return View(vm);
         }
 
         // POST: Genres/Edit/5
@@ -177,23 +195,31 @@ namespace CoolBooks.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Created")] Genre genre)
+        public async Task<IActionResult> Edit(int id, EditGenreViewModel genreInput)
         {
-            if (id != genre.Id)
+            if (id != genreInput.Id)
             {
                 return NotFound();
             }
+
+            Genre genreToUpdate = await _context.Genre.FindAsync(id);
+            var user = await userManager.GetUserAsync(User);
+
+            genreToUpdate.Name = genreInput.Name;
+            genreToUpdate.Description = genreInput.Description;
+            genreToUpdate.UpdatedBy = user.Id;
+            genreToUpdate.LastUpdated = DateTime.Now;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(genre);
+                    _context.Update(genreToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenreExists(genre.Id))
+                    if (!GenreExists(genreToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -204,7 +230,7 @@ namespace CoolBooks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            return View(genreInput);
         }
 
         // GET: Genres/Delete/5

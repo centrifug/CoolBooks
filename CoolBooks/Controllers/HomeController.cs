@@ -30,7 +30,18 @@ namespace CoolBooks.Controllers
                                          .Include(b => b.Authors)
                                          .OrderBy(x => Guid.NewGuid())
                                          .First();
-            vm.Books = _context.Book.OrderBy(x => x.Created).Take(3).ToList();
+
+            vm.Books = _context.Book
+                .Include(b => b.Authors)
+                .Include(b => b.Genres)
+                .OrderByDescending(x => x.Created)
+                .Take(3)
+                .ToList();
+
+            vm.AllBooks = _context.Book
+                .OrderByDescending(x => x.Created)
+                .Take(20)
+                .ToList();
 
             return View(vm);
         }
