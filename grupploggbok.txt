@@ -87,4 +87,8 @@ Staffan:
   Fixat färdig filtreringen på samtliga sidor. 
   Samt att man kan navigera på ett smidigare sätt. Dvs där det står att en bok har Genre: Fantasy. Kan man trycka på fantasy för att gå till Genre/Details/Fantasy etc
   
-  Staffan:
+Staffan:
+  Visar bara edit knappar för reviews för admins och skaparen av reviewn.
+  Låst detta i viewn och controllern.
+  Forsatt låsa viss funktionalitet för olika userroles.
+  Lagt till createdby/updatedby/updated fält i modeller, uppdaterat seeddatan och sätt till att createdby sparas när man postar en review.
