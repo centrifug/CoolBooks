@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBooks.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class GenresController : Controller
     {
         private readonly CoolBooksContext _context;
@@ -111,6 +111,7 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -120,6 +121,7 @@ namespace CoolBooks.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Created")] Genre genre)
         {
@@ -134,6 +136,7 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -153,6 +156,7 @@ namespace CoolBooks.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Created")] Genre genre)
         {
@@ -185,6 +189,7 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -204,6 +209,7 @@ namespace CoolBooks.Controllers
 
         // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

@@ -2,8 +2,9 @@
 @{
     var controller = this.ViewContext.RouteData.Values["controller"].ToString();
     var action = this.ViewContext.RouteData.Values["action"].ToString();
-    var route = ViewContext.RouteData.Values["id"];
+    var route = ViewContext.RouteData.Values["id"];    
 }        
+
 <table class="table">
     <thead>
         <tr>
@@ -11,12 +12,13 @@
                 @*@Html.DisplayNameFor(model => model.ImagePath)*@
             </th>
             <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
+                
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
                 @*@Html.ActionLink("Title ASC/DESC", "", new { sortOrder = ViewBag.TitleAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Title)*@
             </th>
             <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description ASC/DESC</a>
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description ASC/DESC</a>
                 @*@Html.ActionLink("Description ASC/DESC", "", new { sortOrder = ViewBag.DescriptionAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Description)*@
             </th>
@@ -25,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.Genres)
             </th>
             <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
                 @*@Html.ActionLink("Rating ASC/DESC", "", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Rating)*@
             </th>

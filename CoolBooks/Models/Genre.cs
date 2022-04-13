@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoolBooks.Models
 {
@@ -18,6 +19,9 @@ namespace CoolBooks.Models
 
         [Required]
         public string CreatedBy { get; set; }
+
+        [ForeignKey("CreatedBy")]
+        public virtual CoolBooksUser CoolBooksUser { get; set; }
 
         public string? UpdatedBy { get; set; }
 
