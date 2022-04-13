@@ -82,3 +82,9 @@ Staffan:
   Arbetat med edit-book, gjort det möjligt att lägga till och ta bort authors/genres på ett smidigt sätt. Saknas bara ändring av bild.
   + Lite små buggfixar och lite finlir
   
+  2022-04-13
+  Stefan:
+  Fixat färdig filtreringen på samtliga sidor. 
+  Samt att man kan navigera på ett smidigare sätt. Dvs där det står att en bok har Genre: Fantasy. Kan man trycka på fantasy för att gå till Genre/Details/Fantasy etc
+  
+  Staffan:
