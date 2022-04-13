@@ -102,10 +102,17 @@ namespace CoolBooks.Models
 
         // GET: Books/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string sortOrder)
         {
 
             BookWithReviewsViewModel vm = new BookWithReviewsViewModel();
+
+            ViewBag.BookAscDescSortParam = sortOrder == "Book ASC" ? "Book DESC" : "Book ASC";
+            ViewBag.CreatedByAscDescSortParam = sortOrder == "CreatedBy ASC" ? "CreatedBy DESC" : "CreatedBy ASC";
+            ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";
+            ViewBag.TextAscDescSortParam = sortOrder == "Text ASC" ? "Text DESC" : "Text ASC";
+            ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
+            ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
 
             if (id == null)
             {
@@ -124,10 +131,54 @@ namespace CoolBooks.Models
                 ViewData = (ViewDataDictionary)TempData["ViewData"];
             }
 
-            vm.reviews = await _context.Review
+            var reviews = _context.Review
                 .Include(r => r.CoolBooksUser)
-                .Where(r => r.BookId == id).ToListAsync();
+                .Where(r => r.BookId == id)
+                .Select(b => b);
 
+            switch (sortOrder)
+            {
+                case "Book DESC":
+                    reviews = reviews.OrderByDescending(b => b.Book);
+                    break;
+                case "Book ASC":
+                    reviews = reviews.OrderBy(b => b.Book);
+                    break;
+                case "CreatedBy DESC":
+                    reviews = reviews.OrderByDescending(b => b.CreatedBy);
+                    break;
+                case "CreatedBy ASC":
+                    reviews = reviews.OrderBy(b => b.CreatedBy);
+                    break;
+                case "Title DESC":
+                    reviews = reviews.OrderByDescending(b => b.Title);
+                    break;
+                case "Title ASC":
+                    reviews = reviews.OrderBy(b => b.Title);
+                    break;
+                case "Text DESC":
+                    reviews = reviews.OrderByDescending(b => b.Text);
+                    break;
+                case "Text ASC":
+                    reviews = reviews.OrderBy(b => b.Text);
+                    break;
+                case "Rating DESC":
+                    reviews = reviews.OrderByDescending(b => b.Rating);
+                    break;
+                case "Rating ASC":
+                    reviews = reviews.OrderBy(b => b.Rating);
+                    break;
+                case "Created DESC":
+                    reviews = reviews.OrderByDescending(b => b.Created);
+                    break;
+                case "Created ASC":
+                    reviews = reviews.OrderBy(b => b.Created);
+                    break;
+                default:
+                    reviews = reviews.OrderBy(b => b.Id);
+                    break;
+            }
+            vm.reviews = reviews.ToList();
             return View(vm);
         }
 

@@ -29,9 +29,42 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Genre.ToListAsync());
+            ViewBag.FirstNameAscDescSortParam = sortOrder == "Name ASC" ? "Name DESC" : "Name ASC";
+            ViewBag.DescriptionAscDescSortParam = sortOrder == "Description ASC" ? "Description DESC" : "Description ASC";    
+            ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
+
+            var genres = _context.Genre
+                                     //.Include(g => g.Genres)
+                                     //.Include(a => a.Authors)
+                                     //.Where(b => b.IsDeleted != true)
+                                     .Select(b => b);
+            switch (sortOrder)
+            {
+                case "Name DESC":
+                    genres = genres.OrderByDescending(b => b.Name);
+                    break;
+                case "Name ASC":
+                    genres = genres.OrderBy(b => b.Name);
+                    break;
+                case "Description DESC":
+                    genres = genres.OrderByDescending(b => b.Description);
+                    break;
+                case "Description ASC":
+                    genres = genres.OrderBy(b => b.Description);
+                    break;
+                case "Created DESC":
+                    genres = genres.OrderByDescending(b => b.Created);
+                    break;
+                case "Created ASC":
+                    genres = genres.OrderBy(b => b.Created);
+                    break;
+                default:
+                    genres = genres.OrderBy(b => b.Id);
+                    break;
+            }
+            return View(genres.ToList());
         }
 
         // GET: Genres/Details/5
@@ -93,20 +126,6 @@ namespace CoolBooks.Controllers
             }
 
             vm.Books = books.ToList();
-
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-            //var genre = await _context.Genre
-            //    .Include(b => b.Books)
-            //    .FirstOrDefaultAsync(m => m.Id == id);
-            //if (genre == null)
-            //{
-            //    return NotFound();
-            //}
-
-
             return View(vm);
         }
 
