@@ -8,16 +8,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using CoolBooks.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBooks.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GenresController : Controller
     {
         private readonly CoolBooksContext _context;
-
-        public GenresController(CoolBooksContext context)
+        private readonly UserManager<CoolBooksUser> userManager;
+        private readonly SignInManager<CoolBooksUser> signInManager;
+        public GenresController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
         {
             _context = context;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         // GET: Genres
@@ -59,6 +65,7 @@ namespace CoolBooks.Controllers
         {
             if (ModelState.IsValid)
             {
+                genre.CreatedBy = userManager.GetUserId(User);
                 _context.Add(genre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<CoolBooks.Models.Book>
-        
+
+@{
+    var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+    var action = this.ViewContext.RouteData.Values["action"].ToString();
+    var route = ViewContext.RouteData.Values["id"];
+}        
 <table class="table">
     <thead>
         <tr>
@@ -7,6 +12,7 @@
                 @*@Html.DisplayNameFor(model => model.ImagePath)*@
             </th>
             <th>
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">test</a>
                 @Html.ActionLink("Title ASC/DESC", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })
                 @*@Html.DisplayNameFor(model => model.Title)*@
             </th>
