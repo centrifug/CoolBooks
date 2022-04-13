@@ -21,10 +21,16 @@ namespace CoolBooks.Models
         public double Rating { get; set; }
         [Required]
         public bool IsDeleted { get; set; }
-
+        
         [Required]
         public DateTime Created { get; set; }
 
+        [Required]
+        public string CreatedBy { get; set; }
+
+        public string? UpdatedBy { get; set; }
+
+        public DateTime? LastUpdated { get; set; }
         //[Required]
         public List<Review> Reviews { get; set; } = new List<Review>();
 

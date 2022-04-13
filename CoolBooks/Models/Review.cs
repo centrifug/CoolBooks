@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoolBooks.Models
 {
@@ -28,11 +29,15 @@ namespace CoolBooks.Models
         [Required]
         public DateTime Created { get; set; }
 
-        [Required]
+        [Required]        
         public string CreatedBy { get; set; }
-        // UserID?
-        // CreatedBy?
-        // Updated?
-        // UPdatedBy?
+        
+        [ForeignKey("CreatedBy")]
+        public virtual CoolBooksUser CoolBooksUser { get; set; }
+        public string? UpdatedBy     { get; set; }
+
+        public DateTime? LastUpdated { get; set; }
+
+
     }
 }
