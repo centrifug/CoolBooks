@@ -8,10 +8,9 @@
     var route = ViewContext.RouteData.Values["id"];
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.book.Title)</h1>
 
 <div>
-    <h4>Book</h4>
     <hr />
 
     <dl class="row">

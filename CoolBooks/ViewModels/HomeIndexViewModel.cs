@@ -7,5 +7,7 @@ namespace CoolBooks.ViewModels
         public Book RandomBook { get; set; }
 
         public List<Book> Books { get; set; } = new List<Book>();
+
+        public List<Book> AllBooks { get; set; } = new List<Book>();
     }
 }

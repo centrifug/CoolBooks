@@ -214,10 +214,12 @@ namespace CoolBooks.Models
 
             foreach (Genre genre in genres)
             {
-                BookGenreViewModel bookGenreViewModel = new BookGenreViewModel();
-                bookGenreViewModel.GenreId = genre.Id;
-                bookGenreViewModel.GenreName = genre.Name;
-                bookGenreViewModel.IsSelected = false;
+                BookGenreViewModel bookGenreViewModel = new BookGenreViewModel
+                {
+                    GenreId = genre.Id,
+                    GenreName = genre.Name,
+                    IsSelected = false
+                };
 
                 vm.Genres.Add(bookGenreViewModel);
             }
