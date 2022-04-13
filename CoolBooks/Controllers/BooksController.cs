@@ -122,7 +122,10 @@ namespace CoolBooks.Models
                 return NotFound();
             }
 
-            vm.book = await _context.Book.FirstOrDefaultAsync(b => b.Id == id);
+            vm.book = await _context.Book
+                .Include(b => b.Genres)
+                .Include(b => b.Authors)
+                .FirstOrDefaultAsync(b => b.Id == id);
 
             if (vm.book == null)
             {
@@ -185,10 +188,49 @@ namespace CoolBooks.Models
             return View(vm);
         }
 
+
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Create()
+        {
+            CreateBookViewModel vm = new CreateBookViewModel();
+
+            var authors = _context.Author.ToList();
+
+            var genres = _context.Genre.ToList();
+
+            foreach (Author author in authors)
+            {
+                BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
+
+                bookAuthorViewModel.AuthorId = author.Id;
+                bookAuthorViewModel.AuthorFirstName = author.FirstName;
+                bookAuthorViewModel.AuthorLastName = author.LastName;
+                bookAuthorViewModel.IsSelected = false;
+
+                vm.Authors.Add(bookAuthorViewModel);
+            }
+
+            foreach (Genre genre in genres)
+            {
+                BookGenreViewModel bookGenreViewModel = new BookGenreViewModel();
+                bookGenreViewModel.GenreId = genre.Id;
+                bookGenreViewModel.GenreName = genre.Name;
+                bookGenreViewModel.IsSelected = false;
+
+                vm.Genres.Add(bookGenreViewModel);
+            }
+
+            return View(vm);
+        }
+
+
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateBookViewModel inputBook)
         {
@@ -260,6 +302,7 @@ namespace CoolBooks.Models
         }
 
         // GET: Books/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -338,6 +381,7 @@ namespace CoolBooks.Models
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditBookViewModel bookInput)
         {
@@ -426,6 +470,7 @@ namespace CoolBooks.Models
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -445,6 +490,7 @@ namespace CoolBooks.Models
 
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
