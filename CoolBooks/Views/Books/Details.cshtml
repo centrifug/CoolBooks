@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Details";
     var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+    var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+    var action = this.ViewContext.RouteData.Values["action"].ToString();
+    var route = ViewContext.RouteData.Values["id"];
 }
 
 <h1>Details</h1>
@@ -73,26 +76,32 @@ else {
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.reviews[0].Book)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BookAscDescSortParam">Book ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.reviews[0].Book)*@
             </th>
             <td>
-                @Html.DisplayNameFor(model => model.reviews[0].CreatedBy)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedByAscDescSortParam">Created By ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.reviews[0].CreatedBy)*@
             </td>
             <th>
-                @Html.ActionLink("Title ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
+                @*@Html.ActionLink("Title ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })*@ 
                 @*@Html.DisplayNameFor(model => model.reviews[0].Title)*@
             </th>
 
             <th>
-                @Html.ActionLink("Text ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TextAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TextAscDescSortParam">Text ASC/DESC</a>
+                @*@Html.ActionLink("Text ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TextAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.reviews[0].Text)*@
             </th>
             <th>
-                @Html.ActionLink("Rating ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
+                @*@Html.ActionLink("Rating ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.reviews[0].Rating)*@
             </th>
             <th>
-                @Html.ActionLink("Created ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.CreatedAscDescSortParam })
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
+                @*@Html.ActionLink("Created ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.CreatedAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.reviews[0].Created)*@
             </th>
             <th></th>

@@ -30,7 +30,8 @@
                 <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.Id"><img src=" @Html.DisplayFor(model => Model.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px"></a>   
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Title)
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.Id">@Html.DisplayFor(modelItem => Model.Title)</a>
+                @*@Html.DisplayFor(modelItem => Model.Title)*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.Description)

@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
+    var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+    var action = this.ViewContext.RouteData.Values["action"].ToString();
+    var route = ViewContext.RouteData.Values["id"];
 }
 
 <h1>Index</h1>
@@ -13,13 +16,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.FirstNameAscDescSortParam">Name ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.Name)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.Description)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Created)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.Created)*@
             </th>
             <th></th>
         </tr>
