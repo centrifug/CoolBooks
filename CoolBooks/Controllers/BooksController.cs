@@ -10,6 +10,7 @@ using CoolBooks.Data;
 using Microsoft.AspNetCore.Authorization;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoolBooks.Models
 {
@@ -17,11 +18,17 @@ namespace CoolBooks.Models
     {
         private readonly CoolBooksContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<CoolBooksUser> userManager;
+        private readonly SignInManager<CoolBooksUser> signInManager;
 
-        public BooksController(CoolBooksContext context, IWebHostEnvironment hostEnvironment)
+
+
+        public BooksController(CoolBooksContext context, IWebHostEnvironment hostEnvironment, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
         {
             this._context = context;
             this._hostEnvironment = hostEnvironment;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         // GET: Books
@@ -34,7 +41,7 @@ namespace CoolBooks.Models
             ViewBag.AuthorAscDescSortParam = sortOrder == "Authors ASC" ? "Authors DESC" : "Authors ASC";
 
             var books = _context.Book.Include(g => g.Genres)
-                                     .Include(a => a.Authors)
+                                     .Include(a => a.Authors)   
                                      .Where(b => b.IsDeleted != true)
                                      .Select(b => b);
             switch (sortOrder)
@@ -73,7 +80,8 @@ namespace CoolBooks.Models
                     break;
                 default:
                     books = books.OrderBy(b => b.Id);
-                    break;                   
+                    break;   
+                    
             }
             if (!string.IsNullOrEmpty(searchString)) // Söker på boktitel
             {
@@ -116,7 +124,9 @@ namespace CoolBooks.Models
                 ViewData = (ViewDataDictionary)TempData["ViewData"];
             }
 
-            vm.reviews = await _context.Review.Where(r => r.BookId == id).ToListAsync();
+            vm.reviews = await _context.Review
+                .Include(r => r.CoolBooksUser)
+                .Where(r => r.BookId == id).ToListAsync();
 
             return View(vm);
         }
@@ -131,14 +141,15 @@ namespace CoolBooks.Models
             
             if (ModelState.IsValid)
             {
-                Book bookToCeate = new Book();
+                Book bookToCreate = new Book();
 
-                bookToCeate.Title = inputBook.Title;
-                bookToCeate.Description = inputBook.Description;
-                bookToCeate.ISBN = inputBook.ISBN;
-                bookToCeate.Created = DateTime.Now;
-                bookToCeate.IsDeleted = false;
-                bookToCeate.ImagePath = "";
+                bookToCreate.Title = inputBook.Title;
+                bookToCreate.Description = inputBook.Description;
+                bookToCreate.ISBN = inputBook.ISBN;
+                bookToCreate.Created = DateTime.Now;
+                bookToCreate.IsDeleted = false;
+                bookToCreate.ImagePath = "";
+                bookToCreate.CreatedBy = userManager.GetUserId(User);
 
                 foreach (var genre in inputBook.Genres)
                 {
@@ -146,7 +157,7 @@ namespace CoolBooks.Models
                     {
                         Genre bookGenre = new Genre { Id = genre.GenreId };
                         _context.Genre.Attach(bookGenre);
-                        bookToCeate.Genres.Add(bookGenre);                        
+                        bookToCreate.Genres.Add(bookGenre);                        
                     }               
                  }
 
@@ -156,13 +167,13 @@ namespace CoolBooks.Models
                     {
                         Author bookAuthor = new Author { Id = author.AuthorId };
                         _context.Author.Attach(bookAuthor);
-                        bookToCeate.Authors.Add(bookAuthor);
+                        bookToCreate.Authors.Add(bookAuthor);
                     }
                 }
 
 
                 //Insert record        
-                _context.Add(bookToCeate);
+                _context.Add(bookToCreate);
                 await _context.SaveChangesAsync();
 
 
@@ -171,7 +182,7 @@ namespace CoolBooks.Models
                 string fileName = Path.GetFileNameWithoutExtension(inputBook.ImageFile.FileName);
                 string extension = Path.GetExtension(inputBook.ImageFile.FileName);
 
-                fileName = bookToCeate.Id + extension; //name it after the books Id
+                fileName = bookToCreate.Id + extension; //name it after the books Id
 
                 string path = Path.Combine(wwwRootPath + "/Images/Books/", fileName);
 
@@ -181,9 +192,9 @@ namespace CoolBooks.Models
                 }
 
                 //update imagepath (kanske inte nödvändig.. men for now!)
-                bookToCeate.ImagePath = Path.Combine("/Images/Books/", fileName);
-                _context.Book.Attach(bookToCeate);
-                _context.Entry(bookToCeate).State = EntityState.Modified;
+                bookToCreate.ImagePath = Path.Combine("/Images/Books/", fileName);
+                _context.Book.Attach(bookToCreate);
+                _context.Entry(bookToCreate).State = EntityState.Modified;
                 _context.SaveChanges();
 
 

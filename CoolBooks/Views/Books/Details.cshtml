@@ -75,10 +75,14 @@ else {
             <th>
                 @Html.DisplayNameFor(model => model.reviews[0].Book)
             </th>
+            <td>
+                @Html.DisplayNameFor(model => model.reviews[0].CreatedBy)
+            </td>
             <th>
                 @Html.ActionLink("Title ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })
                 @*@Html.DisplayNameFor(model => model.reviews[0].Title)*@
             </th>
+
             <th>
                 @Html.ActionLink("Text ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TextAscDescSortParam })
                 @*@Html.DisplayNameFor(model => model.reviews[0].Text)*@
@@ -103,8 +107,12 @@ else {
                 @Html.DisplayFor(modelItem => item.Book.Title)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.CoolBooksUser.UserName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
             </td>

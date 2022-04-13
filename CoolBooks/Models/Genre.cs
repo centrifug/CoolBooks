@@ -16,6 +16,13 @@ namespace CoolBooks.Models
         [Required]
         public DateTime Created { get; set; }
 
+        [Required]
+        public string CreatedBy { get; set; }
+
+        public string? UpdatedBy { get; set; }
+
+        public DateTime? LastUpdated { get; set; }
+
         //[Required]
         public List<Book> Books { get; set; } = new List<Book>();
 
