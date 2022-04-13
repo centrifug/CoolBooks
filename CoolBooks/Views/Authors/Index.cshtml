@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
+    var controller = this.ViewContext.RouteData.Values["controller"].ToString();
+    var action = this.ViewContext.RouteData.Values["action"].ToString();
+    var route = ViewContext.RouteData.Values["id"];
 }
 
 <h1>Index</h1>
@@ -13,19 +16,23 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
+                @*@Html.DisplayNameFor(model => model.ImagePath)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.FirstNameAscDescSortParam">FirstName ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.FirstName)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.LastNameAscDescSortParam">LastName ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.LastName)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BirthDateAscDescSortParam">BirthDate ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.BirthDate)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Created)
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
+                @*@Html.DisplayNameFor(model => model.Created)*@
             </th> 
             <th></th>
         </tr>

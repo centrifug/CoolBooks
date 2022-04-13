@@ -22,9 +22,49 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Authors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Author.ToListAsync());
+            ViewBag.FirstNameAscDescSortParam = sortOrder == "FirstName ASC" ? "FirstName DESC" : "FirstName ASC";
+            ViewBag.LastNameAscDescSortParam = sortOrder == "LastName ASC" ? "LastName DESC" : "LastName ASC";
+            ViewBag.BirthDateAscDescSortParam = sortOrder == "BirthDate ASC" ? "BirthDate DESC" : "BirthDate ASC";
+            ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
+
+            var authors = _context.Author
+                                     //.Include(g => g.Genres)
+                                     //.Include(a => a.Authors)
+                                     //.Where(b => b.IsDeleted != true)
+                                     .Select(b => b);
+            switch (sortOrder)
+            {
+                case "FirstName DESC":
+                    authors = authors.OrderByDescending(b => b.FirstName);
+                    break;
+                case "FirstName ASC":
+                    authors = authors.OrderBy(b => b.FirstName);
+                    break;
+                case "LastName DESC":
+                    authors = authors.OrderByDescending(b => b.LastName);
+                    break;
+                case "LastName ASC":
+                    authors = authors.OrderBy(b => b.LastName);
+                    break;
+                case "BirthDate DESC":
+                    authors = authors.OrderByDescending(b => b.BirthDate);
+                    break;
+                case "BirthDate ASC":
+                    authors = authors.OrderBy(b => b.BirthDate);
+                    break;
+                case "Created DESC":
+                    authors = authors.OrderByDescending(b => b.Created);
+                    break;
+                case "Created ASC":
+                    authors = authors.OrderBy(b => b.Created);
+                    break;            
+                default:
+                    authors = authors.OrderBy(b => b.Id);
+                    break;
+            }
+            return View(authors.ToList());
         }
 
         // GET: Authors/Details/5

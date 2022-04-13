@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
+                @*@Html.DisplayNameFor(model => model.ImagePath)*@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -40,7 +40,11 @@
                 {
                     foreach(var genre in Model.Genres)
                     {
-                        @Html.DisplayFor(modelItem => genre.Name)
+                        string name = genre.Name;
+                        string id = genre.Id.ToString();
+                        @* @Html.ActionLink(name, id, "Genres/Details", "", "", "", "", ""); *@
+                        <a asp-action="Details" asp-controller="Genres" asp-route-id="@id">@name</a>
+                        @*@Html.DisplayFor(modelItem => genre.Name);*@
                     }            
                 }
                 else
@@ -56,7 +60,10 @@
                 {
                     foreach(var author in Model.Authors)
                     {
-                        @Html.DisplayFor(modelItem => author.FullName)<br />
+                        string name = author.FullName;
+                        string id = author.Id.ToString();
+                        <a asp-action="Details" asp-controller="Authors" asp-route-id="@id">@name</a>
+                        @*@Html.DisplayFor(modelItem => author.FullName)<br />*@
                     }            
                 }
                 else

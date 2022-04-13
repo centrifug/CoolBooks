@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Data;
 using CoolBooks.Models;
+using CoolBooks.ViewModels;
 
 namespace CoolBooks.Controllers
 {
@@ -27,21 +28,79 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string sortOrder)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var genre = await _context.Genre
+            GenreDetailsViewModel vm = new GenreDetailsViewModel();
+            vm.Genre = await _context.Genre
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (genre == null)
+
+            ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";
+            ViewBag.DescriptionAscDescSortParam = sortOrder == "Description ASC" ? "Description DESC" : "Description ASC";
+            ViewBag.GenreAscDescSortParam = sortOrder == "Genre ASC" ? "Genre DESC" : "Genre ASC";
+            ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
+            ViewBag.AuthorAscDescSortParam = sortOrder == "Authors ASC" ? "Authors DESC" : "Authors ASC";
+
+            var books = _context.Book.Include(g => g.Genres)
+                                     .Include(a => a.Authors)
+                                     .Where(b => b.IsDeleted != true)
+                                     .Where(b => b.Genres.Any(g => g.Id == id))
+                                     .Select(b => b);
+
+            switch (sortOrder)
             {
-                return NotFound();
+                case "Title DESC":
+                    books = books.OrderByDescending(b => b.Title);
+                    break;
+                case "Title ASC":
+                    books = books.OrderBy(b => b.Title);
+                    break;
+                case "Description DESC":
+                    books = books.OrderByDescending(b => b.Description);
+                    break;
+                case "Description ASC":
+                    books = books.OrderBy(b => b.Description);
+                    break;
+                case "Genre DESC":
+                    books = books.OrderByDescending(b => b.Genres);
+                    break;
+                case "Genre ASC":
+                    books = books.OrderBy(b => b.Genres);
+                    break;
+                case "Rating DESC":
+                    books = books.OrderByDescending(b => b.Rating);
+                    break;
+                case "Rating ASC":
+                    books = books.OrderBy(b => b.Rating);
+                    break;
+                case "Authors DESC":
+                    books = books.Include(a => a.Authors
+                                                .OrderByDescending(b => b.FirstName));
+                    break;
+                case "Authors ASC":
+                    books = books.Include(a => a.Authors
+                                                .OrderBy(b => b.FirstName));
+                    break;
+                default:
+                    books = books.OrderBy(b => b.Id);
+                    break;
             }
 
-            return View(genre);
+            vm.Books = books.ToList();
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+            //var genre = await _context.Genre
+            //    .Include(b => b.Books)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //if (genre == null)
+            //{
+            //    return NotFound();
+            //}
+
+
+            return View(vm);
         }
 
         // GET: Genres/Create
