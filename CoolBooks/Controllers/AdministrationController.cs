@@ -277,5 +277,12 @@ namespace CoolBooks.Controllers
 
             return RedirectToAction("EditRole", new { Id = Id });
         }
+
+        public IActionResult Statistik()
+        {
+            return View();
+        }
+
     }
+
 }
