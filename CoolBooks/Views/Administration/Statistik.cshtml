@@ -1,0 +1,31 @@
+﻿@using QuickChart
+@{
+    ViewData["Title"] = "Statistik";
+    Chart test = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
+
+    test.Width = 500;
+    test.Height = 300;
+    test.BackgroundColor = "#FFFFFF";
+    // test.DevicePixelRatio = Pixelratio - 1.0 Default
+    // test.Version = "2.9.4" // Not needed
+    // test.Format = "png" Filtyp - png Default
+    // test.Key = "test"; // Not needed, API Key
+    test.Config = @"{
+    type: 'bar',
+    data: {
+        labels: ['Stefan', 'Staffan', 'Paul'],
+        datasets: [{
+            label: 'Påskägg',
+            data: [10, 5, 15]
+        }]
+    }
+}";
+}
+<h1>Hej test chart</h1>
+<img href="@test.GetShortUrl()" src="@test.GetUrl()"/> @*Visar bilden via url*@
+
+@* @test.ToFile Om vi vill ha en faktisk fil?*@
+@* @test.ToByteArray Om vi vill ha en byte array för att spara i databas?*@
+
+@*https://github.com/typpo/quickchart-csharp -- DOKUMENTATION OM QUICKCHART :) *@
+
