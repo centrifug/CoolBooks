@@ -92,3 +92,14 @@ Staffan:
   Låst detta i viewn och controllern.
   Forsatt låsa viss funktionalitet för olika userroles.
   Lagt till createdby/updatedby/updated fält i modeller, uppdaterat seeddatan och sätt till att createdby sparas när man postar en review.
+
+
+2022-04-14
+Stefan:
+Sprintstart #2 
+Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
+Stoppa in en exempelchart som bara admins kan se för att jobba med längre in i sprinten.
+
+Staffan:
+Sprintstart #2 
+Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
