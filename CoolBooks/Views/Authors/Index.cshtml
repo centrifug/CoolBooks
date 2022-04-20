@@ -30,6 +30,10 @@
             <th>
                 <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
                 @*@Html.DisplayNameFor(model => model.Created)*@
+            </th>
+            <th>
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
+               
             </th> 
             <th></th>
         </tr>
@@ -51,7 +55,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
-            </td>      
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>   
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 @if (User.IsInRole("Admin"))

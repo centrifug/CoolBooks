@@ -27,7 +27,10 @@ namespace CoolBooks.Models
         public DateTime Created { get; set; }
 
         [Required]
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
+
+        [ForeignKey("CreatedBy")]
+        public virtual CoolBooksUser CoolBooksUser { get; set; }
 
         public string? UpdatedBy { get; set; }
 
@@ -36,7 +39,7 @@ namespace CoolBooks.Models
         public List<Review> Reviews { get; set; } = new List<Review>();
 
         //[Required]
-        public List<Author> Authors { get; set; } = new List<Author>();
+        public List<Author>? Authors { get; set; } = new List<Author>();
 
         //[Required]
         [Display(Name = "Genre")]

@@ -2,7 +2,10 @@
 
 @{
     ViewData["Title"] = "Details";
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
 }
+}
+
 
 <h1>@Html.DisplayFor(model => model.Book.Title)</h1>
 
@@ -26,7 +29,8 @@
             @Html.DisplayNameFor(model => model.Text)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Text)
+            @Html.DisplayFor(model => model.Text)<br />
+            <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@Model.Id" asp-route-returnUrl="@routeUrl">Kommentera</a>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Rating)
@@ -119,3 +123,5 @@ Just nu så får vi massa html taggar innuti knapparna när man trycker på dem!
 
 console.log kommer vi till så vi crashar inte.
 *@
+<h2>Kommentarer:</h2>
+<partial name="_Comment" model="@Model.Comments" />

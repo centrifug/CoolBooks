@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoolBooks.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
 
@@ -26,43 +27,84 @@ namespace CoolBooks.Controllers
         {
             return View();
         }
-        public IActionResult CreateReviewComment()
-        {           
+
+        
+        public IActionResult CreateReviewComment(string? returnUrl)
+        {
+            ViewBag.returnUrl = returnUrl;
             return View();
         }
 
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateReviewComment(CreateCommentViewModel inputComment, string? returnUrl, int id)
+        public async Task<IActionResult> CreateReviewComment(CreateCommentViewModel inputComment, int id)
         {
             if (!ModelState.IsValid)
             {
-                Comment commentToSave = new Comment
-                {
-                    Text = inputComment.Text,
-                    reviewId = id,
-                    Created = DateTime.Now,
-                    CreatedBy = userManager.GetUserId(User),
-                    IsDeleted = false
-                    
-                };
-
-                _context.Add(commentToSave);
-                await _context.SaveChangesAsync();
-
+                return View(inputComment);
             }
 
-            return View(inputComment);
+            Comment commentToSave = new Comment
+            {
+                Text = inputComment.Text,
+                reviewId = id,
+                Created = DateTime.Now,
+                CreatedBy = userManager.GetUserId(User),
+                IsDeleted = false
+            };
+
+            _context.Add(commentToSave);
+            await _context.SaveChangesAsync();
+
+            int? bookId = _context.Review.Where(r => r.Id == id).Select(r => r.BookId).FirstOrDefault();
+            //return Redirect(returnUrl);
+
+            return RedirectToAction("Details", "Books", new {id = bookId});
         }
 
 
-        public IActionResult Create()
+        public IActionResult Create(string? returnUrl)
         {
+            ViewBag.returnUrl = returnUrl;
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateCommentViewModel inputComment, int id, string? returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(inputComment);
+            }
 
+            Comment commentToSave = new Comment
+            {
+                Text = inputComment.Text,
+                commentId = id,
+                Created = DateTime.Now,
+                CreatedBy = userManager.GetUserId(User),
+                IsDeleted = false
+            };
+
+            _context.Add(commentToSave);
+            await _context.SaveChangesAsync();
+
+            
+            
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl);     
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //return RedirectToAction("Details", "Books", new { id = bookId });
+
+        }
 
 
 

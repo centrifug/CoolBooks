@@ -36,6 +36,7 @@ namespace CoolBooks.Controllers
             ViewBag.LastNameAscDescSortParam = sortOrder == "LastName ASC" ? "LastName DESC" : "LastName ASC";
             ViewBag.BirthDateAscDescSortParam = sortOrder == "BirthDate ASC" ? "BirthDate DESC" : "BirthDate ASC";
             ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
+            ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
 
             var authors = _context.Author
                                      //.Include(g => g.Genres)
@@ -67,7 +68,13 @@ namespace CoolBooks.Controllers
                     break;
                 case "Created ASC":
                     authors = authors.OrderBy(b => b.Created);
-                    break;            
+                    break;
+                case "Rating DESC":
+                    authors = authors.OrderByDescending(b => b.Rating);
+                    break;
+                case "Rating ASC":
+                    authors = authors.OrderBy(b => b.Rating);
+                    break;
                 default:
                     authors = authors.OrderBy(b => b.Id);
                     break;

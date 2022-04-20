@@ -8,6 +8,7 @@
     var route = ViewContext.RouteData.Values["id"];
 }
 
+
 <h1>@Html.DisplayFor(model => model.book.Title)</h1>
 
 <div>
@@ -141,7 +142,7 @@ else {
                 @Html.DisplayFor(modelItem => item.CoolBooksUser.UserName)
             </td>
             <td>
-                <a href="Reviews/Details/@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+                <a asp-controller="Reviews" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
                 @*@Html.DisplayFor(modelItem => item.Title)*@
             </td>
             <td>
@@ -149,9 +150,7 @@ else {
                 <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@item.Id">Kommentera</a>
                 <br>
                 <br>
-                <partial name="_comment" model="item.Comments" />
-
-                                       
+                <partial name="_comment" model="item.Comments" />                                       
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)

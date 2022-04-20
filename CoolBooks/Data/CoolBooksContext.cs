@@ -31,6 +31,10 @@ namespace CoolBooks.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Review>()
+                .HasOne(r => r.Book)
+                .WithMany(b => b.Reviews).OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Review>()
                 .Property(r => r.Created)
                 .HasDefaultValueSql("getdate()");
 
@@ -44,16 +48,16 @@ namespace CoolBooks.Data
                 .HasMany(b => b.Authors)
                 .WithMany(a => a.Books)
                 .UsingEntity<AuthorBook>
-                 (ba => ba.HasOne<Author>().WithMany(),
-                 ba => ba.HasOne<Book>().WithMany())
+                 (ba => ba.HasOne<Author>().WithMany().OnDelete(DeleteBehavior.ClientSetNull),
+                 ba => ba.HasOne<Book>().WithMany().OnDelete(DeleteBehavior.ClientSetNull))
                  .Property(ba => ba.Created);
 
             modelBuilder.Entity<Book>()
                 .HasMany(b => b.Genres)
                 .WithMany(g => g.Books)
                 .UsingEntity<BookGenre>
-                 (bg => bg.HasOne<Genre>().WithMany(),
-                 bg => bg.HasOne<Book>().WithMany())
+                 (bg => bg.HasOne<Genre>().WithMany().OnDelete(DeleteBehavior.ClientSetNull),
+                 bg => bg.HasOne<Book>().WithMany().OnDelete(DeleteBehavior.ClientSetNull))
                  .Property(ba => ba.Created);
 
 
