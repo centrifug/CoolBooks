@@ -2,3 +2,4 @@ Burndown chart: https://docs.google.com/spreadsheets/d/1dtqUfIW2kF6do59yIokOwrBO
 Sprint review/Retrospective Sprint #1: https://docs.google.com/presentation/d/11qaP65_imxfUd1ed-7djLPbeytAYI0m8KOHi_16HxNk/edit#slide=id.p
 Tummen upp/ner css: https://fontawesomeicons.com/thumbs-up
 Jquery tummen upp/ner: https://www.c-sharpcorner.com/blogs/how-to-implement-like-and-dislike-function-in-mvc
+Jquery dokumentation: https://jquery.com/
