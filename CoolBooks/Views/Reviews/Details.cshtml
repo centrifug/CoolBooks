@@ -60,25 +60,34 @@
     ViewBag.userlike = user.IsLike;  
 } 
 @if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) 
-{ <button class="btn btn-info btn-xs like-button"  
+{   <button class="test"
     disabled data-status="true"  
-    id="Like"> Like <i class="fa fa-thumbs-o-up"></i><span id="likecount">@ViewBag.like</span></button><button class="btn btn-info btn-xs like-button"  
+    id="Like"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span>
+
+    </button><button class="test"   
     data-status ="false"  
-    id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>  
+    id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
 } else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false)  
-{ <button class ="btn btn-info btn-xs like-button"  
+{   <button class="test" 
     data-status="true"  
-    id="Like">Like<i class="fa fa-thumbs-o-up"></i><span id = "likecount">@ViewBag.like</span></button><button class="btn btn-info btn-xs like-button"  
+    id="Like">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id = "likecount">@ViewBag.like</span>
+
+    </button><button class="test"   
     disabled data-status = "false"  
-    id="Dislike">Dislike<i class="fa fa-thumbs-o- down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>  
+    id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
+    
+
 }  
 
 else 
-{ <button class="btn btn-info btn-xs like-button"  
+{  <button class="test"  
     data-status="true"  
-    id="Like">Like<i class="fa fa-thumbs-o-up"></i><span id="likecount">@ViewBag.like</span></button><button class="btn btn-info btn-xs like-button"  
+    id="Like">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span></button>
+    
+    <button class="test"   
     data-status="false"  
-    id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>  
+    id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
+    
 }
 @if (signInManager.IsSignedIn(User))
 {
@@ -113,15 +122,9 @@ $("#Dislike").click(function() {
 }
 else
 {
-   <br><br><a asp-controller="account" asp-action="login">Log in</a><span> för att kunna använda like/dislike.</span>
-  
+   <br><br><a asp-controller="account" asp-action="login">Logga in</a><span> för att kunna använda like/dislike.</span>
 }
 
-@*
-https://www.c-sharpcorner.com/blogs/how-to-implement-like-and-dislike-function-in-mvc
-Just nu så får vi massa html taggar innuti knapparna när man trycker på dem! Fix it!
-
-console.log kommer vi till så vi crashar inte.
-*@
 <h2>Kommentarer:</h2>
 <partial name="_Comment" model="@Model.Comments" />
+

@@ -117,4 +117,20 @@ Coolbookscontext dbset för dem nya tabellerna
 Model/Review.cs nya fält
 Model/Likes.cs ny tabell
 
+Staffan
+Fixat så user inte kan lägga tillböcker och gömt detta i UI:t
+Lagt till en moderatornivå och möjligtgört för moderatorer och admins att kunna blocka reviews
+Påbörjat kommenterings-funktionerna.
+
+
+2022-04-20
+Stefan:
+Pluralsight om jquery för våran spike.
+Fixat till depricated jquery kod.
+Felsökt like/dislike så det bara skriker om det. Nu fungerar den, css läggs på hyllan!
+
+Staffan
+Fixat kommentering av kommentarer i grundutförande. 
+Man kan kommentera både reviews och kommenterarer, men moderator funktioner samt lite annat småfix är kvar.
+
 
