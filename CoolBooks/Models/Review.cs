@@ -40,6 +40,8 @@ namespace CoolBooks.Models
 
         public List<Comment>? Comments { get; set; } = new List<Comment>();
 
+        public System.Nullable<int> LikeCount { get; set; }
+        public System.Nullable<int> DisLikeCount { get; set; }
 
     }
 }

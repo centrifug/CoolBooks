@@ -103,3 +103,18 @@ Stoppa in en exempelchart som bara admins kan se för att jobba med längre in i
 Staffan:
 Sprintstart #2 
 Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
+
+2022-04-19
+Stefan:
+Börjat med like/dislike userstory. Ganska mycket kvar pga teknisk spike med att lägga till en service samt jquery.
+
+_Layout.cshtml script taggar i header istället för footer.
+lägg till en service i program.cs
+LikeDislike.cs class
+ReviewsController.cs // details biten och längst ner kallar vi på LikeDislike classen
+Reviews/Details.cshtml // like/dislike knapp samt Jquery som behövef felsökas!
+Coolbookscontext dbset för dem nya tabellerna
+Model/Review.cs nya fält
+Model/Likes.cs ny tabell
+
+
