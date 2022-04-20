@@ -7,10 +7,8 @@ namespace CoolBooks.Models
     {
         public int Id { get; set; } 
         public string Text { get; set; }
-
         public int? reviewId { get; set; }
         public Review? Review { get; set; }
-
         public int? commentId { get; set; }
         public Comment? comment { get; set; }
 

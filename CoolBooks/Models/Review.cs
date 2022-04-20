@@ -9,10 +9,10 @@ namespace CoolBooks.Models
         public int Id { get; set; }
 
         [Required]
-        public int BookId { get; set; }
+        public int? BookId { get; set; }
 
         //[Required]
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
 
         [Required][MaxLength(25)]
         public string Title { get; set; }
@@ -30,7 +30,7 @@ namespace CoolBooks.Models
         public DateTime Created { get; set; }
 
         [Required]        
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         
         [ForeignKey("CreatedBy")]
         public virtual CoolBooksUser CoolBooksUser { get; set; }

@@ -34,7 +34,6 @@ namespace CoolBooks.Models
         // GET: Books
         public async Task<IActionResult> Index(string searchString, string sortOrder) // DEN HÄR FUNGERAR :)
         {
-
             ViewBag.searchString = searchString;
 
             ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";

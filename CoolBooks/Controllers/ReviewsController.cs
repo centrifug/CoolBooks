@@ -97,7 +97,15 @@ namespace CoolBooks.Controllers
 
             var review = await _context.Review
                 .Include(r => r.Book)
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.CoolBooksUser)
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.comments)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            //gettolösning för att loada alla kommentarer... 
+            var temp = await _context.Comment.Include(c => c.comments).ToListAsync();
+
             if (review == null)
             {
                 return NotFound();
@@ -178,13 +186,34 @@ namespace CoolBooks.Controllers
                 await _context.SaveChangesAsync();
 
                 //update rating on book
-                var book = _context.Book.Where(b => b.Id == reviewToSave.BookId).FirstOrDefault();
+                var book = _context.Book.Include(b => b.Authors).Where(b => b.Id == reviewToSave.BookId).FirstOrDefault();
                 
                 if (book != null)
                 {
                     var rating = _context.Review.Where(r => r.BookId == reviewToSave.BookId).Average(r => r.Rating);
 
                     book.Rating = rating;
+                }
+
+                //update rating on author
+                foreach (var author in book.Authors)
+                {
+
+                    //var books = _context.Book.Include(a => a.Authors.Where(a => a.Id == author.Id)).ToList();
+                    var books = _context.Author.Include(a => a.Books).FirstOrDefault(a => a.Id == author.Id);
+
+
+                    List<double> avg = new List<double>();
+
+                    foreach (var b in books.Books)
+                    {
+                        var rating = _context.Review.Where(r => r.BookId == b.Id).Average(r => r.Rating);
+                        avg.Add(rating);
+                    }
+
+
+
+                    author.Rating = avg.Average();
                 }
 
                 await _context.SaveChangesAsync();
