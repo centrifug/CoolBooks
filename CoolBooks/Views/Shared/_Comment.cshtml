@@ -1,0 +1,12 @@
+﻿@model List<Comment>
+    
+<ul>
+@foreach (var comment in Model)
+{
+    <li>@comment.CoolBooksUser.Name - @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id">svara</a></li>
+    @if (comment.comments.Any())
+    {
+        <partial name="_comment" model="comment.comments" />       
+    }
+}
+ </ul>

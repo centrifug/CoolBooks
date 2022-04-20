@@ -38,6 +38,8 @@ namespace CoolBooks.Models
 
         public DateTime? LastUpdated { get; set; }
 
+        public List<Comment>? Comments { get; set; } = new List<Comment>();
+
 
     }
 }

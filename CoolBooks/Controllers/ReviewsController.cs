@@ -41,6 +41,7 @@ namespace CoolBooks.Controllers
             // TODO CREATEDBY SORTERING??
 
             var coolBooksContext = _context.Review.Include(r => r.Book)
+                                                  .Where(r => r.IsDeleted == false)
                                                   .Select(r => r);
 
             switch (sortOrder)
@@ -262,6 +263,44 @@ namespace CoolBooks.Controllers
             return View(review);
         }
 
+        // GET: Reviews/Block/5
+        [Authorize (Roles = "Moderator, Admin")]
+        public async Task<IActionResult> Block(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var review = await _context.Review
+                .Include(r => r.Book)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            return View(review);
+        }
+
+
+
+        // POST: Reviews/Block/5
+        [HttpPost, ActionName("Block")]
+        [Authorize(Roles = "Moderator, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BlockConfirmed(int id)
+        {
+
+            var review = await _context.Review.FindAsync(id);
+
+            review.IsDeleted = true;
+            _context.Review.Update(review);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Reviews/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -273,6 +312,7 @@ namespace CoolBooks.Controllers
             var review = await _context.Review
                 .Include(r => r.Book)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (review == null)
             {
                 return NotFound();

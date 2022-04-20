@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CoolBooks.Data;
 using Microsoft.AspNetCore.Identity;
 using CoolBooks.Models;
+using CoolBooks.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDefaultIdentity<CoolBooksUser>(options =>  options.SignIn.Re
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CoolBooksContext>();
 
+
+
+
 builder.Services.ConfigureApplicationCookie(options => 
 {
     options.AccessDeniedPath = "/account/login";
@@ -27,6 +31,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 //builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<ITest, Test>();
 
 var app = builder.Build();
 

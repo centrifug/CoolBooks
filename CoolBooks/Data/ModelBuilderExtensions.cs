@@ -195,12 +195,26 @@ namespace CoolBooks.Data
                 PhoneNumber = "2234567890"
             };
 
+            CoolBooksUser moderator = new CoolBooksUser()
+            {
+                Id = "moderator",
+                UserName = "moderator@coolbooks.com",
+                NormalizedUserName = "MODERATOR@COOLBOOKS.COM",
+                Email = "moderator@coolbooks.com",
+                NormalizedEmail = "MODERATOR@COOLBOOKS.COM",
+                Name = "Moderator Modingsson",
+                LockoutEnabled = false,
+                PhoneNumber = "11999190000"
+            };
+
             PasswordHasher<CoolBooksUser> passwordHasher = new PasswordHasher<CoolBooksUser>();
             user.PasswordHash = passwordHasher.HashPassword(user, ".");
             user1.PasswordHash = passwordHasher.HashPassword(user1, ".");
+            moderator.PasswordHash = passwordHasher.HashPassword(moderator, ".");
 
             modelBuilder.Entity<CoolBooksUser>().HasData(user);
             modelBuilder.Entity<CoolBooksUser>().HasData(user1);
+            modelBuilder.Entity<CoolBooksUser>().HasData(moderator);
         }
 
         public static void SeedRole(this ModelBuilder modelBuilder)
@@ -215,7 +229,26 @@ namespace CoolBooks.Data
         {
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
                 new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "Stefan" }
+                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "Stefan" },
+                new IdentityUserRole<string>() { RoleId = "c7b013f0-5201-4317-abd8-c211f91b7330", UserId = "moderator" }
+                );
+        }
+
+        public static void SeedComment(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Comment>().HasData(
+                new Comment { Id = 1, reviewId = 1, Text = "INTE GIVANDE!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 2, reviewId = 1, Text = "Du har sååååå fel!", Created = DateTime.Now, CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 3, reviewId = 2, Text = "Snyggt skrivet!", Created = DateTime.Now, CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 4, reviewId = 2, Text = "så jävla bra va!!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                
+                //nested comments
+                new Comment { Id = 5, commentId = 1, Text = "Comment on comment wuwu!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 6, commentId = 5, Text = "next level! Comment on comment wuwu!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 7, commentId = 6, Text = "Thired level! Comment on comment wuwu!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 8, commentId = 1, Text = "en till kommentar på en kommentar", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 9, commentId = 1, Text = "och igen", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 10, commentId = 8, Text = "SPÄNNANDE!", Created = DateTime.Now, CreatedBy = "Stefan" }
                 );
         }
     }

@@ -139,8 +139,19 @@ namespace CoolBooks.Models
 
             var reviews = _context.Review
                 .Include(r => r.CoolBooksUser)
-                .Where(r => r.BookId == id)
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.CoolBooksUser).Include(c => c.Comments)
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.comments)
+                .Where(r => r.BookId == id && r.IsDeleted == false)
                 .Select(b => b);
+
+
+            //Alla lager av kommentarerer inkluderas inte om vi inte gör dom ToList() i detta steg först;
+            //behöver dom "trackas"? Dom är ju redan inkluderarade i qureyn ovan?
+            var comments = _context.Comment.Include(c => c.comments).ToList();
+
+
 
             switch (sortOrder)
             {
