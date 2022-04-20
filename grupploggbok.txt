@@ -132,5 +132,7 @@ Felsökt like/dislike så det bara skriker om det. Nu fungerar den, css läggs p
 Staffan
 Fixat kommentering av kommentarer i grundutförande. 
 Man kan kommentera både reviews och kommenterarer, men moderator funktioner samt lite annat småfix är kvar.
-
+Grejjat med Foreginkey-constraints och deletebehavior för att undvika förödande cascading deletes
+(och för att få EF att sluta skrika på mig ;) )
+Lagt till rating på författare som uppdateras när en review postas
 
