@@ -12,6 +12,7 @@ using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CoolBooks.Controllers
 {
@@ -20,13 +21,15 @@ namespace CoolBooks.Controllers
         private readonly CoolBooksContext _context;
         private readonly UserManager<CoolBooksUser> userManager;
         private readonly SignInManager<CoolBooksUser> signInManager;
+        private readonly test likedislike;
 
 
-        public ReviewsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
+        public ReviewsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager, test likedislike)
         {
             _context = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.likedislike = likedislike;
         }
 
         // GET: Reviews
@@ -98,6 +101,11 @@ namespace CoolBooks.Controllers
             {
                 return NotFound();
             }
+            
+            
+            ViewBag.Like = likedislike.Getlikecounts((int)id);
+            ViewBag.Dislike = likedislike.Getdislikecounts((int)id);
+            ViewBag.AllUserlikedislike = likedislike.GetallUser((int)id);
 
             return View(review);
         }
@@ -296,5 +304,18 @@ namespace CoolBooks.Controllers
         {
             return _context.Review.Any(e => e.Id == id);
         }
+        public ActionResult Like(int id, bool status)
+        {
+            //var Db = likedislike(_context, userManager, signInManager); 
+            //var Db = _context;
+            var user = userManager.GetUserId(User);
+            if (user == null)
+            {
+                return Content("Logga in för att använda like/dislike!");
+            }
+            var result = likedislike.Like(id, status, user);
+            return Content(result);
+        }
+
     }
 }

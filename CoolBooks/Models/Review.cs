@@ -38,6 +38,7 @@ namespace CoolBooks.Models
 
         public DateTime? LastUpdated { get; set; }
 
-
+        public System.Nullable<int> LikeCount { get; set; }
+        public System.Nullable<int> DisLikeCount { get; set; }
     }
 }

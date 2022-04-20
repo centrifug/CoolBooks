@@ -11,6 +11,8 @@ var connectionString = builder.Configuration.GetConnectionString("CoolBooksConte
 builder.Services.AddDbContext<CoolBooksContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddScoped<test, LikeDislike>();
+
 //builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<CoolBooksContext>();
 
 builder.Services.AddDefaultIdentity<CoolBooksUser>(options =>  options.SignIn.RequireConfirmedAccount = false)

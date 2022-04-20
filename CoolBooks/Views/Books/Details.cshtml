@@ -141,7 +141,8 @@ else {
                 @Html.DisplayFor(modelItem => item.CoolBooksUser.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <a href="Reviews/Details/@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+                @*@Html.DisplayFor(modelItem => item.Title)*@
             </td>
 
             <td>

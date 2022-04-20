@@ -49,3 +49,73 @@
     }
     <a asp-action="Index">Back to List</a>
 </div>
+
+@foreach(Likes user in ViewBag.AllUserlikedislike)  
+{  
+    ViewBag.userid = user.UserId;   
+    ViewBag.userlike = user.IsLike;  
+} 
+@if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) 
+{ <button class="btn btn-info btn-xs like-button"  
+    disabled data-status="true"  
+    id="Like"> Like <i class="fa fa-thumbs-o-up"></i><span id="likecount">@ViewBag.like</span></button><button class="btn btn-info btn-xs like-button"  
+    data-status ="false"  
+    id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>  
+} else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false)  
+{ <button class ="btn btn-info btn-xs like-button"  
+    data-status="true"  
+    id="Like">Like<i class="fa fa-thumbs-o-up"></i><span id = "likecount">@ViewBag.like</span></button><button class="btn btn-info btn-xs like-button"  
+    disabled data-status = "false"  
+    id="Dislike">Dislike<i class="fa fa-thumbs-o- down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>  
+}  
+
+else 
+{ <button class="btn btn-info btn-xs like-button"  
+    data-status="true"  
+    id="Like">Like<i class="fa fa-thumbs-o-up"></i><span id="likecount">@ViewBag.like</span></button><button class="btn btn-info btn-xs like-button"  
+    data-status="false"  
+    id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>  
+}
+@if (signInManager.IsSignedIn(User))
+{
+    <script>
+    $("#Like").click(function() { 
+    debugger;  
+    @*ajaxGet deprecated*@
+    $.get("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"), function(data) {  
+        var counters = data.split('/');  
+        $("#likecount").text(counters[0]);  
+        $("#dislikecount").text(counters[1]);  
+        $("#Like").attr('disabled', 'disabled');  
+        $("#Dislike").attr('disabled', false);  
+        console.log("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"));
+        console.log("det här kanske fungerar like");
+    });  
+});   
+$("#Dislike").click(function() {  
+    debugger;
+    @*ajaxGet deprecated*@
+    $.get("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"), function(data) {  
+        var counters = data.split('/');  
+        $("#likecount").text(counters[0]);  
+        $("#dislikecount").text(counters[1]);  
+        $("#Dislike").attr('disabled', 'disabled');  
+        $("#Like").attr('disabled', false);
+        console.log("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"));
+        console.log("det här kanske fungerar dislike");
+    });  
+});  
+    </script>
+}
+else
+{
+   <br><br><a asp-controller="account" asp-action="login">Log in</a><span> för att kunna använda like/dislike.</span>
+  
+}
+
+@*
+https://www.c-sharpcorner.com/blogs/how-to-implement-like-and-dislike-function-in-mvc
+Just nu så får vi massa html taggar innuti knapparna när man trycker på dem! Fix it!
+
+console.log kommer vi till så vi crashar inte.
+*@
