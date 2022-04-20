@@ -17,6 +17,7 @@ namespace CoolBooks.Data
         public DbSet<CoolBooks.Models.Review> Review { get; set; }
         public DbSet<CoolBooks.Models.Genre> Genre { get; set; }
         public DbSet<AuthorBook> AuthorBook { get; set; }
+        public DbSet<Comment> Comment { get; set; }
         public DbSet<CoolBooks.Models.Likes> Likes { get; set; }
 
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
@@ -55,6 +56,7 @@ namespace CoolBooks.Data
                  bg => bg.HasOne<Book>().WithMany())
                  .Property(ba => ba.Created);
 
+
             modelBuilder.SeedBook(); // Kör min Seed extension metod.
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.
             modelBuilder.SeedBookAuthor();
@@ -64,6 +66,7 @@ namespace CoolBooks.Data
             modelBuilder.SeedUser();
             modelBuilder.SeedRole();
             modelBuilder.SeedUserRole();
+            modelBuilder.SeedComment();
 
         }
 

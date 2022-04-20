@@ -70,6 +70,7 @@ namespace CoolBooks.Controllers
 
             if (ModelState.IsValid)
             {
+
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
