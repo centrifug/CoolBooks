@@ -65,3 +65,6 @@ karusellknapp {
 nav-item-right {
     flex-direction:column-reverse;
 }
+.blue-color {
+    color: blue;
+}
