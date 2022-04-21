@@ -34,6 +34,16 @@
                 @*@Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
                 @*@Html.DisplayNameFor(model => model.Rating)*@
             </th>
+             <th>
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.LikesAscDescSortParam">Likes ASC/DESC</a>
+                @*@Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
+                @*@Html.DisplayNameFor(model => model.Rating)*@
+            </th>
+             <th>
+                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DislikesAscDescSortParam">Dislikes ASC/DESC</a>
+                @*@Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
+                @*@Html.DisplayNameFor(model => model.Rating)*@
+            </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </th>*@
@@ -61,6 +71,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LikeCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisLikeCount)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.IsDeleted)

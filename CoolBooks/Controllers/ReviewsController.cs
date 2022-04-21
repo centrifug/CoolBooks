@@ -40,6 +40,8 @@ namespace CoolBooks.Controllers
             ViewBag.TextAscDescSortParam = sortOrder == "Text ASC" ? "Text DESC" : "Text ASC";
             ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
             ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
+            ViewBag.LikesAscDescSortParam = sortOrder == "Likes ASC" ? "Likes DESC" : "Likes ASC";
+            ViewBag.DislikesAscDescSortParam = sortOrder == "Dislikes ASC" ? "Dislikes DESC" : "Dislikes ASC";
             //ViewBag.CreatedbyAscDescSortParam = sortOrder == "CreatedBy ASC" ? "CreatedBy DESC" : "CreatedBy ASC"; 
             // TODO CREATEDBY SORTERING??
 
@@ -72,6 +74,18 @@ namespace CoolBooks.Controllers
                     break;
                 case "Rating ASC":
                     coolBooksContext = coolBooksContext.OrderBy(b => b.Rating);
+                    break;
+                case "Likes DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.LikeCount);
+                    break;
+                case "Likes ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.LikeCount);
+                    break;
+                case "Dislikes DESC":
+                    coolBooksContext = coolBooksContext.OrderByDescending(b => b.DisLikeCount);
+                    break;
+                case "Dislikes ASC":
+                    coolBooksContext = coolBooksContext.OrderBy(b => b.DisLikeCount);
                     break;
                 case "Created DESC":
                     coolBooksContext = coolBooksContext.OrderByDescending(b => b.Created);
