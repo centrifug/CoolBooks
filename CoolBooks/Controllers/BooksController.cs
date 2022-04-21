@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 
 namespace CoolBooks.Models
 {
@@ -280,9 +281,26 @@ namespace CoolBooks.Models
                 }
 
 
-                //Insert record        
-                _context.Add(bookToCreate);
-                await _context.SaveChangesAsync();
+               
+                //Insert record
+                try
+                {
+                    _context.Add(bookToCreate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {                    
+                        if (ex.InnerException.Message.Contains("IX_Book_ISBN")) //uniqeconstraint error på isbn
+                        {
+                            ModelState.AddModelError("ISBN", "ISBN finns redan i databasen");
+                            return View(inputBook);
+                        }                       
+                    
+                    return View(inputBook);
+
+                }
+                
+                
 
 
                 //save image
@@ -306,11 +324,11 @@ namespace CoolBooks.Models
                 _context.SaveChanges();
 
 
-
-
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("CreateBook","Administration");
+
+            return View(inputBook);
+            //return RedirectToAction("CreateBook","Administration");
         }
 
         // GET: Books/Edit/5

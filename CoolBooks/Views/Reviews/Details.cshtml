@@ -54,11 +54,14 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @foreach(Likes user in ViewBag.AllUserlikedislike)  
 {  
     ViewBag.userid = user.UserId;   
     ViewBag.userlike = user.IsLike;  
-} 
+}
+
+
 @if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) 
 {   <button class="test"
     disabled data-status="true"  

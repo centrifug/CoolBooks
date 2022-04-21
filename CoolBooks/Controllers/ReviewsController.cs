@@ -138,36 +138,8 @@ namespace CoolBooks.Controllers
 
             if (!ModelState.IsValid)
             {
-                //TempData["ViewData"] = ViewData;
-                //return Redirect(returnUrl);
-
                 return View();
-
-
-                //return RedirectToAction("Details","Books", new {id = id});
-
-                //BookWithReviewsViewModel vm = new BookWithReviewsViewModel();
-
-                //if (id == null)
-                //{
-                //    return NotFound();
-                //}
-
-                //vm.book = await _context.Book.FirstOrDefaultAsync(b => b.Id == id);
-
-                //if (vm.book == null)
-                //{
-                //    return NotFound();
-                //}
-
-                //vm.reviews = await _context.Review.Where(r => r.BookId == id).ToListAsync();
-
-                //vm.review = review;
-
-                //return View("~/Views/Books/Details.cshtml", vm );
             }
-
-            //review.BookId = id;
 
 
             if (ModelState.IsValid)
@@ -198,20 +170,24 @@ namespace CoolBooks.Controllers
                 //update rating on author
                 foreach (var author in book.Authors)
                 {
-
                     //var books = _context.Book.Include(a => a.Authors.Where(a => a.Id == author.Id)).ToList();
                     var books = _context.Author.Include(a => a.Books).FirstOrDefault(a => a.Id == author.Id);
-
 
                     List<double> avg = new List<double>();
 
                     foreach (var b in books.Books)
                     {
-                        var rating = _context.Review.Where(r => r.BookId == b.Id).Average(r => r.Rating);
-                        avg.Add(rating);
+                        try
+                        {
+                            var rating = _context.Review.Where(r => r.BookId == b.Id).Average(r => r.Rating);
+                            avg.Add(rating);
+                        }
+                        catch (Exception)
+                        {
+                            //logga felet?                            
+                        }                                           
+                        
                     }
-
-
 
                     author.Rating = avg.Average();
                 }
