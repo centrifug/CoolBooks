@@ -45,6 +45,10 @@ namespace CoolBooks.Data
                         .Property(d => d.DisLikeCount).HasDefaultValue(0);
 
             modelBuilder.Entity<Book>()
+                .HasIndex(b => b.ISBN)
+                .IsUnique();
+
+            modelBuilder.Entity<Book>()
                 .HasMany(b => b.Authors)
                 .WithMany(a => a.Books)
                 .UsingEntity<AuthorBook>

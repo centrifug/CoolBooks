@@ -1,4 +1,4 @@
-﻿@model CoolBooks.Models.Review
+@model CoolBooks.Models.Review
 
 @{
     ViewData["Title"] = "Details";
@@ -54,6 +54,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @foreach(Likes user in ViewBag.AllUserlikedislike)  
 {  
     if (user.UserId == userManager.GetUserId(User))
@@ -64,16 +65,16 @@
     }
 }
 
-    @if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true)
-    {
-        <button class="test"
+@if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) 
+{   
+    <button class="test"
     disabled data-status="true"  
     id="Like"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span>
 
         </button><button class="test"   
     data-status ="false"  
     id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
-    } 
+ } 
     
     else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false)
     {

@@ -62,8 +62,13 @@
                             @foreach (var author in Model.book.Authors)
                             {
                                 <a asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id">@Html.DisplayFor(modelItem => author.FullName)</a><br />
-                            }   
-
+                            }  
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.book.Rating)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.book.Rating)
                         </dd>
                      </div>
                 </div>
