@@ -75,6 +75,7 @@ namespace CoolBooks.Data
             modelBuilder.SeedRole();
             modelBuilder.SeedUserRole();
             modelBuilder.SeedComment();
+            modelBuilder.SeedLike();
 
         }
 

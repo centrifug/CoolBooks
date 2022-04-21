@@ -136,3 +136,9 @@ Grejjat med Foreginkey-constraints och deletebehavior för att undvika förödan
 (och för att få EF att sluta skrika på mig ;) )
 Lagt till rating på författare som uppdateras när en review postas
 
+2022-04-21
+Stefan: 
+Fixat så man ser likes/dislikes utan att gå in på details. Altså review/index. Samt sortering för detta.
+Seedat 3 exempelanvändare, Paul, Erik, Markus. Dem har inga adminrättigheter och dem har like/dislikeat några reviews
+Fixat bugg som gjorde att man ibland kunde like/dislike till infinity! :D
+

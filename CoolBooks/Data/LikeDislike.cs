@@ -35,8 +35,8 @@ namespace CoolBooks.Data
             {
                 var review = db.Review.FirstOrDefault(x => x.Id == id);
                 var toggle = false;
-                Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id);
-                //Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id && x.UserId == userManager.GetUserId(User));
+                //Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id);
+                Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id && x.UserId == user);
                 // https://localhost:7107/Reviews/Like/?id=1&status=true fel länknamn när man trycker på knapp
                 // userid blir null?? fix it!
 
@@ -85,7 +85,7 @@ namespace CoolBooks.Data
                 }
                 if (toggle)
                 {
-                    //like.UserId = "b74ddd14-6340-4840-95c2-db12554843e5";  //userManager.GetUserId(User);
+                    like.UserId = user;  //userManager.GetUserId(User);
                     like.IsLike = status;
                     //like.Id = id;
                     if (status)
