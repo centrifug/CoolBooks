@@ -147,3 +147,9 @@ Redovisningar
   Isbn kan inte längre förekomma mer än en gång och relevanta felmedelandenvisas.
   Påbörjat att visa rating som stjärnor istället för ett textfält. 
     -Vi har nu radiobuttons men dom ska cssas/js:as så dom blir snygga
+    
+    
+2022-04-22
+Stefan:
+  Fixat databasen så den kan hantera likes på både reviews och kommentarer.
+  Problem med att like:a commentarer då vi loopar igenom varje kommentar i partial view. WIP
