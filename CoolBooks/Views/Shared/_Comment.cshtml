@@ -6,10 +6,95 @@
 <ul>
 @foreach (var comment in Model)
 {
+
+    string jquerylike = "#Like" + @comment.Id.ToString();
+    string jquerydislike = "#Dislike" + @comment.Id.ToString();
+
+    // "private field must be declared in an enclosing class"
+    // Vi får in rätt värde i variabeln men JS blir inte glad!
+
+
     <li>@comment.CoolBooksUser.Name - @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a></li>
+    @foreach(CommentLikes user in ViewBag.commentAllUserlikedislike)  
+        {
+            
+
+            if (user.UserId == userManager.GetUserId(User))
+    {
+        ViewBag.userid = user.UserId;   
+        ViewBag.userlike = user.IsLike;
+        break;
+    }
+}
+
+@if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) 
+{   
+    <button class="test"
+    disabled data-status="true"  
+    id="Like{@comment.Id}"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.commentlike</span>
+
+        </button><button class="test"   
+    data-status ="false"  
+    id="Dislike{@comment.Id}">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.commentDislike</span></button>
+ } 
+    
+    else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false)
+    {
+        <button class="test" 
+    data-status="true"  
+    id="Like{@comment.Id}">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id = "likecount">@ViewBag.commentlike</span>
+
+    </button><button class="test"   
+    disabled data-status = "false"  
+    id="Dislike{@comment.Id}">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.commentDislike</span></button>
+    }
+
+else 
+{  
+    <button class="test"  
+    data-status="true"  
+    id="Like">Like{@comment.Id}<i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.commentlike</span></button>
+    
+    <button class="test"   
+    data-status="false"  
+    id="Dislike">Dislike{@comment.Id}<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.commentDislike</span></button>
+    
+}
+@if (signInManager.IsSignedIn(User))
+{
+    <script>$
+    $(#jquerylike).click(function() { 
+    debugger;  
+    @*ajaxGet deprecated*@
+    $.get("@Url.Content("~/Comments/Like")/?id=" + @comment.Id + "&status=" + $(this).data("status"), function(data) {  
+        var counters = data.split('/');  
+        $("#likecount").text(counters[0]);  
+        $("#dislikecount").text(counters[1]);  
+        $("#Like").attr('disabled', 'disabled');  
+        $("#Dislike").attr('disabled', false);  
+        console.log("@Url.Content("~/Reviews/Like")/?id=" + @comment.Id + "&status=" + $(this).data("status"));
+        console.log("det här kanske fungerar like");
+    });  
+});   
+$(#jquerydislike).click(function() {  
+    debugger;
+    @*ajaxGet deprecated*@
+    $.get("@Url.Content("~/Comments/Like")/?id=" + @comment.Id + "&status=" + $(this).data("status"), function(data) {  
+        var counters = data.split('/');  
+        $("#likecount").text(counters[0]);  
+        $("#dislikecount").text(counters[1]);  
+        $("#Dislike").attr('disabled', 'disabled');  
+        $("#Like").attr('disabled', false);
+        console.log("@Url.Content("~/Reviews/Like")/?id=" + @comment.Id + "&status=" + $(this).data("status"));
+        console.log("det här kanske fungerar dislike");
+    });  
+});  
+    </script>
+}
     @if (comment.comments.Any())
     {
         <partial name="_comment" model="comment.comments" />       
     }
 }
  </ul>
+

@@ -13,16 +13,16 @@ namespace CoolBooks.Data
         public string Like(int id, bool status, string user);
         public int? Getlikecounts(int id);
         public int? Getdislikecounts(int id);
-        public List<Likes> GetallUser(int id);
+        public List<ReviewLikes> GetallUser(int id);
     }
-    public class LikeDislike : test
+    public class ReviewLikeDislike : test
     {
         private readonly CoolBooksContext _context;
         private readonly UserManager<CoolBooksUser> userManager;
         private readonly SignInManager<CoolBooksUser> signInManager;
 
 
-        public LikeDislike(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
+        public ReviewLikeDislike(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
         {
             _context = context; 
             this.userManager = userManager;
@@ -36,13 +36,13 @@ namespace CoolBooks.Data
                 var review = db.Review.FirstOrDefault(x => x.Id == id);
                 var toggle = false;
                 //Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id);
-                Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id && x.UserId == user);
+                ReviewLikes? like = db.ReviewLikes.FirstOrDefault(x => x.ReviewId == id && x.UserId == user);
                 // https://localhost:7107/Reviews/Like/?id=1&status=true fel länknamn när man trycker på knapp
                 // userid blir null?? fix it!
 
                 if (like == null)
                 {
-                    like = new Likes();
+                    like = new ReviewLikes();
                     like.UserId = user;  //userManager.GetUserId(User);
                     //string test = userManager.GetUserId(User);
                     //string test2 = userManager.GetUserAsync(User).Result.ToString();
@@ -77,7 +77,7 @@ namespace CoolBooks.Data
                             review.DisLikeCount = review.DisLikeCount + 1;
                         }
                     }
-                    db.Likes.Add(like);
+                    db.ReviewLikes.Add(like);
                 }
                 else
                 {
@@ -140,12 +140,12 @@ namespace CoolBooks.Data
             }
         }
 
-        public List<Likes> GetallUser(int id)
+        public List<ReviewLikes> GetallUser(int id)
         {
             //using (var db = _context)
             {
                 var db = _context;
-                var count = (from x in db.Likes where x.ReviewId == id select x).ToList();
+                var count = (from x in db.ReviewLikes where x.ReviewId == id select x).ToList();
                 return count;
             }
         }

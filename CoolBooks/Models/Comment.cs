@@ -29,5 +29,7 @@ namespace CoolBooks.Models
         public string? UpdatedBy { get; set; }
 
         public DateTime? LastUpdated { get; set; }
+        public System.Nullable<int> LikeCount { get; set; }
+        public System.Nullable<int> DisLikeCount { get; set; }
     }
 }

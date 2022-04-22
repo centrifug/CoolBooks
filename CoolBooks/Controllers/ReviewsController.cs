@@ -22,14 +22,16 @@ namespace CoolBooks.Controllers
         private readonly UserManager<CoolBooksUser> userManager;
         private readonly SignInManager<CoolBooksUser> signInManager;
         private readonly test likedislike;
+        private readonly test2 commentlikedislike;
 
 
-        public ReviewsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager, test likedislike)
+        public ReviewsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager, test likedislike, test2 commentlikedislike)
         {
             _context = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.likedislike = likedislike;
+            this.commentlikedislike = commentlikedislike;
         }
 
         // GET: Reviews
@@ -129,6 +131,10 @@ namespace CoolBooks.Controllers
             ViewBag.Like = likedislike.Getlikecounts((int)id);
             ViewBag.Dislike = likedislike.Getdislikecounts((int)id);
             ViewBag.AllUserlikedislike = likedislike.GetallUser((int)id);
+
+            ViewBag.commentLike = commentlikedislike.Getlikecounts((int)id);
+            ViewBag.commentDislike = commentlikedislike.Getdislikecounts((int)id);
+            ViewBag.commentAllUserlikedislike = commentlikedislike.GetallUser((int)id);
 
             return View(review);
         }

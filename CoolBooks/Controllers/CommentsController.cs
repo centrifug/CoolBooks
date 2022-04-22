@@ -14,18 +14,21 @@ namespace CoolBooks.Controllers
         private readonly CoolBooksContext _context;
         private readonly UserManager<CoolBooksUser> userManager;
         private readonly SignInManager<CoolBooksUser> signInManager;
+        private readonly test2 commentlikedislike;
 
 
-        public CommentsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager)
+        public CommentsController(CoolBooksContext context, UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager, test2 likedislike)
         {
             _context = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.commentlikedislike = likedislike;
         }
 
         public IActionResult Index()
         {
             return View();
+
         }
 
         
@@ -105,7 +108,18 @@ namespace CoolBooks.Controllers
             //return RedirectToAction("Details", "Books", new { id = bookId });
 
         }
-
+        public ActionResult Like(int id, bool status)
+        {
+            //var Db = likedislike(_context, userManager, signInManager); 
+            //var Db = _context;
+            var user = userManager.GetUserId(User);
+            if (user == null)
+            {
+                return Content("Logga in för att använda like/dislike!");
+            }
+            var result = commentlikedislike.Like(id, status, user);
+            return Content(result);
+        }
 
 
     }

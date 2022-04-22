@@ -291,26 +291,26 @@ namespace CoolBooks.Data
                 new Comment { Id = 10, commentId = 8, Text = "SPÄNNANDE!", Created = DateTime.Now, CreatedBy = "Stefan" }
                 );
         }
-        public static void SeedLike(this ModelBuilder modelBuilder)
+        public static void SeedReviewLike(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Likes>().HasData(
+            modelBuilder.Entity<ReviewLikes>().HasData(
                 //Review 1 har 1 lieks, 3 dislikes.
-                new Likes { UserId = "Markus", Id = 1, IsLike = true, ReviewId = 1 },
-                new Likes { UserId = "Eric", Id = 2, IsLike = false, ReviewId = 1 },
-                new Likes { UserId = "Paul", Id = 3, IsLike = false, ReviewId = 1 },
-                new Likes { UserId = "Stefan", Id = 4, IsLike = false, ReviewId = 1 },
+                new ReviewLikes { UserId = "Markus", Id = 1, IsLike = true, ReviewId = 1 },
+                new ReviewLikes { UserId = "Eric", Id = 2, IsLike = false, ReviewId = 1 },
+                new ReviewLikes { UserId = "Paul", Id = 3, IsLike = false, ReviewId = 1 },
+                new ReviewLikes { UserId = "Stefan", Id = 4, IsLike = false, ReviewId = 1 },
 
                 //Review 2 har 2 likes, 2 dislikes.
-                new Likes { UserId = "Eric", Id = 5, IsLike = true, ReviewId = 2 },
-                new Likes { UserId = "Stefan", Id = 6, IsLike = true, ReviewId = 2 },
-                new Likes { UserId = "Paul", Id = 7, IsLike = false, ReviewId = 2 },
-                new Likes { UserId = "Markus", Id = 8, IsLike = false, ReviewId = 2 },
+                new ReviewLikes { UserId = "Eric", Id = 5, IsLike = true, ReviewId = 2 },
+                new ReviewLikes { UserId = "Stefan", Id = 6, IsLike = true, ReviewId = 2 },
+                new ReviewLikes { UserId = "Paul", Id = 7, IsLike = false, ReviewId = 2 },
+                new ReviewLikes { UserId = "Markus", Id = 8, IsLike = false, ReviewId = 2 },
 
                 //Review 3 har 3 likes, 1 dislikes.
-                new Likes { UserId = "Stefan", Id = 9, IsLike = true, ReviewId = 3 },
-                new Likes { UserId = "Paul", Id = 10, IsLike = true, ReviewId = 3 },
-                new Likes { UserId = "Markus", Id = 11, IsLike = true, ReviewId = 3 },
-                new Likes { UserId = "Eric", Id = 12, IsLike = false, ReviewId = 3 }
+                new ReviewLikes { UserId = "Stefan", Id = 9, IsLike = true, ReviewId = 3 },
+                new ReviewLikes { UserId = "Paul", Id = 10, IsLike = true, ReviewId = 3 },
+                new ReviewLikes { UserId = "Markus", Id = 11, IsLike = true, ReviewId = 3 },
+                new ReviewLikes { UserId = "Eric", Id = 12, IsLike = false, ReviewId = 3 }
                 );
         }
     }

@@ -18,7 +18,8 @@ namespace CoolBooks.Data
         public DbSet<CoolBooks.Models.Genre> Genre { get; set; }
         public DbSet<AuthorBook> AuthorBook { get; set; }
         public DbSet<Comment> Comment { get; set; }
-        public DbSet<CoolBooks.Models.Likes> Likes { get; set; }
+        public DbSet<CoolBooks.Models.ReviewLikes> ReviewLikes { get; set; }
+        public DbSet<CoolBooks.Models.CommentLikes> CommentLikes { get; set; }
 
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
             : base(options)
@@ -64,6 +65,12 @@ namespace CoolBooks.Data
                  bg => bg.HasOne<Book>().WithMany().OnDelete(DeleteBehavior.ClientSetNull))
                  .Property(ba => ba.Created);
 
+            modelBuilder.Entity<Comment>()
+                       .Property(l => l.LikeCount).HasDefaultValue(0);
+
+            modelBuilder.Entity<Comment>()
+                        .Property(d => d.DisLikeCount).HasDefaultValue(0);
+
 
             modelBuilder.SeedBook(); // Kör min Seed extension metod.
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.
@@ -75,7 +82,7 @@ namespace CoolBooks.Data
             modelBuilder.SeedRole();
             modelBuilder.SeedUserRole();
             modelBuilder.SeedComment();
-            modelBuilder.SeedLike();
+            modelBuilder.SeedReviewLike();
 
         }
 
