@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -44,7 +44,7 @@ karusellknapp {
     width: 500px;
     height: 60px
 }
-.sokf�lt {
+.sokfält {
     width: 100%;
     padding: 10px 35px 10px 15px;
     border: none;
@@ -67,4 +67,57 @@ nav-item-right {
 }
 .blue-color {
     color: blue;
+}
+
+
+/*
+__________         __  .__                           __                       
+\______   \_____ _/  |_|__| ____    ____     _______/  |______ _______  ______
+ |       _/\__  \\   __\  |/    \  / ___\   /  ___/\   __\__  \\_  __ \/  ___/
+ |    |   \ / __ \|  | |  |   |  \/ /_/  >  \___ \  |  |  / __ \|  | \/\___ \ 
+ |____|_  /(____  /__| |__|___|  /\___  /  /____  > |__| (____  /__|  /____  >
+        \/      \/             \//_____/        \/            \/           \/ 
+
+*/                                                        
+                 
+
+.rating {
+    float: left;
+    border: none;
+}
+.rating:not(:checked) > input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+
+.rating:not(:checked) > label {
+    float: right;
+    width: 1em;
+    padding: 0 .1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 200%;
+    line-height: 1.2;
+    color: #ddd;
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+}
+
+.rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+.rating > input:checked + label:hover, .rating > input:checked + label:hover ~ label, .rating > input:checked ~ label:hover, .rating > input:checked ~ label:hover ~ label, .rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+}
+
+.rating > label:active {
+    position: relative;
 }
