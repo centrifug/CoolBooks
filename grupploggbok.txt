@@ -153,3 +153,14 @@ Redovisningar
 Stefan:
   Fixat databasen så den kan hantera likes på både reviews och kommentarer.
   Problem med att like:a commentarer då vi loopar igenom varje kommentar i partial view. WIP
+ 
+ Staffan:
+  Debuggat likes på kommentarer:
+	-Satt unika idn på alla knappar och relevanta taggar  
+	-Packeterat allt i en commentcontainer-class för att kunna söka efter respektive id på ett 
+	 enkelt sätt när vi ska uppdatera antal likes/dislikes, samt alternera enabled/disabled.
+	-lagt till en lista av commentlikes på comments (en comment kan ha många likes)
+	-Skickar med Commentlikes på varje comment med modelen(istället för i viewbag)till razorpagen, 
+	 loopar igenom och kollar om usern har dislikeat/likeat något och disablar knappar utefter det.
+
+
