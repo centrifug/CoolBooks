@@ -116,11 +116,16 @@ namespace CoolBooks.Controllers
                 .Include(r => r.Comments)
                     .ThenInclude(c => c.CoolBooksUser)
                 .Include(r => r.Comments)
-                    .ThenInclude(c => c.comments)
+                    .ThenInclude(c => c.CommentLikes)
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.comments)                  
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             //gettolösning för att loada alla kommentarer... 
-            var temp = await _context.Comment.Include(c => c.comments).ToListAsync();
+            var temp = await _context.Comment
+                .Include(c => c.comments)
+                .Include(c => c.CommentLikes)
+                .ToListAsync();
 
             if (review == null)
             {

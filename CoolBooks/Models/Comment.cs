@@ -14,6 +14,8 @@ namespace CoolBooks.Models
 
         public List<Comment>? comments { get; set; } = new List<Comment>();
 
+        public List<CommentLikes> CommentLikes { get; set; } = new List<CommentLikes>();    
+
         public bool IsDeleted { get; set; } = false;
 
         [Required]
