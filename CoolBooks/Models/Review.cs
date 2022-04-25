@@ -34,11 +34,15 @@ namespace CoolBooks.Models
         
         [ForeignKey("CreatedBy")]
         public virtual CoolBooksUser CoolBooksUser { get; set; }
-        public string? UpdatedBy     { get; set; }
+        public string? UpdatedBy { get; set; }
 
         public DateTime? LastUpdated { get; set; }
 
         public List<Comment>? Comments { get; set; } = new List<Comment>();
+
+        public List<ReviewLikes> ReviewLikes { get; set; } = new List<ReviewLikes>();
+
+        public List<ReportedReview> reportedReviews { get; set; } = new List<ReportedReview>();
 
         public System.Nullable<int> LikeCount { get; set; }
         public System.Nullable<int> DisLikeCount { get; set; }

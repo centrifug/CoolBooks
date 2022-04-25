@@ -90,7 +90,6 @@
 @if (signInManager.IsSignedIn(User)){
 
 <partial name="_ReviewPartial" model="Model.review" />
-
    
 }
 else {
@@ -148,10 +147,12 @@ else {
             </td>
             <td>
                 <a asp-controller="Reviews" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-                @*@Html.DisplayFor(modelItem => item.Title)*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
+
+                <partial name="_ReviewButtons" model="item" />
+
                 <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@item.Id">Kommentera</a>
                 <br>
                 <br>
@@ -191,3 +192,5 @@ else
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<partial name="_ButtonsScripts" />
