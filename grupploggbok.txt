@@ -162,5 +162,6 @@ Stefan:
 	-lagt till en lista av commentlikes på comments (en comment kan ha många likes)
 	-Skickar med Commentlikes på varje comment med modelen(istället för i viewbag)till razorpagen, 
 	 loopar igenom och kollar om usern har dislikeat/likeat något och disablar knappar utefter det.
-
+  Lagt till reportfunktion för review och komentarer.
+  Refaktorerat likes och report.
 
