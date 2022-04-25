@@ -111,20 +111,26 @@ namespace CoolBooks.Controllers
                 return NotFound();
             }
 
+            var userId = userManager.GetUserId(User);
+
             var review = await _context.Review
                 .Include(r => r.Book)
+                .Include(r => r.reportedReviews.Where(r => r.UserId == userId ))
                 .Include(r => r.Comments)
                     .ThenInclude(c => c.CoolBooksUser)
                 .Include(r => r.Comments)
                     .ThenInclude(c => c.CommentLikes)
                 .Include(r => r.Comments)
-                    .ThenInclude(c => c.comments)                  
+                    .ThenInclude(c => c.comments) 
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.ReportedComments.Where(rc => rc.UserId == userId))
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             //gettolösning för att loada alla kommentarer... 
             var temp = await _context.Comment
                 .Include(c => c.comments)
                 .Include(c => c.CommentLikes)
+                .Include(c => c.ReportedComments)
                 .ToListAsync();
 
             if (review == null)
@@ -137,9 +143,9 @@ namespace CoolBooks.Controllers
             ViewBag.Dislike = likedislike.Getdislikecounts((int)id);
             ViewBag.AllUserlikedislike = likedislike.GetallUser((int)id);
 
-            ViewBag.commentLike = commentlikedislike.Getlikecounts((int)id); // Vi får ju review id när vi försöker få kommentarens id.
-            ViewBag.commentDislike = commentlikedislike.Getdislikecounts((int)id);
-            ViewBag.commentAllUserlikedislike = commentlikedislike.GetallUser((int)id);
+            //ViewBag.commentLike = commentlikedislike.Getlikecounts((int)id); // Vi får ju review id när vi försöker få kommentarens id.
+            //ViewBag.commentDislike = commentlikedislike.Getdislikecounts((int)id);
+            //ViewBag.commentAllUserlikedislike = commentlikedislike.GetallUser((int)id);
 
             
 
@@ -389,5 +395,36 @@ namespace CoolBooks.Controllers
             return Content(result);
         }
 
+        public ActionResult Report(int id) {
+                        
+            var userId = userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return NotFound();
+            }
+
+            var reportedReview = _context.ReportedReviews
+                .Where(rr => rr.ReviewId == id && rr.UserId == userId)
+                .FirstOrDefault();
+
+            if (reportedReview == null) 
+            {
+                reportedReview = new ReportedReview();
+                reportedReview.UserId = userId;
+                reportedReview.Created = DateTime.Now;
+                reportedReview.ReviewId = id;
+                _context.Add(reportedReview);
+                _context.SaveChanges();
+                return Content("Rapporterad");
+            }
+            else
+            {                
+                _context.ReportedReviews.Remove(reportedReview);
+                _context.SaveChanges();
+                return Content("Rapportera");
+            }
+
+           
+        }
     }
 }

@@ -121,6 +121,37 @@ namespace CoolBooks.Controllers
             return Content(result);
         }
 
+        public ActionResult Report(int id)
+        {
 
+            var userId = userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return NotFound();
+            }
+
+            var reportedComment = _context.ReportedComments
+                .Where(rr => rr.CommentId == id && rr.UserId == userId)
+                .FirstOrDefault();
+
+            if (reportedComment == null)
+            {
+                reportedComment = new ReportedComment();
+                reportedComment.UserId = userId;
+                reportedComment.Created = DateTime.Now;
+                reportedComment.CommentId = id;
+                _context.Add(reportedComment);
+                _context.SaveChanges();
+                return Content("Rapporterad");
+            }
+            else
+            {
+                _context.ReportedComments.Remove(reportedComment);
+                _context.SaveChanges();
+                return Content("Rapportera");
+            }
+
+
+        }
     }
 }

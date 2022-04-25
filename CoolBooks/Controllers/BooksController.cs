@@ -137,19 +137,31 @@ namespace CoolBooks.Models
                 ViewData = (ViewDataDictionary)TempData["ViewData"];
             }
 
+            var userId = userManager.GetUserId(User);
+
+
             var reviews = _context.Review
                 .Include(r => r.CoolBooksUser)
+                .Include(r => r.reportedReviews.Where(rc => rc.UserId == userId))
+                .Include(r => r.ReviewLikes.Where(rc => rc.UserId == userId))
                 .Include(r => r.Comments)
                     .ThenInclude(c => c.CoolBooksUser).Include(c => c.Comments)
                 .Include(r => r.Comments)
                     .ThenInclude(c => c.comments)
+                .Include(r => r.Comments)
+                    .ThenInclude(c => c.ReportedComments.Where(rc => rc.UserId == userId))
                 .Where(r => r.BookId == id && r.IsDeleted == false)
+                
                 .Select(b => b);
 
 
             //Alla lager av kommentarerer inkluderas inte om vi inte gör dom ToList() i detta steg först;
             //behöver dom "trackas"? Dom är ju redan inkluderarade i qureyn ovan?
-            var comments = _context.Comment.Include(c => c.comments).ToList();
+            var comments = _context.Comment
+                .Include(c => c.comments)
+                .Include(c => c.CommentLikes)
+                .Include(c => c.ReportedComments)
+                .ToList();
 
 
 

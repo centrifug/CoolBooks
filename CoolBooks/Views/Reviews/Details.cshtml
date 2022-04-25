@@ -98,11 +98,38 @@ else
     id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
     
 }
+@*REPORTKNAPP*@
+@if (signInManager.IsSignedIn(User))
+{
+    if (Model.reportedReviews.Any())
+    {
+        <button id="ReportReview" class="btn btn-danger"><span id="FlagReview">Rapporterad</span></button>
+    }
+    else
+    {
+        <button id="ReportReview" class="btn btn-primary"><span id="FlagReview">Rapportera</span></button>
+    }
+    
+
+    <script>
+        $("#ReportReview").click(function() {
+         
+            $.get("@Url.Content("~/Reviews/Report")/?id=" + @Model.Id, function(data) {  
+          
+            $("#FlagReview").text(data); 
+            $("#ReportReview").toggleClass("btn-danger");
+            $("#ReportReview").toggleClass("btn-primary");
+
+            });  
+        });     
+    </script>
+}
+
 @if (signInManager.IsSignedIn(User))
 {
     <script>
     $("#Like").click(function() { 
-    debugger;  
+    @*debugger;*@  
     @*ajaxGet deprecated*@
     $.get("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"), function(data) {  
         var counters = data.split('/');  
@@ -115,7 +142,7 @@ else
     });  
 });   
 $("#Dislike").click(function() {  
-    debugger;
+    @*debugger;*@
     @*ajaxGet deprecated*@
     $.get("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"), function(data) {  
         var counters = data.split('/');  
@@ -133,11 +160,10 @@ else
 {
    <br><br><a asp-controller="account" asp-action="login">Logga in</a><span> för att kunna använda like/dislike.</span>
 }
-<script>
-let testArray = [];
-let testArray2 = [];
-</script>
+
+
 <h2>Kommentarer:</h2>
 <partial name="_Comment" model="@Model.Comments" />
 
+<partial name="_ButtonsScripts" />
 

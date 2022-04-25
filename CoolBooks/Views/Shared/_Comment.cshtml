@@ -8,42 +8,4 @@
 
 </div>
 
- @if (signInManager.IsSignedIn(User))
-        {
-
-   <script>
-    $(".like").click(function() { 
-
-        var id = event.target.id.split('_')[1];
-
-        @*ajaxGet deprecated*@
-        $.get("@Url.Content("~/Comments/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
-            
-            var counters = data.split('/');
-            
-            $(".CommentsContainer").find("#commentlikecount_"+id).text(counters[0]);  
-            $(".CommentsContainer").find("#commentdislikecount_"+id).text(counters[1]);  
-            $(".CommentsContainer").find("#like_"+id).attr('disabled', 'disabled');  
-            $(".CommentsContainer").find("#dislike_"+id).attr('disabled', false);
-
-        });  
-    });
-    
-    $(".dislike").click(function() {  
-
-        var id = event.target.id.split('_')[1];
-
-        @*ajaxGet deprecated*@
-        $.get("@Url.Content("~/Comments/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
-            
-            var counters = data.split('/');  
-
-            $(".CommentsContainer").find("#commentlikecount_"+id).text(counters[0]);  
-            $(".CommentsContainer").find("#commentdislikecount_"+id).text(counters[1]);   
-            $(".CommentsContainer").find("#dislike_"+id).attr('disabled', 'disabled');  
-            $(".CommentsContainer").find("#like_"+id).attr('disabled', false);
-
-        });  
-    });  
-    </script>
-        }
+ 

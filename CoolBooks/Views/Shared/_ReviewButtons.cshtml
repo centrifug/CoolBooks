@@ -1,0 +1,79 @@
+﻿@model Review
+@{
+    string userid = "";
+    bool? userlike = null;
+
+}
+    
+@foreach(ReviewLikes user in Model.ReviewLikes)  
+{  
+    userid = "";
+    userlike = null;
+
+    if (user.UserId == userManager.GetUserId(User))
+    {
+        userid = user.UserId;   
+        userlike = user.IsLike;
+        break;
+    }
+}
+
+@*LIKEKNAPPAR*@
+@if(userid == userManager.GetUserId(User) && userlike == true) 
+{   
+    <div class="ReviewsContainer">
+    <button
+    disabled data-status="true"  
+    class="LikeReview" id="LikeReview_@(Model.Id)"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
+    
+    <button   
+    data-status ="false"  
+    class="DislikeReview" id="DislikeReview_@(Model.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
+    </div> 
+} 
+    
+    else if (userid == userManager.GetUserId(User) && userlike == false)
+    {
+        <div class="ReviewsContainer">
+    <button 
+    data-status="true"  
+    class="LikeReview" id="LikeReview_@(Model.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
+    
+    <button   
+    disabled data-status = "false"  
+    class="DislikeReview" id="DislikeReview_@(Model.Id)">Dislike<i class="fa fa-thumbs-o-down"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
+    </div>
+    }
+
+else 
+{  
+    <div class="ReviewsContainer">
+    <button  
+    data-status="true"  
+    class="LikeReview" id="LikeReview_@(Model.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
+    
+    <button   
+    data-status="false"  
+    class="DislikeReview" id="DislikeReview_@(Model.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
+    </div>
+}
+@*REPORTKNAPP*@
+@if (signInManager.IsSignedIn(User))
+{
+   
+        if (Model.reportedReviews.Any())
+        {
+            <div class="ReviewsContainer">
+                <button class="ReportReview btn btn-danger" id="ReportReview_@(Model.Id)" ><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapporterad</span></button>
+            </div>
+        }
+        else
+        {
+             <div class="ReviewsContainer">
+            <button class="ReportReview btn btn-primary" id="ReportReview_@(Model.Id)"><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapportera</span></button>
+            </div>
+        }
+    
+
+}
+

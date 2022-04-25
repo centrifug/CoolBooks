@@ -20,7 +20,8 @@ namespace CoolBooks.Data
         public DbSet<Comment> Comment { get; set; }
         public DbSet<CoolBooks.Models.ReviewLikes> ReviewLikes { get; set; }
         public DbSet<CoolBooks.Models.CommentLikes> CommentLikes { get; set; }
-
+        public DbSet<ReportedReview> ReportedReviews { get; set; }
+        public DbSet<ReportedComment> ReportedComments { get; set; }
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
             : base(options)
         {

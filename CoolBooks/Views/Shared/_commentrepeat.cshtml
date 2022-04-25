@@ -1,69 +1,80 @@
 ﻿@model List<Comment>
+
 @{
     var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+    string userid = "";
+    bool? userlike = null;
 }
 <ul>
 @foreach (var comment in Model)
 {
 
-    // <p>@jquerylike</p>
-    // <p>@jquerydislike</p> *@
-    // "private field must be declared in an enclosing class"
-    // Vi får in rätt värde i variabeln men JS blir inte glad!
-
-
     <li>@comment.CoolBooksUser.Name - @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a></li>
    
-    @*@foreach(CommentLikes user in ViewBag.commentAllUserlikedislike)  *@
+    userid = "";   
+    userlike = null;
+
     @foreach(CommentLikes user in comment.CommentLikes)  
     {            
         if (user.UserId == userManager.GetUserId(User))            
         {
-            ViewBag.userid = user.UserId;   
-            ViewBag.userlike = user.IsLike;
+            userid = user.UserId;   
+            userlike = user.IsLike;
             break;
         }
+
     }
 
-@if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) // like som inloggad
-{   
-    <button class="like"
-    disabled data-status="true"  
-    id="like_@(comment.Id)"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+    @if(userid == userManager.GetUserId(User) && userlike == true) // like som inloggad
+    {   
+        <button class="like"
+        disabled data-status="true"  
+        id="like_@(comment.Id)"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
-    <button class="dislike"   
-    data-status ="false" 
-    id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
- } 
+        <button class="dislike"   
+        data-status ="false" 
+        id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+     } 
     
-else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false) // dislike som inloggad
-{
+    else if (userid == userManager.GetUserId(User) && userlike == false) // dislike som inloggad
+    {
     
-    <button class="like" 
-    data-status="true" 
-    id="like_@(comment.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+        <button class="like" 
+        data-status="true" 
+        id="like_@(comment.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
         
-    <button class="dislike"   
-    disabled data-status = "false"  
-    id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
- }
+        <button class="dislike"   
+        disabled data-status = "false"  
+        id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+     }
 
-else // inte inloggad eller inte like/dislike
-{  
+    else // inte inloggad eller inte like/dislike
+    {  
     
-    <button class="like"  
-    data-status="true"  
-    id="like_@(comment.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+        <button class="like"  
+        data-status="true"  
+        id="like_@(comment.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
-    <button class="dislike"   
-    data-status="false" 
-    id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+        <button class="dislike"   
+        data-status="false" 
+        id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
     
-}
+    }
 
-@if (comment.comments.Any())
-{    
+    if (comment.ReportedComments.Any())
+    {
+        <button class="ReportComment btn btn-danger" id="ReportComment_@(comment.Id)" ><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)">Rapporterad</span></button>
+    }
+    else
+    {
+        <button class="ReportComment btn btn-primary" id="ReportComment_@(comment.Id)"><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)">Rapportera</span></button>
+    }
+
+
+
+    @if (comment.comments.Any())
+    {    
         <partial name="_commentrepeat" model="comment.comments" />       
-}
+    }
 }
  </ul>
