@@ -5,24 +5,6 @@
 <ul>
 @foreach (var comment in Model)
 {
-    string jcomment = @comment.Id.ToString();
-    string jquerylike = "#Like " + @comment.Id.ToString();
-    string jquerydislike = "#Dislike " + @comment.Id.ToString();
-
-    ViewBag.jcomment = jcomment;
-    ViewBag.jquerylike = jquerylike;
-    ViewBag.jquerydislike = jquerydislike;
-
-    <script>
-    testArray.push("#Like " + @comment.Id.ToString());; 
-    testArray2.push("#Dislike " + @comment.Id.ToString());;
-
-    @*
-        Loopen får värdet #Like 1
-        Knappen får värdet id="Like 1"
-
-    *@
-    </script>
 
     // <p>@jquerylike</p>
     // <p>@jquerydislike</p> *@
@@ -31,27 +13,27 @@
 
 
     <li>@comment.CoolBooksUser.Name - @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a></li>
-    @foreach(CommentLikes user in ViewBag.commentAllUserlikedislike)  
+   
+    @*@foreach(CommentLikes user in ViewBag.commentAllUserlikedislike)  *@
+    @foreach(CommentLikes user in comment.CommentLikes)  
+    {            
+        if (user.UserId == userManager.GetUserId(User))            
         {
-            
-            if (user.UserId == userManager.GetUserId(User))
-            
-    {
-        ViewBag.userid = user.UserId;   
-        ViewBag.userlike = user.IsLike;
-        break;
+            ViewBag.userid = user.UserId;   
+            ViewBag.userlike = user.IsLike;
+            break;
+        }
     }
-}
 
 @if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) // like som inloggad
 {   
     <button class="like"
     disabled data-status="true"  
-    id="@comment.Id"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="commentlikecount">@ViewBag.commentLike</span></button>
+    id="like_@(comment.Id)"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
     <button class="dislike"   
     data-status ="false" 
-    id="@comment.Id">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="commentdislikecount">@ViewBag.commentDislike</span></button>
+    id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
  } 
     
 else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false) // dislike som inloggad
@@ -59,11 +41,11 @@ else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == f
     
     <button class="like" 
     data-status="true" 
-    id="@comment.Id">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id = "commentlikecount">@ViewBag.commentLike</span></button>
+    id="like_@(comment.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
         
     <button class="dislike"   
     disabled data-status = "false"  
-    id="@comment.Id">Dislike<i class="fa fa-thumbs-o-down"></i><span id="commentdislikecount">@ViewBag.commentDislike</span></button>
+    id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
  }
 
 else // inte inloggad eller inte like/dislike
@@ -71,11 +53,11 @@ else // inte inloggad eller inte like/dislike
     
     <button class="like"  
     data-status="true"  
-    id="@comment.Id">Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="commentlikecount">@ViewBag.commentLike</span></button>
+    id="like_@(comment.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
     <button class="dislike"   
     data-status="false" 
-    id="@comment.Id">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="commentdislikecount">@ViewBag.commentDislike</span></button>
+    id="dislike_@(comment.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
     
 }
 

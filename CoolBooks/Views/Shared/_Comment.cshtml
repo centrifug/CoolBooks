@@ -2,45 +2,48 @@
 @{
     var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
 }
+<div class="CommentsContainer">
+
 <partial name="_commentrepeat" model="@Model" />
- </ul>
+
+</div>
+
  @if (signInManager.IsSignedIn(User))
         {
 
    <script>
     $(".like").click(function() { 
-    console.log("hej");
-    console.log(event.target.id);
+
+        var id = event.target.id.split('_')[1];
+
+        @*ajaxGet deprecated*@
+        $.get("@Url.Content("~/Comments/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
+            
+            var counters = data.split('/');
+            
+            $(".CommentsContainer").find("#commentlikecount_"+id).text(counters[0]);  
+            $(".CommentsContainer").find("#commentdislikecount_"+id).text(counters[1]);  
+            $(".CommentsContainer").find("#like_"+id).attr('disabled', 'disabled');  
+            $(".CommentsContainer").find("#dislike_"+id).attr('disabled', false);
+
+        });  
+    });
     
-    @*ajaxGet deprecated*@
-    $.get("@Url.Content("~/Comments/Like")/?id=" + event.target.id + "&status=" + $(this).data("status"), function(data) {  
-        var counters = data.split('/');  
-        var test2 = event.target.id;
-        $("#commentlikecount").text(counters[0]);  
-        $("#commentdislikecount").text(counters[1]);  
-        $(".like").attr('disabled', 'disabled');  
-        $(".dislike").attr('disabled', false);  
-        console.log(test2);
-        console.log("@Url.Content("~/Comments/Like")/?id=" + test2 + "&status=" + $(this).data("status"));
-        console.log("det här kanske fungerar like");
+    $(".dislike").click(function() {  
+
+        var id = event.target.id.split('_')[1];
+
+        @*ajaxGet deprecated*@
+        $.get("@Url.Content("~/Comments/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
+            
+            var counters = data.split('/');  
+
+            $(".CommentsContainer").find("#commentlikecount_"+id).text(counters[0]);  
+            $(".CommentsContainer").find("#commentdislikecount_"+id).text(counters[1]);   
+            $(".CommentsContainer").find("#dislike_"+id).attr('disabled', 'disabled');  
+            $(".CommentsContainer").find("#like_"+id).attr('disabled', false);
+
+        });  
     });  
-});   
-$(".dislike").click(function() {  
-    console.log("hej");
-    console.log(event.target.id);
-   
-    @*ajaxGet deprecated*@
-    $.get("@Url.Content("~/Comments/Like")/?id=" + event.target.id + "&status=" + $(this).data("status"), function(data) {  
-        var counters = data.split('/');  
-        var test = event.target.id;
-        $("#commentlikecount").text(counters[0]);  
-        $("#commentdislikecount").text(counters[1]);  
-        $(".dislike").attr('disabled', 'disabled');  
-        $(".like").attr('disabled', false);
-        console.log(test);
-        console.log("@Url.Content("~/Comments/Like")/?id=" + test + "&status=" + $(this).data("status"));
-        console.log("det här kanske fungerar dislike");
-    });  
-});  
     </script>
         }

@@ -9,7 +9,8 @@ namespace CoolBooks.Models
         [ForeignKey("UserId")]
         public virtual CoolBooksUser CoolBooksUser { get; set; }
         public bool IsLike { get; set; }
-        public int CommentId { get; set; }
+        public int? CommentId { get; set; }
+        public Comment Comment { get; set; }
         public string UserId { get; set; }
     }
 }
