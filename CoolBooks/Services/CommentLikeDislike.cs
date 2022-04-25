@@ -33,7 +33,11 @@ namespace CoolBooks.Data
             //using (var db = _context)
             var db = _context;
             {
-                var comment = db.Comment.FirstOrDefault(x => x.Id == id);
+                Comment? comment = db.Comment.FirstOrDefault(x => x.Id == id);
+                if (comment == null)
+                {
+                    return "hej_null";
+                }
                 var toggle = false;
                 //Likes? like = db.Likes.FirstOrDefault(x => x.ReviewId == id);
                 CommentLikes? like = db.CommentLikes.FirstOrDefault(x => x.CommentId == id && x.UserId == user);

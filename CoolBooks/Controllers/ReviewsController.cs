@@ -132,9 +132,11 @@ namespace CoolBooks.Controllers
             ViewBag.Dislike = likedislike.Getdislikecounts((int)id);
             ViewBag.AllUserlikedislike = likedislike.GetallUser((int)id);
 
-            ViewBag.commentLike = commentlikedislike.Getlikecounts((int)id);
+            ViewBag.commentLike = commentlikedislike.Getlikecounts((int)id); // Vi får ju review id när vi försöker få kommentarens id.
             ViewBag.commentDislike = commentlikedislike.Getdislikecounts((int)id);
             ViewBag.commentAllUserlikedislike = commentlikedislike.GetallUser((int)id);
+
+            
 
             return View(review);
         }

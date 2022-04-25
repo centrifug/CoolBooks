@@ -69,20 +69,20 @@
 {   
     <button class="test"
     disabled data-status="true"  
-    id="Like"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span>
-
-        </button><button class="test"   
+    id="Like"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span></button>
+    
+    <button class="test"   
     data-status ="false"  
     id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
  } 
     
     else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false)
     {
-        <button class="test" 
+    <button class="test" 
     data-status="true"  
-    id="Like">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id = "likecount">@ViewBag.like</span>
-
-    </button><button class="test"   
+    id="Like">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id = "likecount">@ViewBag.like</span></button>
+    
+    <button class="test"   
     disabled data-status = "false"  
     id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
     }
@@ -133,7 +133,10 @@ else
 {
    <br><br><a asp-controller="account" asp-action="login">Logga in</a><span> för att kunna använda like/dislike.</span>
 }
-
+<script>
+let testArray = [];
+let testArray2 = [];
+</script>
 <h2>Kommentarer:</h2>
 <partial name="_Comment" model="@Model.Comments" />
 
