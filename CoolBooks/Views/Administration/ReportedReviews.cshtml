@@ -1,0 +1,33 @@
+﻿@model List<ReportedReviewViewModel>
+@{
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+}
+
+<h2>Rapporterade Rescensioner:</h2>
+
+<table>
+        <tr>
+            <th>ID</th>
+            <th>Titel</th>
+            <th>Rapporteringar</td>
+            <th></th>
+        </tr>
+
+    @foreach (var review in Model)
+    {
+        <tr>
+            <td>@review.ReviewId</td>
+            <td>@review.ReviewName</td>
+            <td>@review.Total</td>
+            <td>
+                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.ReviewId" asp-route-returnUrl="@routeUrl">Edit</a>
+                <a asp-controller="Reviews" asp-action="Block" asp-route-id="@review.ReviewId" asp-route-returnUrl="@routeUrl">Block</a>
+                <form asp-controller="Administration" asp-action="PurgeReportedReviews" asp-route-id="@review.ReviewId" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort alla flaggningar för denna review?');">
+                    <button type="submit">PURGE</button>
+                </form>
+                
+            </td>
+        </tr>
+    }
+
+</table>

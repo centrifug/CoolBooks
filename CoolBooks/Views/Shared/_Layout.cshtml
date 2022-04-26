@@ -38,14 +38,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a>
                         </li>
-                        
+
+                       
                         @if (signInManager.IsSignedIn(User))
                         {
+                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="ReportedComments">ReportedComments</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="ReportedReviews">ReportedReviews</a>
+                                </li>
+                            }
+
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class ="nav-item">
                                 <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="Statistik">Statistik</a>
                                 <li/>
+
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="ListRoles">Roller</a>

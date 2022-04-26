@@ -4,12 +4,13 @@ using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace CoolBooks.Controllers
 {
-    
-    [Authorize(Roles = "Admin")]
+
+
     public class AdministrationController : Controller
     {
         private readonly CoolBooksContext _context;
@@ -30,12 +31,13 @@ namespace CoolBooks.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateBook()
         {
             CreateBookViewModel vm = new CreateBookViewModel();
 
             var authors = _context.Author.ToList();
-            
+
             var genres = _context.Genre.ToList();
 
             foreach (Author author in authors)
@@ -46,7 +48,7 @@ namespace CoolBooks.Controllers
                 bookAuthorViewModel.AuthorFirstName = author.FirstName;
                 bookAuthorViewModel.AuthorLastName = author.LastName;
                 bookAuthorViewModel.IsSelected = false;
-                
+
                 vm.Authors.Add(bookAuthorViewModel);
             }
 
@@ -60,18 +62,20 @@ namespace CoolBooks.Controllers
                 vm.Genres.Add(bookGenreViewModel);
             }
 
-            
+
 
             return View("/Views/Books/Create.cshtml", vm);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateRole()
-        {    
+        {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -100,6 +104,7 @@ namespace CoolBooks.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult ListRoles()
         {
 
@@ -109,6 +114,7 @@ namespace CoolBooks.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole(string Id)
         {
             var role = await roleManager.FindByIdAsync(Id);
@@ -131,14 +137,15 @@ namespace CoolBooks.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-            }            
+            }
 
             return View("ListRoles");
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRole(string id)
-        {            
+        {
 
             var role = await roleManager.FindByIdAsync(id);
 
@@ -159,7 +166,7 @@ namespace CoolBooks.Controllers
                 {
                     vm.Users.Add(user.UserName);
                 }
-                
+
             }
 
             return View(vm);
@@ -167,6 +174,7 @@ namespace CoolBooks.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await roleManager.FindByIdAsync(model.Id);
@@ -196,6 +204,7 @@ namespace CoolBooks.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUserInRole(string Id)
         {
             ViewBag.roleId = Id;
@@ -218,7 +227,7 @@ namespace CoolBooks.Controllers
                     UserName = user.UserName
                 };
 
-                if (await userManager.IsInRoleAsync(user,role.Name))
+                if (await userManager.IsInRoleAsync(user, role.Name))
                 {
                     userRoleVewModel.IsSelected = true;
                 }
@@ -233,6 +242,7 @@ namespace CoolBooks.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUserInRole(List<UserRoleViewModel> model, string Id)
         {
 
@@ -265,15 +275,15 @@ namespace CoolBooks.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (i < (model.Count -1))
+                    if (i < (model.Count - 1))
                     {
                         continue;
                     }
                     else
                     {
                         return RedirectToAction("EditRole", new { Id = Id });
-                    }                    
-                }                      
+                    }
+                }
             }
 
             return RedirectToAction("EditRole", new { Id = Id });
@@ -304,6 +314,74 @@ namespace CoolBooks.Controllers
             return View();
         }
 
-    }
 
+        [HttpGet]
+        [Authorize(Roles = "Moderator, Admin")]
+        public IActionResult ReportedComments()
+        {
+
+            var reportedComments = _context.ReportedComments
+                .GroupBy(rc => rc.CommentId)
+                .Select(x => new ReportedCommentViewModel
+                {
+                    ReportedCommentId = x.Key,
+                    CommentText = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.Text).First(),
+                    Total = x.Count()
+
+                })
+                .OrderByDescending(x => x.Total);
+
+
+            return View(reportedComments.ToList());
+        }
+
+
+
+        [HttpGet]
+        [Authorize(Roles = "Moderator, Admin")]
+        public IActionResult ReportedReviews()
+        {
+
+            var reportedReviews = _context.ReportedReviews
+                .GroupBy(rr => rr.ReviewId)
+                .Select(x => new ReportedReviewViewModel
+                {
+                    ReviewId = x.Key,
+                    ReviewName = _context.Review.Where(c => c.Id == x.Key).Select(c => c.Title).First(),
+                    Total = x.Count()
+
+                })
+                .OrderByDescending(x => x.Total);
+
+
+            return View(reportedReviews.ToList());
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles ="Moderator, Admin")]
+        public async Task<IActionResult> PurgeReportedReviews(int id)
+        {
+            var reportedReview = _context.ReportedReviews.Where(a => a.ReviewId == id);
+
+            _context.ReportedReviews.RemoveRange(reportedReview);
+            await _context.SaveChangesAsync();
+
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("ReportedReviews", "Administration");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Moderator, Admin")]
+        public async Task<IActionResult> PurgeReportedComments(int id)
+        {
+            var reportedReview = _context.ReportedComments.Where(a => a.CommentId == id);
+
+            _context.ReportedComments.RemoveRange(reportedReview);
+            await _context.SaveChangesAsync();
+
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("ReportedComments", "Administration");
+        }
+    }
 }

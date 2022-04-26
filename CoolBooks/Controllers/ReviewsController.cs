@@ -147,7 +147,6 @@ namespace CoolBooks.Controllers
             //ViewBag.commentDislike = commentlikedislike.Getdislikecounts((int)id);
             //ViewBag.commentAllUserlikedislike = commentlikedislike.GetallUser((int)id);
 
-            
 
             return View(review);
         }
@@ -247,7 +246,6 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
            
-
             if (id == null)
             {
                 return NotFound();
@@ -269,8 +267,20 @@ namespace CoolBooks.Controllers
                 }                
             }
 
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Description", review.BookId);
-            return View(review);
+            EditReviewViewModel vm = new EditReviewViewModel();
+
+            vm.Id = review.Id;
+            vm.BookId = review.BookId;
+            vm.Title = review.Title;
+            vm.Text = review.Text;
+            vm.Rating = review.Rating;
+            vm.IsDeleted = review.IsDeleted;
+            vm.Created  = review.Created;
+            
+
+            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Title", review.BookId);
+
+            return View(vm);
         }
 
         // POST: Reviews/Edit/5
@@ -278,23 +288,33 @@ namespace CoolBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BookId,Title,Text,Rating,IsDeleted,Created")] Review review)
+        public async Task<IActionResult> Edit(int id, EditReviewViewModel inputReview, string? returnUrl)
         {
-            if (id != review.Id)
+            if (id != inputReview.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                var reviewToUpdate = _context.Review.FirstOrDefault(r => r.Id == inputReview.Id);
+
+                reviewToUpdate.BookId = inputReview.BookId;
+                reviewToUpdate.Title = inputReview.Title;
+                reviewToUpdate.Text = inputReview.Text;
+                reviewToUpdate.Rating = inputReview.Rating;
+                reviewToUpdate.IsDeleted = inputReview.IsDeleted;
+                reviewToUpdate.LastUpdated = DateTime.Now;
+                reviewToUpdate.UpdatedBy = userManager.GetUserId(User);
+
                 try
                 {
-                    _context.Update(review);
+                    _context.Update(reviewToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReviewExists(review.Id))
+                    if (!ReviewExists(reviewToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -303,10 +323,20 @@ namespace CoolBooks.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                if (string.IsNullOrEmpty(returnUrl))
+                {
+                    return RedirectToAction("Index", "Reviews");
+                }
+                else
+                {
+                    return Redirect(returnUrl);
+                }
+                
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Description", review.BookId);
-            return View(review);
+
+            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Title", inputReview.BookId);
+            return View(inputReview);
         }
 
         // GET: Reviews/Block/5
