@@ -4,6 +4,7 @@ using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace CoolBooks.Controllers
 {
@@ -280,6 +281,26 @@ namespace CoolBooks.Controllers
 
         public IActionResult Statistik()
         {
+            DateTime startDateTime = DateTime.Today; //Today at 00:00:00
+            DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1); //Idag 23:59:59
+            var kommentarIdag = _context.Comment
+                                  .Where(c => c.Created >= startDateTime && 
+                                              c.Created <= endDateTime)
+                                  .Select(c => c.Text)
+                                  .ToArray();
+
+            DateTime startDateTimeWeek = DateTime.Today.AddDays(1).AddTicks(-1); //Today at 00:00:00
+            DateTime endDateTimeWeek = DateTime.Today.AddDays(-7).AddTicks(-1); //1 vecka - 1sekund
+            var kommentarPerVecka = _context.Comment
+                                  .Where(c => c.Created <= startDateTimeWeek &&
+                                              c.Created >= endDateTimeWeek)
+                                  .Select(c => c.Text)
+                                  .ToArray();
+
+            ViewBag.kommentarPerDag = kommentarIdag;
+            ViewBag.kommentarPerVecka = kommentarPerVecka;
+            //Kommentar statistik
+
             return View();
         }
 
