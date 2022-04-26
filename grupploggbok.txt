@@ -153,9 +153,10 @@ Redovisningar
 Stefan:
   Fixat databasen så den kan hantera likes på både reviews och kommentarer.
   Problem med att like:a commentarer då vi loopar igenom varje kommentar i partial view. WIP
+  
 2022-04-25
- Stefan:
- Debuggat likes på kommentarer.
+Stefan:
+   Debuggat likes på kommentarer.
  Staffan:
   Debuggat likes på kommentarer:
 	-Satt unika idn på alla knappar och relevanta taggar  
@@ -166,10 +167,14 @@ Stefan:
 	 loopar igenom och kollar om usern har dislikeat/likeat något och disablar knappar utefter det.
   Lagt till reportfunktion för review och komentarer.
   Refaktorerat likes och report.
-  2022-04-26
-  Stefan:
+  
+2022-04-26
+Stefan:
   Kikat på best practise viewbag/validering etc på pluralsight.
   Fortsatt med våra charts för statistik.
   
-  Staffan:
-
+Staffan:
+  Byggt en grundlägande admin/moderatorpanel för att hantera flaggade reviews/comments
+  Just nu sorteras de mest flaggade reviews/comments:en i fallande ordning.
+  Det finns möjlighet att editera/blockera(softdelete) dessa, samt att man kan "purge:a" flaggningslistan efter vidtagen åtgärd.
+  Buggfixat i like/dislike/report knapparna. Var lite strul med att enablea/disablea rätt vid olika användare.
