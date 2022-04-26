@@ -1,28 +1,56 @@
-﻿@using QuickChart
+﻿@using System.Text.Json;
+@using QuickChart;
+@using CoolBooks.Data;
+@using Newtonsoft.Json;
 @{
     ViewData["Title"] = "Statistik";
-    Chart test = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
-
-    test.Width = 500;
-    test.Height = 300;
-    test.BackgroundColor = "#FFFFFF";
+    Chart allaKommentarer = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
+    allaKommentarer.Width = 500;
+    allaKommentarer.Height = 300;
+    allaKommentarer.BackgroundColor = "#FFFFFF";
     // test.DevicePixelRatio = Pixelratio - 1.0 Default
     // test.Version = "2.9.4" // Not needed
     // test.Format = "png" Filtyp - png Default
     // test.Key = "test"; // Not needed, API Key
-    test.Config = @"{
+    //var json = JsonSerializer.Serialize(test2);
+    var jsonlabel = JsonConvert.SerializeObject(ViewBag.kommentarPerDag);
+    //int[] data = new int[] { };
+    List<int> data = new List<int>();
+    int num = 0;
+    foreach (var comment in ViewBag.kommentarPerDag)
+    {
+        num++;
+        data.Add(num);
+    }
+    var jsondata = JsonConvert.SerializeObject(data);
+    int antalidag = ViewBag.kommentarPerDag.Length;
+    int antaldennaveckan = ViewBag.kommentarPerVecka.Length;
+    //<p>@jsonlabel</p>
+    //<p>@jsondata</p>
+    string egenData = @"{
     type: 'bar',
     data: {
-        labels: ['Stefan', 'Staffan', 'Paul'],
+        labels: ['Kommentarer Idag', 'Kommentarer denna veckan'],
         datasets: [{
-            label: 'Påskägg',
-            data: [10, 5, 15]
+            label: 'Antal', 
+            data: [" + antalidag + " , " + antaldennaveckan + @"],
         }]
     }
 }";
+    allaKommentarer.Config = egenData;
+    // labels: " + jsondata + @",
 }
-<h1>Hej test chart</h1>
-<img href="@test.GetShortUrl()" src="@test.GetUrl()"/> @*Visar bilden via url*@
+
+@*
+Kommentar per dag 
+
+Kommentar per vecka
+
+
+
+*@
+<h1>Kommentarer idag</h1>
+<img href="@allaKommentarer.GetShortUrl()" src="@allaKommentarer.GetUrl()"/> @*Visar bilden via url*@
 
 @* @test.ToFile Om vi vill ha en faktisk fil?*@
 @* @test.ToByteArray Om vi vill ha en byte array för att spara i databas?*@
