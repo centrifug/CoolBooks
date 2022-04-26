@@ -22,7 +22,6 @@
             userlike = user.IsLike;
             break;
         }
-
     }
 
     @if(userid == userManager.GetUserId(User) && userlike == true) // like som inloggad
@@ -61,7 +60,19 @@
     
     }
 
-    if (comment.ReportedComments.Any())
+
+    userid = "";
+
+    @foreach(var reportedComment in comment.ReportedComments)  
+    {            
+        if (reportedComment.UserId == userManager.GetUserId(User))            
+        {
+            userid = reportedComment.UserId;            
+            break;
+        }
+    }
+
+    if (userid == userManager.GetUserId(User))
     {
         <button class="ReportComment btn btn-danger" id="ReportComment_@(comment.Id)" ><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)">Rapporterad</span></button>
     }

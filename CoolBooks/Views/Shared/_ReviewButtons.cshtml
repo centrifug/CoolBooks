@@ -61,7 +61,18 @@ else
 @if (signInManager.IsSignedIn(User))
 {
    
-        if (Model.reportedReviews.Any())
+    userid = "";
+
+    @foreach(var reportedReview in Model.reportedReviews)  
+    {            
+        if (reportedReview.UserId == userManager.GetUserId(User))            
+        {
+            userid = reportedReview.UserId;            
+            break;
+        }
+    }
+
+    if (userid == userManager.GetUserId(User))
         {
             <div class="ReviewsContainer">
                 <button class="ReportReview btn btn-danger" id="ReportReview_@(Model.Id)" ><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapporterad</span></button>

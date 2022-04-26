@@ -1,0 +1,31 @@
+﻿@model List<ReportedCommentViewModel>
+@{
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+}
+<h2>Rapporterade Kommentarer:</h2>
+
+<table>
+        <tr>
+            <th>ID</th>
+            <th>Kommentar</th>
+            <th>Rapporteringar</td>
+            <th></th>
+        </tr>
+
+    @foreach (var comment in Model)
+    {
+        <tr>
+            <td>@comment.ReportedCommentId</td>
+            <td>@comment.CommentText</td>
+            <td>@comment.Total</td>
+            <td>
+                <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.ReportedCommentId" asp-route-returnUrl="@routeUrl">Edit</a>
+                <form asp-controller="Administration" asp-action="PurgeReportedComments" asp-route-id="@comment.ReportedCommentId" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort alla flaggningar för denna kommentar?');">
+                    <button type="submit">PURGE</button>
+                </form>    
+            </td>
+        </tr>
+    }
+
+</table>
+

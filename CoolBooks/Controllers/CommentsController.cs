@@ -4,6 +4,7 @@ using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoolBooks.Controllers
 {
@@ -67,10 +68,85 @@ namespace CoolBooks.Controllers
         }
 
 
-        public IActionResult Create(string? returnUrl)
+        
+
+        // GET: Comments/Edit/5
+        [Authorize]
+        public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.returnUrl = returnUrl;
-            return View();
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _context.Comment.FindAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            //låt bara skaparen och admin editera
+            if (userManager.GetUserId(User) == comment.CreatedBy || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                EditCommentViewModel vm = new EditCommentViewModel();
+
+                vm.Id = comment.Id;
+                vm.Text = comment.Text;
+
+                return View(vm);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, EditCommentViewModel inputComment, string? returnUrl)
+        {
+            if (id != inputComment.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var commentToUpdate = _context.Comment.FirstOrDefault(r => r.Id == inputComment.Id);
+
+                commentToUpdate.Text = inputComment.Text;
+                commentToUpdate.LastUpdated = DateTime.Now;
+                commentToUpdate.UpdatedBy = userManager.GetUserId(User);
+
+                try
+                {
+                    _context.Update(commentToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CommentExists(commentToUpdate.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(returnUrl))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return Redirect(returnUrl);
+                }
+
+            }
+
+            return View(inputComment);
         }
 
         [HttpPost]
@@ -120,7 +196,10 @@ namespace CoolBooks.Controllers
             var result = commentlikedislike.Like(id, status, user);
             return Content(result);
         }
-
+        private bool CommentExists(int id)
+        {
+            return _context.Comment.Any(e => e.Id == id);
+        }
         public ActionResult Report(int id)
         {
 
