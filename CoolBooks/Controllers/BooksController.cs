@@ -291,8 +291,6 @@ namespace CoolBooks.Models
                         bookToCreate.Authors.Add(bookAuthor);
                     }
                 }
-
-
                
                 //Insert record
                 try
@@ -310,11 +308,8 @@ namespace CoolBooks.Models
                     
                     return View(inputBook);
 
-                }
-                
-                
-
-
+                }                
+     
                 //save image
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(inputBook.ImageFile.FileName);
@@ -334,7 +329,6 @@ namespace CoolBooks.Models
                 _context.Book.Attach(bookToCreate);
                 _context.Entry(bookToCreate).State = EntityState.Modified;
                 _context.SaveChanges();
-
 
                 return RedirectToAction(nameof(Index));
             }
@@ -363,11 +357,12 @@ namespace CoolBooks.Models
 
             var genres = _context.Genre.ToList();
 
+            editBookViewModel.BookId = book.Id;
             editBookViewModel.Title = book.Title;
             editBookViewModel.Description = book.Description;
             editBookViewModel.ISBN = book.ISBN;
             editBookViewModel.IsDeleted = book.IsDeleted;
-
+            editBookViewModel.ImagePath = book.ImagePath;
 
             foreach (Author author in authors)
             {
@@ -437,10 +432,10 @@ namespace CoolBooks.Models
             {
 
                 Book bookToUpdate = await _context.Book
-                                                    .Include(b => b.Authors)
-                                                    .Include(b => b.Genres)
-                                                    .Where(b => b.Id == id)
-                                                    .FirstOrDefaultAsync();
+                        .Include(b => b.Authors)
+                        .Include(b => b.Genres)
+                        .Where(b => b.Id == id)
+                        .FirstOrDefaultAsync();
 
                 bookToUpdate.Title = bookInput.Title;
                 bookToUpdate.Description = bookInput.Description;
@@ -448,6 +443,8 @@ namespace CoolBooks.Models
                 bookToUpdate.Id = id;
                 bookToUpdate.IsDeleted = bookInput.IsDeleted;
 
+                //track authors (ghettolösning?)
+                //var authors = _context.Author.ToList();
 
                 foreach (var author in bookInput.Authors)
                 {
@@ -469,12 +466,14 @@ namespace CoolBooks.Models
                     }
                 }
 
+                //track genres (ghettolösning?)
+                //var genres = _context.Genre.ToList();
 
                 foreach (var genre in bookInput.Genres)
                 {
                     if (genre.IsSelected)
                     {
-                        if (bookToUpdate.Authors.Where(a => a.Id == genre.GenreId).Count() == 0)
+                        if (bookToUpdate.Genres.Where(a => a.Id == genre.GenreId).Count() == 0)
                         {
                             Genre g = new Genre { Id = genre.GenreId };
                             _context.Genre.Attach(g);
@@ -489,6 +488,36 @@ namespace CoolBooks.Models
                         }
                     }
                 }
+
+                //save/update image
+                if (bookInput.ImageFile != null)
+                {                    
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(bookInput.ImageFile.FileName);
+                    string extension = Path.GetExtension(bookInput.ImageFile.FileName);
+
+
+                    fileName = bookInput.BookId + extension; //name it after the booksId
+
+                    string path = Path.Combine(wwwRootPath + "/Images/Books/", fileName);
+
+
+                    //ta bort den gamla bilden
+                    if (System.IO.File.Exists(Path.Combine(wwwRootPath, bookToUpdate.ImagePath)))
+                    {
+                        System.IO.File.Delete(Path.Combine(wwwRootPath, bookToUpdate.ImagePath));
+                    }
+
+                    //spara bilden
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await bookInput.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    //update imagepath (kanske inte nödvändig.. men for now!)
+                    bookToUpdate.ImagePath = Path.Combine("/Images/Books/", fileName);
+                }
+
 
                 try
                 {

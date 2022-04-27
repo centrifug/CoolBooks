@@ -17,8 +17,10 @@ namespace CoolBooks.ViewModels
         [Required]
         public DateTime BirthDate { get; set; }
 
-        //[NotMapped]
-        //[Display(Name = "Upload File")]
-        //public IFormFile ImageFile { get; set; }
+        public string? ImagePath { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Upload File")]
+        public IFormFile? ImageFile { get; set; }
     }
 }

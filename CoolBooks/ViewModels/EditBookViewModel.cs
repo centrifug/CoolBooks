@@ -15,24 +15,20 @@ namespace CoolBooks.ViewModels
         [MaxLength(17)]
 
         public string ISBN { get; set; }
-
-        //[Required]
+       
         public List<BookAuthorViewModel> Authors { get; set; } = new List<BookAuthorViewModel>();
-
-        //[Required]
+            
         [Display(Name = "Genre")]
         public List<BookGenreViewModel> Genres { get; set; } = new List<BookGenreViewModel>();
 
         public bool IsDeleted { get; set; }
 
-        //[NotMapped]
-        //[Display(Name = "Upload File")]
-        //public IFormFile ImageFile { get; set; }
+        public string? ImagePath { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Upload File")]
+        public IFormFile? ImageFile { get; set; }
 
 
-        // UserID?
-        // CreatedBy?
-        // Updated?
-        // UPdatedBy?
     }
 }

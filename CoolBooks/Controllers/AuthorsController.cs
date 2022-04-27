@@ -214,8 +214,9 @@ namespace CoolBooks.Controllers
 
             vm.FirstName = author.FirstName;
             vm.LastName = author.LastName;
-            vm.BirthDate = author.BirthDate;                
-            
+            vm.BirthDate = author.BirthDate;
+            vm.ImagePath = author.ImagePath;
+
             if (author == null)
             {
                 return NotFound();
@@ -248,6 +249,37 @@ namespace CoolBooks.Controllers
                 authorToUpdate.BirthDate = authorInput.BirthDate;
                 authorToUpdate.LastUpdated = DateTime.Now;
                 authorToUpdate.UpdatedBy = user.Id;
+                
+
+                //save/update image
+                if (authorInput.ImageFile != null)
+                {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(authorInput.ImageFile.FileName);
+                    string extension = Path.GetExtension(authorInput.ImageFile.FileName);
+
+
+                    fileName = authorInput.Id + extension; //name it after the booksId
+
+                    string path = Path.Combine(wwwRootPath + "/Images/Authors/", fileName);
+
+
+                    //ta bort den gamla bilden
+                    if (System.IO.File.Exists(Path.Combine(wwwRootPath, authorToUpdate.ImagePath)))
+                    {
+                        System.IO.File.Delete(Path.Combine(wwwRootPath, authorToUpdate.ImagePath));
+                    }
+
+                    //spara bilden
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await authorInput.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    //update imagepath (kanske inte nödvändig.. men for now!)
+                    authorToUpdate.ImagePath = Path.Combine("/Images/Authors/", fileName);
+                }
+
 
                 try
                 {
