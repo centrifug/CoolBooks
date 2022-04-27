@@ -57,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                <partial name="_RatingStars" model="@item.Rating"/> 
             </td>   
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> 

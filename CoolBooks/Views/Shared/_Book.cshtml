@@ -54,7 +54,7 @@
                 }
             </td> 
             <td>
-                @Html.DisplayFor(modelItem => Model.Rating)
+                <partial name="_RatingStars" model="@Model.Rating"/>                
             </td>
             <td>
                 @if (Model.Genres.Any())

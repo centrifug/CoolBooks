@@ -68,7 +68,7 @@
                             @Html.DisplayNameFor(model => model.book.Rating)
                         </dt>
                         <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.book.Rating)
+                            <partial name="_RatingStars" model="@Model.book.Rating"/> 
                         </dd>
                      </div>
                 </div>
@@ -159,7 +159,8 @@ else {
                 <partial name="_comment" model="item.Comments" />                                       
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                @{double rating = (double)item.Rating;}
+            <partial name="_RatingStars" model="@rating"/> 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)

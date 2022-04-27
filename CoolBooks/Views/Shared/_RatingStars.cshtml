@@ -1,0 +1,13 @@
+﻿@model double
+
+@{
+
+    double width = (1 - (Model/5))*100;
+    int widthInt = (int)width;
+}
+
+
+<div style="position:relative;  width:134px;">
+     <div style="font-size:2rem;">★★★★★</div>
+     <div style="position:absolute;top:0;left:0;width:@widthInt%;height:100%;background-color:white;"></div>
+</div>
