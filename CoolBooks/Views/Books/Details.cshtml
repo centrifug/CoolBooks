@@ -13,68 +13,63 @@
 
 <div>
     <hr />
-
-    <dl class="row">
-        <div class="card mb-3" style="max-width: 100%;">
-            <div class="row no-gutters">
+        
+        <div class="mb-3" style="max-width: 100%;">
+            <div style="background: #FFF1F2;" class="row no-gutters">
                 <div class="col-md-4">
                     <img src=" @Html.DisplayFor(model => model.book.ImagePath)" class="card-img" alt="...">
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body"
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.Title)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.book.Title)
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.Description)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.book.Description)
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.ISBN)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.book.ISBN)
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.Created)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.book.Created)
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.Genres)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @foreach (var genre in Model.book.Genres)
-                            {
-                                <a asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">@Html.DisplayFor(modelItem => genre.Name)</a><br />
-                            }                            
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.Authors)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @foreach (var author in Model.book.Authors)
-                            {
-                                <a asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id">@Html.DisplayFor(modelItem => author.FullName)</a><br />
-                            }  
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.book.Rating)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            <partial name="_RatingStars" model="@Model.book.Rating"/> 
-                        </dd>
+                    <div class="card-body border border-3 border-white rounded">
+                        <dl class="row">
+                            <dt class = "col-sm-2">
+                                @Html.DisplayNameFor(model => model.book.Title)
+                            </dt>
+                            <dd class = "col-sm-10">
+                                @Html.DisplayFor(model => model.book.Title)
+                            </dd>
+                            <dt class = "col-sm-2">
+                                @Html.DisplayNameFor(model => model.book.Description)
+                            </dt>
+                            <dd class = "col-sm-10">
+                                @Html.DisplayFor(model => model.book.Description)
+                            </dd>
+                            <dt class = "col-sm-2">
+                                @Html.DisplayNameFor(model => model.book.ISBN)
+                            </dt>
+                            <dd class = "col-sm-10">
+                                @Html.DisplayFor(model => model.book.ISBN)
+                            </dd>
+                            <dt class = "col-sm-2">
+                                @Html.DisplayNameFor(model => model.book.Genres)
+                            </dt>
+                            <dd class = "col-sm-10">
+                                @foreach (var genre in Model.book.Genres)
+                                {
+                                    <a class="link-secondary" asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">@Html.DisplayFor(modelItem => genre.Name)</a><br />
+                                }                            
+                            </dd>
+                            <dt class = "col-sm-2">
+                                @Html.DisplayNameFor(model => model.book.Authors)
+                            </dt>
+                            <dd class = "col-sm-10">
+                                @foreach (var author in Model.book.Authors)
+                                {
+                                    <a  class="link-secondary" asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id">@Html.DisplayFor(modelItem => author.FullName)</a><br />
+                                }  
+                            </dd>
+                            <dt class = "col-sm-2">
+                                @Html.DisplayNameFor(model => model.book.Rating)
+                            </dt>
+                            <dd class = "col-sm-10">
+                                <partial name="_RatingStars" model="@Model.book.Rating"/> 
+                            </dd>
+                        </dl>
                      </div>
                 </div>
            </div>
         </div>
-    </dl>
+    
 </div>
 
 <div>
@@ -83,7 +78,7 @@
     @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin")) {
         <a asp-action="Edit" asp-route-id="@Model?.book.Id">Edit </a> 
           }
-    <a asp-action="Index">Back to List</a>
+    <a  class="link-secondary" asp-action="Index">Tillbaka</a>
 </div>
 
 
@@ -93,80 +88,33 @@
    
 }
 else {
-    <p>Logga in för att kunna skriva en recension. <a asp-controller="account" asp-action="login" asp-route-returnurl="@routeUrl"> Logga in </a></p>
+    <p>Logga in för att kunna skriva en recension. <a  class="link-secondary" asp-controller="account" asp-action="login" asp-route-returnurl="@routeUrl"> Logga in </a></p>
 }
 
 
 @if (Model.reviews.Any())
 {
-    <table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BookAscDescSortParam">Book ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.reviews[0].Book)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedByAscDescSortParam">Created By ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.reviews[0].CreatedBy)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
-                @*@Html.ActionLink("Title ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })*@ 
-                @*@Html.DisplayNameFor(model => model.reviews[0].Title)*@
-            </th>
-
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TextAscDescSortParam">Text ASC/DESC</a>
-                @*@Html.ActionLink("Text ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.TextAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.reviews[0].Text)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
-                @*@Html.ActionLink("Rating ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.reviews[0].Rating)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
-                @*@Html.ActionLink("Created ASC/DESC FIX THIS SHIT", "Index", new { sortOrder = ViewBag.CreatedAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.reviews[0].Created)*@
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <br />
+    <p>Sortera på:
+   <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedByAscDescSortParam">Användare</a>
+   @*<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>*@
+   <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Betyg</a>
+   <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Datum</a>
+   @*<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TextAscDescSortParam">Text ASC/DESC</a>*@
+</p>
 
 
 @foreach (var item in Model.reviews) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoolBooksUser.UserName)
-            </td>
-            <td>
-                <a asp-controller="Reviews" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
+    <div class="d-flex">
+        <div class="m-2">
+            @Html.DisplayFor(modelItem => item.CoolBooksUser.UserName)
 
-                <partial name="_ReviewButtons" model="item" />
+            @{double rating = (double)item.Rating;}
+            <partial name="_RatingStars" model="@rating"/>
 
-                <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@item.Id">Kommentera</a>
-                <br>
-                <br>
-                <partial name="_comment" model="item.Comments" />                                       
-            </td>
-            <td>
-                @{double rating = (double)item.Rating;}
-            <partial name="_RatingStars" model="@rating"/> 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            @Html.DisplayFor(modelItem => item.Created)
+
+             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                 {
                    <a asp-action="Block" asp-controller="Reviews" asp-route-id="@item.Id">Block</a>
                 }
@@ -175,12 +123,24 @@ else {
                 {
                     <a asp-action="Edit" asp-controller="Reviews" asp-route-id="@item.Id">Edit</a>
                     <a asp-action="Delete" asp-controller="Reviews" asp-route-id="@item.Id">Delete</a>
-                }                        
-            </td>
-        </tr>
+                }       
+        </div>
+        <div class="m-2">
+            
+            <a class="link-secondary fw-bold" asp-controller="Reviews" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+
+            <p>@Html.DisplayFor(modelItem => item.Text)</p>
+
+                <partial name="_ReviewButtons" model="item" />
+
+                <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@item.Id">Kommentera</a>
+                <br>
+                <br>
+                <partial name="_comment" model="item.Comments" />
+        </div>
+    </div>
 }
-    </tbody>
-    </table>
+    
 
 }
 else

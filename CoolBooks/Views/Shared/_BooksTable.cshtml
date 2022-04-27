@@ -4,98 +4,13 @@
     var action = this.ViewContext.RouteData.Values["action"].ToString();
     var route = ViewContext.RouteData.Values["id"];    
 }        
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.ImagePath)*@
-            </th>
-            <th>
-                
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
-                @*@Html.ActionLink("Title ASC/DESC", "", new { sortOrder = ViewBag.TitleAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Title)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description ASC/DESC</a>
-                @*@Html.ActionLink("Description ASC/DESC", "", new { sortOrder = ViewBag.DescriptionAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Description)*@
-            </th>
-            <th>
-                @*@Html.ActionLink("Genre ASC/DESC", "Index", new { sortOrder = ViewBag.GenreAscDescSortParam })*@
-                @Html.DisplayNameFor(model => model.Genres)
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating</a>
-                @*@Html.ActionLink("Rating ASC/DESC", "", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Rating)*@
-            </th>
-            <th>
-                @*@Html.ActionLink("Author ASC/DESC", "Index", new { sortOrder = ViewBag.AuthorAscDescSortParam })*@
-                @Html.DisplayNameFor(model => model.Authors)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<p>Sortera på:
+<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Titel</a>
+@*<a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description</a>*@
+<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-searchString="@ViewBag.searchString" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Betyg</a>
+</p>
 @foreach (var item in Model) {
-         <tr>
-            <td>
-                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id"><img src=" @Html.DisplayFor(model => item.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="223px"></a>   
-            </td>
-            <td>
-                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-                @*@Html.DisplayFor(modelItem => item.Title)*@
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @if (item.Genres.Any())
-                {
-                    foreach(var genre in item.Genres)
-                    {
-                        string name = genre.Name;
-                        string id = genre.Id.ToString();
-                        @* @Html.ActionLink(name, id, "Genres/Details", "", "", "", "", ""); *@
-                        <a asp-action="Details" asp-controller="Genres" asp-route-id="@id">@name</a>
-                        @*@Html.DisplayFor(modelItem => genre.Name);*@
-                    }            
-                }
-                else
-                {
-                    <p>no genre</p>
-                }
-            </td>
-            <td>
-                <partial name="_RatingStars" model="@item.Rating"/>                
-            </td>
-            <td>
-                @if (item.Genres.Any())
-                {
-                    foreach(var author in item.Authors)
-                    {
-                        string name = author.FullName;
-                        string id = author.Id.ToString();
-                        <a asp-action="Details" asp-controller="Authors" asp-route-id="@id">@name</a>
-                        @*@Html.DisplayFor(modelItem => author.FullName)<br />*@
-                    }            
-                }
-                else
-                {
-                    <p>no author</p>
-                }
-            </td>
-            <td>
-                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">Details</a>
-        @if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-        {
-                <a asp-controller="Books" asp-action="Edit" asp-route-id="@item.Id">Edit</a>                
-                <a asp-controller="Books" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-        }
-            </td>
-        </tr>
+         <partial name="_Book" model="item" />
 }
 
     </tbody>

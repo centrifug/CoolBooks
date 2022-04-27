@@ -13,8 +13,13 @@ html {
   min-height: 100%;
 }
 
+header{
+    
+}
+
 body {
   margin-bottom: 60px;
+  background: #FFF1F2;
 }
 
 karusellknapp {

@@ -4,7 +4,6 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Välkommen till CoolBooks!</h1>
 
     <partial name="_Book" model="Model.RandomBook"/>
 
@@ -23,58 +22,14 @@
             {
                 <div class="carousel-item active">
                     
-                      <div class="d-flex">
-                        @{
-                            string imgpath = book.ImagePath;
-                            string title = book.Title;
-                            string text = book.Description;
-                        }            
-                         <a href="Books/Details/@book.Id"><img src="@imgpath" style="width:150px; height:223px;"/></a>
-                         <div class="m-3">
-                             <a href="Books/Details/@book.Id"><h2>@title</h2></a>
-                                @foreach (var author in book.Authors)
-                                {
-                                    <a asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id">@author.FullName</a>
-                                }
-                                -
-                                @foreach (var genre in book.Genres)
-                                {
-                                    <a asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">@genre.Name</a>
-                                }
-                             <p>@text</p>
-                         </div>
-                     @*<partial name="_Book" model="book"/> Om vi vill ha hela boken inte bara img kör partial view inte <img> *@
-                     </div>
+                    <partial name="_Book" model="@book"/>
                      
                 </div>
                  loopOnce = false;
             }
             else {
                 <div class="carousel-item">
-                        <div class="d-flex">
-                        @{
-                            string imgpath = book.ImagePath;
-                            string title = book.Title;
-                            string text = book.Description;
-                        }            
-                         <a href="Books/Details/@book.Id"><img src="@imgpath" style="width:150px; height:223px;"/></a>
-                         <div class="m-3">
-                             <a href="Books/Details/@book.Id"><h2>@title</h2></a>
-
-                            @foreach (var author in book.Authors)
-                            {
-                                <a asp-controller="Genres" asp-action="Details" asp-route-id="@author.Id">@author.FullName</a>
-                            }
-                            -
-                            @foreach (var genre in book.Genres)
-                            {
-                                <a asp-controller="Genres" asp-action="Details" asp-route-id="@genre.Id">@genre.Name</a>
-                            }                           
-               
-                             <p>@text</p>
-                         </div>
-                     @*<partial name="_Book" model="book"/> Om vi vill ha hela boken inte bara img kör partial view inte <img> *@
-                     </div>
+                        <partial name="_Book" model="@book"/>
                 </div>
 
                 @*Prev/Next Knappar & Indicators behöver flyttas men funktionaliteten finns. *@
@@ -93,14 +48,19 @@
 <div>     
 </div>
 
-<div class="mt-4 d-flex flex-wrap justify-content-evenly align-items-center">
+<div class="mt-4 d-flex flex-wrap justify-content-evenly align-items-start">
     @foreach(var book in Model.AllBooks)
     {        
         <div class="m-3 d-flex flex-column overflow-hidden" style="width:225px">
             <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id">
             <img src="@book.ImagePath" style="width:225px; height:335px;"/>
             </a>
-            <div class="overflow-hidden ">@book.Title</div>
+            <div>
+                <partial name="_RatingStars" model="@book.Rating" />
+            </div>
+            <div class="overflow-hidden ">
+                <p class="fs-6 fw-bold">@book.Title</p>
+            </div>
         </div>
         
     }

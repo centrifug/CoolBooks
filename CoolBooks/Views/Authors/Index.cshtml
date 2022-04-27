@@ -9,65 +9,62 @@
 
 <h1>Författare.</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.ImagePath)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.FirstNameAscDescSortParam">FirstName ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.FirstName)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.LastNameAscDescSortParam">LastName ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.LastName)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BirthDateAscDescSortParam">BirthDate ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.BirthDate)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.Created)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
-               
-            </th> 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <img src=" @Html.DisplayFor(modelItem => item.ImagePath)" class="card-img-thumbnail" alt="..." width="188px" height="266px">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                <partial name="_RatingStars" model="@item.Rating"/> 
-            </td>   
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                @if (User.IsInRole("Admin"))
+<p>Sortera på:
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.FirstNameAscDescSortParam">Förnamn</a>
+
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.LastNameAscDescSortParam">Efternamn</a>
+
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BirthDateAscDescSortParam">Födelsedag</a>
+
+    @*<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>*@
+
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Betyg</a>
+</p>
+
+
+
+
+<div class="d-flex flex-wrap justify-content-evenly">
+    @foreach (var item in Model) {
+
+
+         <div class="d-flex">
+            <div class="m-3 d-flex flex-column justify-content-center align-content-center">
+                <a asp-controller="Authors" asp-action="Details" asp-route-id="@item.Id">                
+                    <img src=" @Html.DisplayFor(modelItem => item.ImagePath)" class="card-img-thumbnail" alt="..." width="150px" height="225px">
+                </a>   
+                @if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                 {
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>    
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                }         
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <a asp-controller="Authors" asp-action="Edit" asp-route-id="@item.Id">Edit</a>                
+                    <a asp-controller="Authors" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+            </div>
+            <div class="d-flex flex-column m-3 border border-3 border-white p-3 rounded" style="width: 320px;">
+                <div class="d-flex">
+                    <h2>
+                        <a class="link-secondary" asp-controller="Authors" asp-action="Details" asp-route-id="@item.Id">                                    
+                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                        </a>
+                    </h2>
+                </div>
+
+
+                <div>
+                    <partial name="_RatingStars" model="@item.Rating" />
+                </div>
+
+                <div class="d-flex mb-0">
+                    <p class="me-2 mb-0">
+                        @String.Format("{0:yyyy/MM/dd}", item.BirthDate)
+                    </p>
+                
+                </div>
+                <div class="d-flex">
+                    <p class="me-2">Mer info kommer..?</p>
+               
+                </div>
+
+            </div>        
+        </div>
+    }
+</div>

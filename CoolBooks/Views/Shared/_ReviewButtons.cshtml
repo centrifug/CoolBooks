@@ -24,11 +24,11 @@
     <div class="ReviewsContainer">
     <button
     disabled data-status="true"  
-    class="LikeReview" id="LikeReview_@(Model.Id)"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
+    class="LikeReview btn btn-success btn-sm" id="LikeReview_@(Model.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
     
     <button   
     data-status ="false"  
-    class="DislikeReview" id="DislikeReview_@(Model.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
+    class="DislikeReview btn btn-danger btn-sm" id="DislikeReview_@(Model.Id)">Dislike <i class="fa fa-thumbs-o-down blue-color"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
     </div> 
 } 
     
@@ -37,11 +37,11 @@
         <div class="ReviewsContainer">
     <button 
     data-status="true"  
-    class="LikeReview" id="LikeReview_@(Model.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
+    class="LikeReview btn btn-success btn-sm" id="LikeReview_@(Model.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
     
     <button   
     disabled data-status = "false"  
-    class="DislikeReview" id="DislikeReview_@(Model.Id)">Dislike<i class="fa fa-thumbs-o-down"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
+    class="DislikeReview btn btn-danger btn-sm" id="DislikeReview_@(Model.Id)">Dislike <i class="fa fa-thumbs-o-down"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
     </div>
     }
 
@@ -50,11 +50,11 @@ else
     <div class="ReviewsContainer">
     <button  
     data-status="true"  
-    class="LikeReview" id="LikeReview_@(Model.Id)">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
+    class="LikeReview btn btn-success btn-sm" id="LikeReview_@(Model.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="Reviewslikecount_@(Model.Id)">@Model.LikeCount</span></button>
     
     <button   
     data-status="false"  
-    class="DislikeReview" id="DislikeReview_@(Model.Id)">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
+    class="DislikeReview btn btn-danger btn-sm" id="DislikeReview_@(Model.Id)">Dislike <i class="fa fa-thumbs-o-down blue-color"></i><span id="Reviewsdislikecount_@(Model.Id)">@Model.DisLikeCount</span></button>
     </div>
 }
 @*REPORTKNAPP*@
@@ -75,13 +75,13 @@ else
     if (userid == userManager.GetUserId(User))
         {
             <div class="ReviewsContainer">
-                <button class="ReportReview btn btn-danger" id="ReportReview_@(Model.Id)" ><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapporterad</span></button>
+                <button class="ReportReview btn btn-warning btn-sm" id="ReportReview_@(Model.Id)" ><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapporterad</span></button>
             </div>
         }
         else
         {
              <div class="ReviewsContainer">
-            <button class="ReportReview btn btn-primary" id="ReportReview_@(Model.Id)"><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapportera</span></button>
+            <button class="ReportReview btn btn-primary btn-sm" id="ReportReview_@(Model.Id)"><span class="ReportReviewText" id="ReportReviewText_@(Model.Id)">Rapportera</span></button>
             </div>
         }
     

@@ -9,7 +9,7 @@
 
             console.log("GET");
             $(".ReviewsContainer").find("#ReportReviewText_"+id).text(data);
-            $(".ReviewsContainer").find("#ReportReview_"+id).toggleClass("btn-danger");
+            $(".ReviewsContainer").find("#ReportReview_"+id).toggleClass("btn-warning");
             $(".ReviewsContainer").find("#ReportReview_"+id).toggleClass("btn-primary");
 
         });  
@@ -104,7 +104,7 @@
             $.get("@Url.Content("~/Comments/Report")/?id=" + id, function(data) {            
                 console.log("GET SKER");
                 $(".CommentsContainer").find("#ReportCommentText_"+id).text(data); 
-                $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-danger");
+                $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-warning");
                 $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-primary");
 
             });  
