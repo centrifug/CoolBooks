@@ -259,28 +259,28 @@ namespace CoolBooks.Controllers
             }
 
             //låt bara skaparen och admin editera
-            if (userManager.GetUserId(User) != review.CreatedBy)
+            if (userManager.GetUserId(User) == review.CreatedBy || User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
-                if (!User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("Index", "Home");
-                }                
-            }
+        
+                EditReviewViewModel vm = new EditReviewViewModel();
 
-            EditReviewViewModel vm = new EditReviewViewModel();
-
-            vm.Id = review.Id;
-            vm.BookId = review.BookId;
-            vm.Title = review.Title;
-            vm.Text = review.Text;
-            vm.Rating = review.Rating;
-            vm.IsDeleted = review.IsDeleted;
-            vm.Created  = review.Created;
+                vm.Id = review.Id;
+                vm.BookId = review.BookId;
+                vm.Title = review.Title;
+                vm.Text = review.Text;
+                vm.Rating = review.Rating;
+                vm.IsDeleted = review.IsDeleted;
+                vm.Created  = review.Created;
             
 
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Title", review.BookId);
+                ViewData["BookId"] = new SelectList(_context.Book, "Id", "Title", review.BookId);
 
-            return View(vm);
+                return View(vm);
+
+              
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Reviews/Edit/5

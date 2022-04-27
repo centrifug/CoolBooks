@@ -361,7 +361,7 @@ namespace CoolBooks.Controllers
         [HttpPost]
         [Authorize(Roles ="Moderator, Admin")]
         public async Task<IActionResult> PurgeReportedReviews(int id)
-        {
+        {   
             var reportedReview = _context.ReportedReviews.Where(a => a.ReviewId == id);
 
             _context.ReportedReviews.RemoveRange(reportedReview);
