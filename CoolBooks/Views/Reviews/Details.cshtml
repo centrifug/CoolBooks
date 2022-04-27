@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Details";
     var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+
+
 }
 
 
@@ -36,7 +38,8 @@
             @Html.DisplayNameFor(model => model.Rating)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
+            @{double rating = (double)Model.Rating;}
+            <partial name="_RatingStars" model="@rating"/> 
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Created)
