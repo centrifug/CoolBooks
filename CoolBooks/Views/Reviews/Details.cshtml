@@ -8,7 +8,6 @@
 }
 
 
-
 <h1>@Html.DisplayFor(model => model.Book.Title)</h1>
 
 <div>
@@ -58,112 +57,7 @@
 </div>
 
 
-@foreach(ReviewLikes user in ViewBag.AllUserlikedislike)  
-{  
-    if (user.UserId == userManager.GetUserId(User))
-    {
-        ViewBag.userid = user.UserId;   
-        ViewBag.userlike = user.IsLike;
-        break;
-    }
-}
-
-@if(@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == true) 
-{   
-    <button class="test"
-    disabled data-status="true"  
-    id="Like"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span></button>
-    
-    <button class="test"   
-    data-status ="false"  
-    id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
- } 
-    
-    else if (@ViewBag.userid == userManager.GetUserId(User) && ViewBag.userlike == false)
-    {
-    <button class="test" 
-    data-status="true"  
-    id="Like">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id = "likecount">@ViewBag.like</span></button>
-    
-    <button class="test"   
-    disabled data-status = "false"  
-    id="Dislike">Dislike<i class="fa fa-thumbs-o-down"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
-    }
-
-else 
-{  
-    <button class="test"  
-    data-status="true"  
-    id="Like">Like<i class="fa fa-thumbs-o-up blue-color"></i><span id="likecount">@ViewBag.like</span></button>
-    
-    <button class="test"   
-    data-status="false"  
-    id="Dislike">Dislike<i class="fa fa-thumbs-o-down blue-color"></i><span id="dislikecount">@ViewBag.Dislike</span></button>
-    
-}
-@*REPORTKNAPP*@
-@if (signInManager.IsSignedIn(User))
-{
-    if (Model.reportedReviews.Any())
-    {
-        <button id="ReportReview" class="btn btn-danger"><span id="FlagReview">Rapporterad</span></button>
-    }
-    else
-    {
-        <button id="ReportReview" class="btn btn-primary"><span id="FlagReview">Rapportera</span></button>
-    }
-    
-
-    <script>
-        $("#ReportReview").click(function() {
-         
-            $.get("@Url.Content("~/Reviews/Report")/?id=" + @Model.Id, function(data) {  
-          
-            $("#FlagReview").text(data); 
-            $("#ReportReview").toggleClass("btn-danger");
-            $("#ReportReview").toggleClass("btn-primary");
-
-            });  
-        });     
-    </script>
-}
-
-@if (signInManager.IsSignedIn(User))
-{
-    <script>
-    $("#Like").click(function() { 
-    @*debugger;*@  
-    @*ajaxGet deprecated*@
-    $.get("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"), function(data) {  
-        var counters = data.split('/');  
-        $("#likecount").text(counters[0]);  
-        $("#dislikecount").text(counters[1]);  
-        $("#Like").attr('disabled', 'disabled');  
-        $("#Dislike").attr('disabled', false);  
-        console.log("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"));
-        console.log("det här kanske fungerar like");
-    });  
-});   
-$("#Dislike").click(function() {  
-    @*debugger;*@
-    @*ajaxGet deprecated*@
-    $.get("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"), function(data) {  
-        var counters = data.split('/');  
-        $("#likecount").text(counters[0]);  
-        $("#dislikecount").text(counters[1]);  
-        $("#Dislike").attr('disabled', 'disabled');  
-        $("#Like").attr('disabled', false);
-        console.log("@Url.Content("~/Reviews/Like")/?id=" + @Model.Id + "&status=" + $(this).data("status"));
-        console.log("det här kanske fungerar dislike");
-    });  
-});  
-    </script>
-}
-else
-{
-   <br><br><a asp-controller="account" asp-action="login">Logga in</a><span> för att kunna använda like/dislike.</span>
-}
-
+<partial name="_ReviewButtons" model="@Model" />
 
 <h2>Kommentarer:</h2>
 <partial name="_Comment" model="@Model.Comments" />

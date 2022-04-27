@@ -149,6 +149,13 @@ namespace CoolBooks.Controllers
             return View(inputComment);
         }
 
+
+        public IActionResult Create(string? returnUrl)
+        {
+            ViewBag.returnUrl = returnUrl;
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCommentViewModel inputComment, int id, string? returnUrl)
