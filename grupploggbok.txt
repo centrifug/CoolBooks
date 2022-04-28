@@ -194,3 +194,10 @@ Staffan:
   Lite buggfixar; ett fel när man bytte/lade till genres på en bok, med mera...
   Massa CSS all over the place.. :)
   
+  
+  2022-04-28
+  
+  Stefan: 
+  Sprint review/retrospective #2
+  Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
+  
