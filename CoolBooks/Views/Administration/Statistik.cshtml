@@ -3,55 +3,129 @@
 @using CoolBooks.Data;
 @using Newtonsoft.Json;
 @{
+    // Vecka chart
     ViewData["Title"] = "Statistik";
-    Chart allaKommentarer = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
-    allaKommentarer.Width = 500;
-    allaKommentarer.Height = 300;
-    allaKommentarer.BackgroundColor = "#FFFFFF";
+    Chart dennaVeckan = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
+    dennaVeckan.Width = 500;
+    dennaVeckan.Height = 300;
+    dennaVeckan.BackgroundColor = "#FFFFFF";
     // test.DevicePixelRatio = Pixelratio - 1.0 Default
     // test.Version = "2.9.4" // Not needed
     // test.Format = "png" Filtyp - png Default
     // test.Key = "test"; // Not needed, API Key
-    //var json = JsonSerializer.Serialize(test2);
-    var jsonlabel = JsonConvert.SerializeObject(ViewBag.kommentarPerDag);
-    //int[] data = new int[] { };
-    List<int> data = new List<int>();
-    int num = 0;
-    foreach (var comment in ViewBag.kommentarPerDag)
-    {
-        num++;
-        data.Add(num);
-    }
-    var jsondata = JsonConvert.SerializeObject(data);
-    int antalidag = ViewBag.kommentarPerDag.Length;
-    int antaldennaveckan = ViewBag.kommentarPerVecka.Length;
-    //<p>@jsonlabel</p>
-    //<p>@jsondata</p>
-    string egenData = @"{
+    Array.Reverse(ViewBag.yaxelK);
+    Array.Reverse(ViewBag.xaxelK);
+    Array.Reverse(ViewBag.yaxelR);
+    Array.Reverse(ViewBag.xaxelR);
+    var jsonlabelVeckaKommentar = JsonConvert.SerializeObject(ViewBag.yaxelK);
+    var jsondataVeckaKommentar = JsonConvert.SerializeObject(ViewBag.xaxelK);
+    var jsonlabelVeckaReview = JsonConvert.SerializeObject(ViewBag.yaxelR);
+    var jsondataVeckaReview = JsonConvert.SerializeObject(ViewBag.xaxelR);
+    string egenDataVecka = @"{
     type: 'bar',
     data: {
-        labels: ['Kommentarer Idag', 'Kommentarer denna veckan'],
+        labels: " + jsondataVeckaKommentar + @",
         datasets: [{
-            label: 'Antal', 
-            data: [" + antalidag + " , " + antaldennaveckan + @"],
-        }]
-    }
-}";
-    allaKommentarer.Config = egenData;
-    // labels: " + jsondata + @",
+            label: 'kommentarer', 
+            data: " + jsonlabelVeckaKommentar + @",  
+            backgroundcolor: '#00ff00',
+        },
+        {      
+         label: 'reviews',
+         data: " + jsonlabelVeckaReview + @", 
+         backgroundcolor: '#0099cc',
+         }
+    ]} 
+    }";
+
+    dennaVeckan.Config = egenDataVecka;
 }
+@{
+    // Vecko chart
+    ViewData["Title"] = "Statistik";
+    Chart tioVeckor = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
+    tioVeckor.Width = 500;
+    tioVeckor.Height = 300;
+    tioVeckor.BackgroundColor = "#FFFFFF";
+    // test.DevicePixelRatio = Pixelratio - 1.0 Default
+    // test.Version = "2.9.4" // Not needed
+    // test.Format = "png" Filtyp - png Default
+    // test.Key = "test"; // Not needed, API Key
+    Array.Reverse(ViewBag.yaxelK_veckor);
+    Array.Reverse(ViewBag.xaxelK_veckor);
+    Array.Reverse(ViewBag.yaxelR_veckor);
+    Array.Reverse(ViewBag.xaxelR_veckor);
+    var jsonlabeltioVeckorKommentar = JsonConvert.SerializeObject(ViewBag.yaxelK);
+    var jsondatatioVeckorKommentar = JsonConvert.SerializeObject(ViewBag.xaxelK);
+    var jsonlabeltioVeckorReview = JsonConvert.SerializeObject(ViewBag.yaxelR);
+    var jsondatatioVeckorReview = JsonConvert.SerializeObject(ViewBag.xaxelR);
+    string egenDatatioVeckor = @"{
+    type: 'bar',
+    data: {
+        labels: " + jsondatatioVeckorKommentar + @",
+        datasets: [{
+            label: 'kommentarer', 
+            data: " + jsonlabeltioVeckorKommentar + @",  
+            backgroundcolor: '#00ff00',
+        },
+        {      
+         label: 'reviews',
+         data: " + jsonlabeltioVeckorReview + @", 
+         backgroundcolor: '#0099cc',
+         }
+    ]} 
+    }";
 
+    tioVeckor.Config = egenDatatioVeckor;
+}
+@{
+    // År chart
+    ViewData["Title"] = "Statistik";
+    Chart dettaÅret = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
+    dettaÅret.Width = 500;
+    dettaÅret.Height = 300;
+    dettaÅret.BackgroundColor = "#FFFFFF";
+    // test.DevicePixelRatio = Pixelratio - 1.0 Default
+    // test.Version = "2.9.4" // Not needed
+    // test.Format = "png" Filtyp - png Default
+    // test.Key = "test"; // Not needed, API Key
+    Array.Reverse(ViewBag.yaxelK_månad);
+    Array.Reverse(ViewBag.xaxelK_månad);
+    Array.Reverse(ViewBag.yaxelR_månad);
+    Array.Reverse(ViewBag.xaxelR_månad);
+    var jsonlabelMånadKommentar = JsonConvert.SerializeObject(ViewBag.yaxelK_månad);
+    var jsondataMånadKommentar = JsonConvert.SerializeObject(ViewBag.xaxelK_månad);
+    var jsonlabelMånadReview = JsonConvert.SerializeObject(ViewBag.yaxelR_månad);
+    var jsondataMånadReview = JsonConvert.SerializeObject(ViewBag.xaxelR_månad);
+    string egenDataMånad = @"{
+    type: 'bar',
+    data: {
+        labels: " + jsondataMånadKommentar + @",
+        datasets: [{
+            label: 'kommentarer', 
+            data: " + jsonlabelMånadKommentar + @",  
+            backgroundcolor: '#00ff00',
+        },
+        {      
+         label: 'reviews',
+         data: " + jsonlabelMånadReview + @", 
+         backgroundcolor: '#0099cc',
+         }
+    ]} 
+    }";
+
+    dettaÅret.Config = egenDataMånad;
+}
+<h1>Kommentarer & Reviews denna veckan per dag.</h1>
+<img href="@dennaVeckan.GetShortUrl()" src="@dennaVeckan.GetUrl()"/> @*Visar bilden via url*@
+<h1>Kommentarer & Reviews dem senaste 10 veckorna per vecka.</h1>
+<img href="@tioVeckor.GetShortUrl()" src="@tioVeckor.GetUrl()"/> @*Visar bilden via url*@
+<h1>Kommentarer & Reviews detta året per månad.</h1>
+<img href="@dettaÅret.GetShortUrl()" src="@dettaÅret.GetUrl()"/> @*Visar bilden via url*@
 @*
-Kommentar per dag 
-
-Kommentar per vecka
-
 
 
 *@
-<h1>Kommentarer idag</h1>
-<img href="@allaKommentarer.GetShortUrl()" src="@allaKommentarer.GetUrl()"/> @*Visar bilden via url*@
-
 @* @test.ToFile Om vi vill ha en faktisk fil?*@
 @* @test.ToByteArray Om vi vill ha en byte array för att spara i databas?*@
 
