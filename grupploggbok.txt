@@ -153,6 +153,9 @@ Redovisningar
 Stefan:
   Fixat databasen så den kan hantera likes på både reviews och kommentarer.
   Problem med att like:a commentarer då vi loopar igenom varje kommentar i partial view. WIP
+ 
+Staffan:
+  CSSat sjärnradio buttons när man postar en review.
   
 2022-04-25
 Stefan:
@@ -189,5 +192,5 @@ Staffan:
   Fixat att det nu visas stjärnor istället för en siffra där rating visas. 
   Lagt till möjlighet att byta bild i edit book/author
   Lite buggfixar; ett fel när man bytte/lade till genres på en bok, med mera...
-  Lite CSS all over the place.. :)
+  Massa CSS all over the place.. :)
   
