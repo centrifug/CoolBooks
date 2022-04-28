@@ -161,6 +161,7 @@ namespace CoolBooks.Models
                 .Include(c => c.comments)
                 .Include(c => c.CommentLikes)
                 .Include(c => c.ReportedComments)
+                .Include(c => c.CoolBooksUser)
                 .ToList();
 
 
