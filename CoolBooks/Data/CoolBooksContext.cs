@@ -85,6 +85,8 @@ namespace CoolBooks.Data
             modelBuilder.SeedComment();
             modelBuilder.SeedReviewLike();
 
+            
+
         }
 
 

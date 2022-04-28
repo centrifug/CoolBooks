@@ -293,23 +293,79 @@ namespace CoolBooks.Controllers
         {
             DateTime startDateTime = DateTime.Today; //Today at 00:00:00
             DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1); //Idag 23:59:59
-            var kommentarIdag = _context.Comment
-                                  .Where(c => c.Created >= startDateTime && 
+            string idag = endDateTime.ToString("dddd");
+            int[] dagarAntalKommentar = new int[7];
+            string[] dagarKommentar = new string[7];
+            int[] dagarAntalReview = new int[7];
+            string[] dagarReview = new string[7];
+            for (int i = 0; i < 7; i++)
+            {
+                var kommentarIdag = _context.Comment
+                                  .Where(c => c.Created >= startDateTime &&
                                               c.Created <= endDateTime)
                                   .Select(c => c.Text)
                                   .ToArray();
 
-            DateTime startDateTimeWeek = DateTime.Today.AddDays(1).AddTicks(-1); //Today at 00:00:00
-            DateTime endDateTimeWeek = DateTime.Today.AddDays(-7).AddTicks(-1); //1 vecka - 1sekund
-            var kommentarPerVecka = _context.Comment
-                                  .Where(c => c.Created <= startDateTimeWeek &&
-                                              c.Created >= endDateTimeWeek)
+                var reviewIdag = _context.Review
+                                  .Where(c => c.Created >= startDateTime &&
+                                              c.Created <= endDateTime)
                                   .Select(c => c.Text)
                                   .ToArray();
 
-            ViewBag.kommentarPerDag = kommentarIdag;
-            ViewBag.kommentarPerVecka = kommentarPerVecka;
-            //Kommentar statistik
+                dagarKommentar[i] = idag;
+                dagarAntalKommentar[i] = kommentarIdag.Length;
+                dagarReview[i] = idag;
+                dagarAntalReview[i] = reviewIdag.Length;
+                startDateTime = startDateTime.AddDays(-1);
+                endDateTime = endDateTime.AddDays(-1);
+                idag = endDateTime.ToString("dddd");
+            }
+
+            
+            var firstDayOfMonth = new DateTime(startDateTime.Year, startDateTime.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            string månad = firstDayOfMonth.ToString("MMMM");
+            int[] månadAntalKommentar = new int[12];
+            string[] månadKommentar = new string[12];
+            int[] månadAntalReview = new int[12];
+            string[] månadReview = new string[12];
+            for (int i = 0; i < 12; i++)
+            {
+                var kommentarMånad = _context.Comment
+                                  .Where(c => c.Created >= firstDayOfMonth &&
+                                              c.Created <= lastDayOfMonth)
+                                  .Select(c => c.Text)
+                                  .ToArray();
+
+                var reviewMånad = _context.Review
+                                  .Where(c => c.Created >= firstDayOfMonth &&
+                                              c.Created <= lastDayOfMonth)
+                                  .Select(c => c.Text)
+                                  .ToArray();
+
+                månadKommentar[i] = månad;
+                månadAntalKommentar[i] = kommentarMånad.Length;
+                månadReview[i] = månad;
+                månadAntalReview[i] = reviewMånad.Length;
+                firstDayOfMonth = firstDayOfMonth.AddMonths(-1);
+                lastDayOfMonth = lastDayOfMonth.AddMonths(-1);
+                månad = firstDayOfMonth.ToString("MMMM");
+            }
+         
+            ViewBag.yaxelK = dagarAntalKommentar;
+            ViewBag.xaxelK = dagarKommentar;
+            ViewBag.yaxelR = dagarAntalReview;
+            ViewBag.xaxelR = dagarReview;
+
+            ViewBag.yaxelK_veckor = "";
+            ViewBag.xaxelK_veckor = "";
+            ViewBag.yaxelR_veckor = "";
+            ViewBag.xaxelR_veckor = "";
+
+            ViewBag.yaxelK_månad = månadAntalKommentar;
+            ViewBag.xaxelK_månad = månadKommentar;
+            ViewBag.yaxelR_månad = månadAntalReview;
+            ViewBag.xaxelR_månad = månadReview;
 
             return View();
         }
