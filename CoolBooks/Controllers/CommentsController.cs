@@ -87,7 +87,7 @@ namespace CoolBooks.Controllers
                 return NotFound();
             }
 
-            //låt bara skaparen och admin editera
+            //låt bara skaparen och admin&moderator editera
             if (userManager.GetUserId(User) == comment.CreatedBy || User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
                 EditCommentViewModel vm = new EditCommentViewModel();

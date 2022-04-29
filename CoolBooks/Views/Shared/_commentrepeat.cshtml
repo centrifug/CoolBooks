@@ -11,12 +11,16 @@
     userid = "";   
     userlike = null;
 
-    <li>
-        @comment.CoolBooksUser.Name - @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a>
-   </li>
-       
-  
-    
+    <li class="m-2">
+        <div class="d-flex border border-2">
+            <div style="width: 200px">
+                <div>
+                    <b>@comment.CoolBooksUser.Name</b>
+                </div>
+                <div>
+                    <i>@comment.Created</i>
+                </div>
+                <div>
 
     @foreach(CommentLikes user in comment.CommentLikes)  
     {            
@@ -32,11 +36,11 @@
     {   
         <button class="like btn btn-success btn-sm"
         disabled data-status="true"  
-        id="like_@(comment.Id)"> Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+        id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
         <button class="dislike btn btn-danger btn-sm"   
         data-status ="false" 
-        id="dislike_@(comment.Id)">Dislike <i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+        id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
      } 
     
     else if (userid == userManager.GetUserId(User) && userlike == false) // dislike som inloggad
@@ -44,11 +48,11 @@
     
         <button class="like btn btn-success btn-sm" 
         data-status="true" 
-        id="like_@(comment.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+        id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
         
         <button class="dislike btn btn-danger btn-sm"   
         disabled data-status = "false"  
-        id="dislike_@(comment.Id)">Dislike <i class="fa fa-thumbs-o-down"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+        id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
      }
 
     else // inte inloggad eller inte like/dislike
@@ -56,16 +60,20 @@
     
         <button class="like btn btn-success btn-sm"  
         data-status="true"  
-        id="like_@(comment.Id)">Like <i class="fa fa-thumbs-o-up blue-color"></i><span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+        id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
         <button class="dislike btn btn-danger btn-sm"   
         data-status="false" 
-        id="dislike_@(comment.Id)">Dislike <i class="fa fa-thumbs-o-down blue-color"></i><span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+        id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
     
     }
 
 
-    userid = "";
+
+    @*REPORTKNAPPAR*@
+    
+    @{userid = "";}
+
 
     @foreach(var reportedComment in comment.ReportedComments)  
     {            
@@ -76,16 +84,22 @@
         }
     }
 
-    if (userid == userManager.GetUserId(User))
+    @if (userid == userManager.GetUserId(User))
     {
-        <button class="ReportComment btn btn-warning btn-sm" id="ReportComment_@(comment.Id)" ><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)">Rapporterad</span></button>
+        <button class="ReportComment btn btn-warning btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
     }
     else
     {
-        <button class="ReportComment btn btn-primary btn-sm" id="ReportComment_@(comment.Id)"><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)">Rapportera</span></button>
+        <button class="ReportComment btn btn-primary btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
     }
 
-    
+                    </div>
+                    </div>
+           <div class="d-flex">
+               @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a>
+           </div>
+           </div>
+   </li>
 
     @if (comment.comments.Any())
     {    

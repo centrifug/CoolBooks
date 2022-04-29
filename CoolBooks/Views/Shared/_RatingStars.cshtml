@@ -3,11 +3,31 @@
 @{
 
     double width = (1 - (Model/5))*100;
-    int widthInt = (int)width;
+    int cover = (int)width;
+    int visible = 100 - cover;
+    string rating = Model.ToString("N1");
+}
+
+@if (Model > 0)
+{
+<div style="position:relative;  width:134px;" class="d-flex align-items-center">
+    <div>
+     <div style="font-size:2rem; color:gold;">★★★★★</div>
+     <div style="position:absolute;top:0;left:0;width:100%;height:100%;" class="d-flex">
+         <div style="width:@visible%; height:100%;"></div>
+         <div style="width:@cover%; height:100%;background-color:#FFF1F2;"></div>
+     </div>         
+    </div>
+    <b class="mt-1">(@rating)</b>
+</div>
+} 
+else
+{
+<div style="position:relative;  width:134px;" class="d-flex align-items-center">
+    <div style="font-size:2rem; color:lightgray;">★★★★★</div>   
+    <b class="mt-1">(@rating)</b>
+</div>
 }
 
 
-<div style="position:relative;  width:134px;">
-     <div style="font-size:2rem;">★★★★★</div>
-     <div style="position:absolute;top:0;left:0;width:@widthInt%;height:100%;background-color:#FFF1F2;"></div>
-</div>
+
