@@ -134,3 +134,8 @@ __________         __  .__                           __
     -ms-transform: scale(-1, 1);
     transform: scale(-1, 1);
 }
+@media screen and (max-width: 501px) {
+    .responsiv_chart {
+        width: 90vw; 
+    }
+}

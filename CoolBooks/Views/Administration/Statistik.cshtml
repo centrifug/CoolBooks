@@ -8,7 +8,7 @@
     Chart dennaVeckan = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
     dennaVeckan.Width = 500;
     dennaVeckan.Height = 300;
-    dennaVeckan.BackgroundColor = "#FFFFFF";
+    dennaVeckan.BackgroundColor = "#FFF1F2";
     // test.DevicePixelRatio = Pixelratio - 1.0 Default
     // test.Version = "2.9.4" // Not needed
     // test.Format = "png" Filtyp - png Default
@@ -46,7 +46,7 @@
     Chart tioVeckor = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
     tioVeckor.Width = 500;
     tioVeckor.Height = 300;
-    tioVeckor.BackgroundColor = "#FFFFFF";
+    tioVeckor.BackgroundColor = "#FFF1F2";
     // test.DevicePixelRatio = Pixelratio - 1.0 Default
     // test.Version = "2.9.4" // Not needed
     // test.Format = "png" Filtyp - png Default
@@ -55,10 +55,10 @@
     Array.Reverse(ViewBag.xaxelK_veckor);
     Array.Reverse(ViewBag.yaxelR_veckor);
     Array.Reverse(ViewBag.xaxelR_veckor);
-    var jsonlabeltioVeckorKommentar = JsonConvert.SerializeObject(ViewBag.yaxelK);
-    var jsondatatioVeckorKommentar = JsonConvert.SerializeObject(ViewBag.xaxelK);
-    var jsonlabeltioVeckorReview = JsonConvert.SerializeObject(ViewBag.yaxelR);
-    var jsondatatioVeckorReview = JsonConvert.SerializeObject(ViewBag.xaxelR);
+    var jsonlabeltioVeckorKommentar = JsonConvert.SerializeObject(ViewBag.yaxelK_veckor);
+    var jsondatatioVeckorKommentar = JsonConvert.SerializeObject(ViewBag.xaxelK_veckor);
+    var jsonlabeltioVeckorReview = JsonConvert.SerializeObject(ViewBag.yaxelR_veckor);
+    var jsondatatioVeckorReview = JsonConvert.SerializeObject(ViewBag.xaxelR_veckor);
     string egenDatatioVeckor = @"{
     type: 'bar',
     data: {
@@ -84,7 +84,7 @@
     Chart dettaÅret = new Chart(); // Vi har tillgång till Chart klassen via nuget package.
     dettaÅret.Width = 500;
     dettaÅret.Height = 300;
-    dettaÅret.BackgroundColor = "#FFFFFF";
+    dettaÅret.BackgroundColor = "#FFF1F2";
     // test.DevicePixelRatio = Pixelratio - 1.0 Default
     // test.Version = "2.9.4" // Not needed
     // test.Format = "png" Filtyp - png Default
@@ -116,12 +116,20 @@
 
     dettaÅret.Config = egenDataMånad;
 }
-<h1>Kommentarer & Reviews denna veckan per dag.</h1>
-<img href="@dennaVeckan.GetShortUrl()" src="@dennaVeckan.GetUrl()"/> @*Visar bilden via url*@
-<h1>Kommentarer & Reviews dem senaste 10 veckorna per vecka.</h1>
-<img href="@tioVeckor.GetShortUrl()" src="@tioVeckor.GetUrl()"/> @*Visar bilden via url*@
-<h1>Kommentarer & Reviews detta året per månad.</h1>
-<img href="@dettaÅret.GetShortUrl()" src="@dettaÅret.GetUrl()"/> @*Visar bilden via url*@
+<div>
+<h2 style="color: #FFB7C5;" class="display-6 fw-bolder m-0 p-0">Kommentarer & Reviews denna veckan per dag.</h2>
+<img href="@dennaVeckan.GetShortUrl()" src="@dennaVeckan.GetUrl()" class="responsiv_chart"/> @*Visar bilden via url*@
+</div>
+
+<div>
+<h2 style="color: #FFB7C5;" class="display-6 fw-bolder m-0 p-0">Kommentarer & Reviews dem senaste 10 veckorna per vecka.</h2>
+<img href="@tioVeckor.GetShortUrl()" src="@tioVeckor.GetUrl()" class="responsiv_chart"/> @*Visar bilden via url*@
+</div>
+
+<div>
+<h2 style="color: #FFB7C5;" class="display-6 fw-bolder m-0 p-0">Kommentarer & Reviews detta året per månad.</h2>
+<img href="@dettaÅret.GetShortUrl()" src="@dettaÅret.GetUrl()" class="responsiv_chart"/> @*Visar bilden via url*@
+</div>
 @*
 
 

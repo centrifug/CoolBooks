@@ -321,7 +321,38 @@ namespace CoolBooks.Controllers
                 idag = endDateTime.ToString("dddd");
             }
 
-            
+            DateTime startDateTimeWeek = DateTime.Today;
+            DateTime endDateTimeWeek = DateTime.Today.AddDays(-7);
+            DateTimeFormatInfo dateTimeFormatInfo = DateTimeFormatInfo.CurrentInfo;
+            Calendar calendar = dateTimeFormatInfo.Calendar;
+            string week = calendar.GetWeekOfYear(startDateTimeWeek, dateTimeFormatInfo.CalendarWeekRule, dateTimeFormatInfo.FirstDayOfWeek).ToString();
+            int[] veckaAntalKommentar = new int[10];
+            string[] veckaKommentar = new string[10];
+            int[] veckaAntalReview = new int[10];
+            string[] veckaReview = new string[10];
+            for (int i = 0; i < 10; i++)
+            {
+                var kommentarVecka = _context.Comment
+                                  .Where(c => c.Created <= startDateTimeWeek &&
+                                              c.Created >= endDateTimeWeek)
+                                  .Select(c => c.Text)
+                                  .ToArray();
+
+                var reviewVecka = _context.Review
+                                  .Where(c => c.Created <= startDateTimeWeek &&
+                                              c.Created >= endDateTimeWeek)
+                                  .Select(c => c.Text)
+                                  .ToArray();
+
+                veckaKommentar[i] = week;
+                veckaAntalKommentar[i] = kommentarVecka.Length;
+                veckaReview[i] = week;
+                veckaAntalReview[i] = reviewVecka.Length;
+                startDateTimeWeek = startDateTimeWeek.AddDays(-7);
+                endDateTimeWeek = endDateTimeWeek.AddDays(-7);
+                week = calendar.GetWeekOfYear(startDateTimeWeek, dateTimeFormatInfo.CalendarWeekRule, dateTimeFormatInfo.FirstDayOfWeek).ToString();
+            }
+
             var firstDayOfMonth = new DateTime(startDateTime.Year, startDateTime.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             string månad = firstDayOfMonth.ToString("MMMM");
@@ -357,20 +388,21 @@ namespace CoolBooks.Controllers
             ViewBag.yaxelR = dagarAntalReview;
             ViewBag.xaxelR = dagarReview;
 
-            ViewBag.yaxelK_veckor = "";
-            ViewBag.xaxelK_veckor = "";
-            ViewBag.yaxelR_veckor = "";
-            ViewBag.xaxelR_veckor = "";
+            ViewBag.yaxelK_veckor = veckaAntalKommentar;
+            ViewBag.xaxelK_veckor = veckaKommentar;
+            ViewBag.yaxelR_veckor = veckaAntalReview;
+            ViewBag.xaxelR_veckor = veckaReview;
 
             ViewBag.yaxelK_månad = månadAntalKommentar;
             ViewBag.xaxelK_månad = månadKommentar;
             ViewBag.yaxelR_månad = månadAntalReview;
             ViewBag.xaxelR_månad = månadReview;
 
+
             return View();
         }
 
-
+        
         [HttpGet]
         [Authorize(Roles = "Moderator, Admin")]
         public IActionResult ReportedComments()

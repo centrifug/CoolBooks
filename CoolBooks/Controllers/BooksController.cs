@@ -12,6 +12,9 @@ using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using PagedList.Mvc;
+using PagedList;
+using CoolBooks.Services;
 
 namespace CoolBooks.Models
 {
@@ -33,8 +36,10 @@ namespace CoolBooks.Models
         }
 
         // GET: Books
-        public async Task<IActionResult> Index(string searchString, string sortOrder) // DEN HÄR FUNGERAR :)
+        public async Task<IActionResult> Index(string searchString, string sortOrder, string currentFilter, int? pageNumber) // DEN HÄR FUNGERAR :)
         {
+            ViewBag.CurrentSort = sortOrder;
+
             ViewBag.searchString = searchString;
 
             ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";
@@ -42,6 +47,18 @@ namespace CoolBooks.Models
             ViewBag.GenreAscDescSortParam = sortOrder == "Genre ASC" ? "Genre DESC" : "Genre ASC";
             ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
             ViewBag.AuthorAscDescSortParam = sortOrder == "Authors ASC" ? "Authors DESC" : "Authors ASC";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var books = _context.Book.Include(g => g.Genres)
                                      .Include(a => a.Authors)   
@@ -100,7 +117,9 @@ namespace CoolBooks.Models
                 );
 
             }
-            return View(await books.ToListAsync());
+            int pageSize = 10;
+            //return View(await books.ToListAsync());
+            return View(await PaginatedList<Book>.CreateAsync(books.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Books/Details/5
