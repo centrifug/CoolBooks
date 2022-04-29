@@ -4,3 +4,4 @@ Sprint review/Retrospecitve Sprint #2: https://docs.google.com/presentation/d/1D
 Tummen upp/ner css: https://fontawesomeicons.com/thumbs-up
 Jquery tummen upp/ner: https://www.c-sharpcorner.com/blogs/how-to-implement-like-and-dislike-function-in-mvc
 Jquery dokumentation: https://jquery.com/
+Paging dokumentation: https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-6.0
