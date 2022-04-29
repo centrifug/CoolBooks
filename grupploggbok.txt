@@ -198,11 +198,20 @@ Staffan:
   2022-04-28
   
  Stefan: 
- Sprint review/retrospective #2
- Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
-  
+   Sprint review/retrospective #2
+   Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
+ 
+ Staffan:
+   Sprint review/retrospective #2
+   Skrev userstories inför sprint #3
+ 
 
  2022-04-29
  Stefan:
- Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
- Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
+   Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
+   Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
+   
+ Staffan:
+   Buggfixat _RatingStars så den visar stjärnor åt rätt håll samt rating i siffror brevid stjärnorna
+   cssat like/dislike/flagga knapparna samt comments/comments
+   
