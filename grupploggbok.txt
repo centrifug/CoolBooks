@@ -197,7 +197,12 @@ Staffan:
   
   2022-04-28
   
-  Stefan: 
-  Sprint review/retrospective #2
-  Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
+ Stefan: 
+ Sprint review/retrospective #2
+ Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
   
+
+ 2022-04-29
+ Stefan:
+ Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
+ Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
