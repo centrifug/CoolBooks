@@ -1,4 +1,9 @@
-﻿@model IEnumerable<CoolBooks.Models.Book>
+﻿@*@model IEnumerable<CoolBooks.Models.Book>*@
+@using PagedList.Mvc;
+@using PagedList.Core.Mvc;
+@using PagedList;
+@model PaginatedList<CoolBooks.Models.Book>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewData["Title"] = "Index";
