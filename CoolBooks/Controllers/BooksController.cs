@@ -215,7 +215,7 @@ namespace CoolBooks.Models
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             CreateBookViewModel vm = new CreateBookViewModel();
@@ -256,7 +256,7 @@ namespace CoolBooks.Models
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateBookViewModel inputBook)
         {
