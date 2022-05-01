@@ -22,27 +22,34 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <p>Författare:</p>
-            @for (int i = 0; i < Model.Authors.Count; i++)
-            {
-                <div class="form-check m-1">
-                    <input type="hidden" asp-for="@Model.Authors[i].AuthorId" />
-                    <input type="hidden" asp-for="@Model.Authors[i].AuthorFirstName" />
-                    <input type="hidden" asp-for="@Model.Authors[i].AuthorLastName" />
-                    <input asp-for="@Model.Authors[i].IsSelected" class="form-check-input" type="checkbox"/>
-                    <label class="form-check-label" asp-for="@Model.Authors[i]">
-                        @Model.Authors[i].AuthorFirstName @Model.Authors[i].AuthorLastName 
-                    </label>
-                </div>
-            }                
+            <p class="mt-4">Författare: <input type="text" id="filterAuthor" /></p>
+            
+            <div class="form-group overflow-auto" style="height: 200px;">
+
+                
+                @for (int i = 0; i < Model.Authors.Count; i++)
+                {
+                    <div class="form-check m-1 author"  value="@Model.Authors[i].AuthorFirstName @Model.Authors[i].AuthorLastName">
+                        <input type="hidden" asp-for="@Model.Authors[i].AuthorId" />
+                        <input type="hidden" asp-for="@Model.Authors[i].AuthorFirstName" />
+                        <input type="hidden" asp-for="@Model.Authors[i].AuthorLastName" />
+                        <input asp-for="@Model.Authors[i].IsSelected" class="form-check-input" type="checkbox"/>
+                        <label class="form-check-label" asp-for="@Model.Authors[i]">
+                            @Model.Authors[i].AuthorFirstName @Model.Authors[i].AuthorLastName 
+                        </label>
+                    </div>
+                }
+                
             </div>
 
-            <div class="form-group">
-            <p>Genre</p>
+            <p class="mt-4">Genre: <input type="text" id="filterGenre" /></p>
+            
+            <div class="form-group overflow-auto" style="height: 200px;">
+
+            
             @for (int i = 0; i < Model.Genres.Count; i++)
             {
-                <div class="form-check m-1">
+                <div class="form-check m-1 genre" value="@Model.Genres[i].GenreName">
                     <input type="hidden" asp-for="@Model.Genres[i].GenreId" />
                     <input type="hidden" asp-for="@Model.Genres[i].GenreName" />
                     <input asp-for="@Model.Genres[i].IsSelected" class="form-check-input" type="checkbox"/>
