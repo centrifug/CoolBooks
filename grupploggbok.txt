@@ -206,12 +206,18 @@ Staffan:
    Skrev userstories inför sprint #3
  
 
- 2022-04-29
- Stefan:
+2022-04-29
+Stefan:
    Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
    Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
    
  Staffan:
    Buggfixat _RatingStars så den visar stjärnor åt rätt håll samt rating i siffror brevid stjärnorna
-   cssat like/dislike/flagga knapparna samt comments/comments
+   CSS:at like/dislike/flagga knapparna samt comments/comments
+   Lagt till partials för kommenteringsFormulär. Man behöver längre gå till en ny sida för att kommentera.
+     (Man kan även snyggt togglea fram dom så inte hela skärmen täcks av input-text rutor)
+   Gjort så att kommentarer kan toggle:as i book/details så att man bara ser reviews som tillhör boken i första skedet.
+   CSS:at Genres + reviews så dom inte ser fullt så saccflodade ut.
+   Lagt till softdelete på kommentarer så moderatorer kan moderera :D
    
+
