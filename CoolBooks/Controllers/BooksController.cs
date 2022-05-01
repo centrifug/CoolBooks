@@ -164,7 +164,7 @@ namespace CoolBooks.Models
                 .Include(r => r.reportedReviews.Where(rc => rc.UserId == userId))
                 .Include(r => r.ReviewLikes.Where(rc => rc.UserId == userId))
                 .Include(r => r.Comments)
-                    .ThenInclude(c => c.CoolBooksUser).Include(c => c.Comments)
+                    .ThenInclude(c => c.CoolBooksUser)                
                 .Include(r => r.Comments)
                     .ThenInclude(c => c.comments)
                 .Include(r => r.Comments)

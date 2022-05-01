@@ -10,45 +10,38 @@
 <h1>Genre.</h1>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.FirstNameAscDescSortParam">Name ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.Name)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.Description)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>
-                @*@Html.DisplayNameFor(model => model.Created)*@
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<p>Sortera på:
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.FirstNameAscDescSortParam">Namn</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DescriptionAscDescSortParam">Description</a>
+    @*<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.CreatedAscDescSortParam">Created ASC/DESC</a>*@
+</p>
+
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Details" asp-controller="Genres" asp-route-id="@item.Id">@item.Name</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>                    
-                }                
-            </td>
-        </tr>
+
+
+         <div class="d-flex">
+            <div class="m-3 d-flex flex-column justify-content-center align-content-center">
+                <a class="link-secondary" asp-action="Details" asp-controller="Genres" asp-route-id="@item.Id">@item.Name</a>
+                @*<a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id"><img src=" @item.Book.ImagePath" class="card-img-thumbnail" alt="..." width="200px" height="297px"></a>   *@
+
+                  <div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="link-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="link-secondary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>                    
+                        }
+                  </div>
+            </div>
+            <div class="d-flex flex-column m-3 border border-3 border-white p-3 rounded  w-100">
+                <div>
+                    <h2>
+                        <a class="link-secondary" asp-action="Details" asp-controller="Genres" asp-route-id="@item.Id">@item.Name</a>
+                    </h2>                   
+                </div>
+
+                <div class="d-flex">
+                    <p class="text-start">@Html.DisplayFor(modelItem => item.Description)</p>
+                </div>
+            </div>        
+        </div>
 }
-    </tbody>
-</table>

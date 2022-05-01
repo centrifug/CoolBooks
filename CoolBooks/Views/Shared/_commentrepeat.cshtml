@@ -8,11 +8,42 @@
 <ul>
 @foreach (var comment in Model)
 { 
+    if (comment.IsDeleted != true)
+    {
+
     userid = "";   
     userlike = null;
 
-    <li class="m-2">
+            <li class="m-2">
+
+
+
         <div class="d-flex border border-2">
+            <div>
+                    @if (comment.comments.Any())
+                    {
+                        bool allIsDeleted = false;
+
+                        foreach (var c in comment.comments)
+                        {
+                            if (c.IsDeleted == true)
+                            {
+                                allIsDeleted = true;
+                            }
+                        }
+
+                        if (allIsDeleted == false)
+                        {
+                                <p>
+                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#comentToggle@(comment.Id)" role="button" aria-expanded="false" aria-controls="comentToggle@(comment.Id)">
+                                +
+                                </a>
+                            </p>
+                        }
+                  
+                    }
+
+            </div>
             <div style="width: 200px">
                 <div>
                     <b>@comment.CoolBooksUser.Name</b>
@@ -95,15 +126,32 @@
 
                     </div>
                     </div>
-           <div class="d-flex">
-               @comment.Text - <a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a>
+           <div class="d-flex flex-column">
+               <p>@comment.Text</p>               
+                <p>
+                  <a class="link-primary" data-bs-toggle="collapse" href="#CommentCommentFormToggle@(comment.Id)" role="button" aria-expanded="false" aria-controls="CommentCommentFormToggle@(comment.Id)">
+                    svara
+                  </a>
+                </p>
+               @*<a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a>*@
            </div>
+           </div>
+
+           <div class="collapse" id="CommentCommentFormToggle@(comment.Id)">
+               <partial name="_CommentCommentForm" model="@new CreateCommentViewModel{ CommentId = comment.Id }" />
            </div>
    </li>
 
     @if (comment.comments.Any())
-    {    
-        <partial name="_commentrepeat" model="comment.comments" />       
+    {   
+                 <div class="collapse" id="comentToggle@(comment.Id)">
+                  
+                    <partial name="_commentrepeat" model="comment.comments" />
+                  
+                </div>
+            
+    } 
     }
+    
 }
  </ul>
