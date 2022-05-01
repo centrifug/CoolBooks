@@ -219,5 +219,6 @@ Stefan:
    Gjort så att kommentarer kan toggle:as i book/details så att man bara ser reviews som tillhör boken i första skedet.
    CSS:at Genres + reviews så dom inte ser fullt så saccflodade ut.
    Lagt till softdelete på kommentarer så moderatorer kan moderera :D
+   lagt till sökrutor på author/genre i create-book (jquery baserade) 
    
 
