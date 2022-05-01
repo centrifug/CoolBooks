@@ -42,7 +42,7 @@ namespace CoolBooks.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateReviewComment(CreateCommentViewModel inputComment, int id)
+        public async Task<IActionResult> CreateReviewComment(CreateCommentViewModel inputComment, int id, string? returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -51,19 +51,32 @@ namespace CoolBooks.Controllers
 
             Comment commentToSave = new Comment
             {
-                Text = inputComment.Text,
-                reviewId = id,
+                Text = inputComment.Text,              
                 Created = DateTime.Now,
                 CreatedBy = userManager.GetUserId(User),
                 IsDeleted = false
             };
 
+            if (inputComment.ReviewId != null)
+            {
+                commentToSave.reviewId = inputComment.ReviewId;
+            }
+            else 
+            {
+                commentToSave.reviewId = id;
+            }
+
             _context.Add(commentToSave);
             await _context.SaveChangesAsync();
 
-            int? bookId = _context.Review.Where(r => r.Id == id).Select(r => r.BookId).FirstOrDefault();
-            //return Redirect(returnUrl);
+            if (!String.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
 
+            int? bookId = _context.Review.Where(r => r.Id == id).Select(r => r.BookId).FirstOrDefault();
+            
+          
             return RedirectToAction("Details", "Books", new {id = bookId});
         }
 
@@ -94,6 +107,7 @@ namespace CoolBooks.Controllers
 
                 vm.Id = comment.Id;
                 vm.Text = comment.Text;
+                vm.IsDeleted = comment.IsDeleted;
 
                 return View(vm);
             }
@@ -117,6 +131,7 @@ namespace CoolBooks.Controllers
                 commentToUpdate.Text = inputComment.Text;
                 commentToUpdate.LastUpdated = DateTime.Now;
                 commentToUpdate.UpdatedBy = userManager.GetUserId(User);
+                commentToUpdate.IsDeleted = inputComment.IsDeleted;
 
                 try
                 {
@@ -167,17 +182,23 @@ namespace CoolBooks.Controllers
 
             Comment commentToSave = new Comment
             {
-                Text = inputComment.Text,
-                commentId = id,
+                Text = inputComment.Text, 
                 Created = DateTime.Now,
                 CreatedBy = userManager.GetUserId(User),
                 IsDeleted = false
             };
 
+            if (inputComment.CommentId != null)
+            {
+                commentToSave.commentId = inputComment.CommentId;
+            }
+            else
+            {
+                commentToSave.commentId = id;
+            }
+
             _context.Add(commentToSave);
             await _context.SaveChangesAsync();
-
-            
             
             if (!string.IsNullOrEmpty(returnUrl))
             {

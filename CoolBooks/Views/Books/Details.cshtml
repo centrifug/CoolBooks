@@ -103,7 +103,7 @@ else {
    @*<a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TextAscDescSortParam">Text ASC/DESC</a>*@
 </p>
 
-
+@*Lista reviews*@
 @foreach (var item in Model.reviews) {
     <div class="d-flex">
         <div class="m-2">
@@ -132,12 +132,27 @@ else {
 
             <p>@Html.DisplayFor(modelItem => item.Text)</p>
 
-                
+ 
+                @if (item.Comments.Any())
+                {
+                  <p>
+                  <a class="btn btn-primary" data-bs-toggle="collapse" href="#reviewToggle@(item.Id)" role="button" aria-expanded="false" aria-controls="reviewToggle@(item.Id)">
+                    Visa komentarer
+                  </a>
+                </p>
+                <div class="collapse" id="reviewToggle@(item.Id)">
+                  
+                    <partial name="_comment" model="item.Comments" />
+                  
+                </div>
+                }
+                else
+                {
+                    <p>Bli den första kommenterar!</p>
+                }
 
-                <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@item.Id">Kommentera</a>
-                <br>
-                <br>
-                <partial name="_comment" model="item.Comments" />
+                <partial name="_CommentReviewForm" model="@new CreateCommentViewModel{ ReviewId = item.Id }" />
+                
         </div>
     </div>
 }

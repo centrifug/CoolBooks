@@ -3,8 +3,6 @@
 @{
     ViewData["Title"] = "Details";
     var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
-
-
 }
 
 
@@ -31,7 +29,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Text)<br />
-            <a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@Model.Id" asp-route-returnUrl="@routeUrl">Kommentera</a>
+            @*<a asp-controller="Comments" asp-action="CreateReviewComment" asp-route-id="@Model.Id" asp-route-returnUrl="@routeUrl">Kommentera</a>*@
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Rating)
@@ -56,8 +54,9 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-
 <partial name="_ReviewButtons" model="@Model" />
+<div class="m-1"></div>
+<partial name="_CommentReviewForm" model="@new CreateCommentViewModel{ ReviewId = Model.Id }" />
 
 <h2>Kommentarer:</h2>
 <partial name="_Comment" model="@Model.Comments" />

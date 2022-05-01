@@ -1,0 +1,19 @@
+﻿@model CreateCommentViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+}
+<div>
+    <div>
+        <form asp-controller="Comments" asp-action="CreateReviewComment" asp-route-returnUrl="@routeUrl" method="post">
+            <input type="hidden" asp-for="ReviewId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="d-flex w-75">    
+                <input type="text" asp-for="Text" class="form-control"></Input>
+                <span asp-validation-for="Text" class="text-danger"></span>
+                <input type="submit" value="Kommentera" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

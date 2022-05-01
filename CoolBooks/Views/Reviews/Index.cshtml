@@ -9,84 +9,28 @@
   
 }
 
+
 <h1>Recensioner.</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BookAscDescSortParam">Book ASC/DESC</a>
-                @*@Html.ActionLink("Book ASC/DESC", "Index", new { sortOrder = ViewBag.BookAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Book)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Title ASC/DESC</a>
-                @*@Html.ActionLink("Title ASC/DESC", "Index", new { sortOrder = ViewBag.TitleAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Title)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TextAscDescSortParam">Text ASC/DESC</a>
-                @*@Html.ActionLink("Text ASC/DESC", "Index", new { sortOrder = ViewBag.TextAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Text)*@
-            </th>
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Rating ASC/DESC</a>
-                @*@Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Rating)*@
-            </th>
-             <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.LikesAscDescSortParam">Likes ASC/DESC</a>
-                @*@Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Rating)*@
-            </th>
-             <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DislikesAscDescSortParam">Dislikes ASC/DESC</a>
-                @*@Html.ActionLink("Rating ASC/DESC", "Index", new { sortOrder = ViewBag.RatingAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Rating)*@
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>*@
-            <th>
-                <a asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BookAscDescSortParam">Created ASC/DESC</a>
-                @*@Html.ActionLink("Created ASC/DESC", "Index", new { sortOrder = ViewBag.CreatedAscDescSortParam })*@
-                @*@Html.DisplayNameFor(model => model.Created)*@
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-controller="books" asp-action="details" asp-route-id="@item.BookId">@item.Book.Title</a>
-                @*@Html.DisplayFor(modelItem => item.Book.Title)*@
-            </td>
-            <td>
-                <a asp-controller="Reviews" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-                
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LikeCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DisLikeCount)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                  <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+<p>
+    Sortera på:
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BookAscDescSortParam">Bok</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TitleAscDescSortParam">Titel</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.TextAscDescSortParam">Text</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.RatingAscDescSortParam">Betyg</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.LikesAscDescSortParam">Likes</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.DislikesAscDescSortParam">Dislikes</a>
+    <a class="link-secondary" asp-controller="@controller" asp-action="@action" asp-route-id="@route" asp-route-sortOrder="@ViewBag.BookAscDescSortParam">Skapad</a>
+</p>
 
+
+@foreach (var item in Model) {
+
+    <div class="d-flex">
+            <div class="m-3 d-flex flex-column justify-content-center align-content-center">
+                
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id"><img src=" @item.Book.ImagePath" class="card-img-thumbnail" alt="..." width="200px" height="297px"></a>   
+                  <div>
                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                     {
                        <a asp-action="Block" asp-controller="Reviews" asp-route-id="@item.Id">Block</a>
@@ -96,9 +40,34 @@
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>                        
                     }
+                  </div>
+            </div>
+            <div class="d-flex flex-column m-3 border border-3 border-white p-3 rounded  w-100">
+                <div>
+                    <h2>
+                        <a class="link-secondary" asp-controller="Reviews" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+                    </h2>
+                    
+                        <a class="link-secondary" asp-controller="Books" asp-action="Details" asp-route-id="@item.BookId">@item.Book.Title</a>   
+                </div>
+
+                <div>
+                    @{ double rating = (double)item.Rating;}
+                    <partial name="_RatingStars" model="@rating" />
+                </div>
+                    
+                    <p class="me-2 mb-0">Skapad: @Html.DisplayFor(modelItem => item.Created)</p>
+                    <p class="me-2 mb-1">Likes: @Html.DisplayFor(modelItem => item.LikeCount) Dislikes: @Html.DisplayFor(modelItem => item.DisLikeCount)</p>
+
+                <div class="d-flex">
+                    <p class="text-start">@Html.DisplayFor(modelItem => item.Text)</p>
                 
-            </td>
-        </tr>
+                </div>
+            </div>        
+        </div>
+
 }
-    </tbody>
-</table>
+
+
+
+
