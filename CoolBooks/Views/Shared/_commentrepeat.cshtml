@@ -22,13 +22,14 @@
             <div>
                     @if (comment.comments.Any())
                     {
-                        bool allIsDeleted = false;
+                        bool allIsDeleted = true;
 
                         foreach (var c in comment.comments)
                         {
-                            if (c.IsDeleted == true)
+                            if (c.IsDeleted == false)
                             {
-                                allIsDeleted = true;
+                                allIsDeleted = false;
+                                break;
                             }
                         }
 

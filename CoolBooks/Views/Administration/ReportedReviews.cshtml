@@ -5,29 +5,37 @@
 
 <h2>Rapporterade Rescensioner:</h2>
 
-<table>
-        <tr>
-            <th>ID</th>
-            <th>Titel</th>
-            <th>Rapporteringar</td>
-            <th></th>
-        </tr>
 
+<table id="sortableTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0, 0)" scope="col">ID</th>
+            <th onclick="sortTable(1, 1)" scope="col">Titel</th>
+            <th onclick="sortTable(2, 0)" scope="col">Rapporteringar</th>
+            <th onclick="sortTable(3, 1)" scope="col">Blockad/Deleted</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
     @foreach (var review in Model)
     {
         <tr>
-            <td>@review.ReviewId</td>
-            <td>@review.ReviewName</td>
-            <td>@review.Total</td>
-            <td>
-                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.ReviewId" asp-route-returnUrl="@routeUrl">Edit</a>
-                <a asp-controller="Reviews" asp-action="Block" asp-route-id="@review.ReviewId" asp-route-returnUrl="@routeUrl">Block</a>
+            <td scope="row">@review.ReviewId</td>
+            <td scope="row">@review.ReviewName</td>
+            <td scope="row">@review.Total</td>
+            <td scope="row">@review.IsDeleted</td>
+            <td scope="row">
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary me-2" asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.ReviewId" asp-route-returnUrl="@routeUrl">Edit</a>
+                    <a class="btn btn-primary me-2" asp-controller="Reviews" asp-action="Block" asp-route-id="@review.ReviewId" asp-route-returnUrl="@routeUrl">Block</a>
                 <form asp-controller="Administration" asp-action="PurgeReportedReviews" asp-route-id="@review.ReviewId" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort alla flaggningar för denna review?');">
-                    <button type="submit">PURGE</button>
-                </form>
-                
-            </td>
-        </tr>
-    }
+                    <button class="btn btn-warning" type="submit">PURGE</button>
+                </form>  
 
+                </div>
+                  
+            </td>
+        </tr>    
+    }
+    </tbody>
 </table>
