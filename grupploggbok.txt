@@ -182,7 +182,7 @@ Staffan:
   Det finns möjlighet att editera/blockera(softdelete) dessa, samt att man kan "purge:a" flaggningslistan efter vidtagen åtgärd.
   Buggfixat i like/dislike/report knapparna. Var lite strul med att enablea/disablea rätt vid olika användare.
   
-  2022-04-27
+2022-04-27
   Stefan:
     Besökt LIA plats nästan hela dagen.
     Förberett inför sprintreview/retrospectiv.
@@ -195,35 +195,40 @@ Staffan:
   Massa CSS all over the place.. :)
   
   
-  2022-04-28
-  
- Stefan: 
-   Sprint review/retrospective #2
-   Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
+2022-04-28  
+Stefan: 
+  Sprint review/retrospective #2
+  Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
  
- Staffan:
-   Sprint review/retrospective #2
-   Skrev userstories inför sprint #3
+Staffan:
+  Sprint review/retrospective #2
+  Skrev userstories inför sprint #3
  
 
 2022-04-29
 Stefan:
-   Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
-   Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
+  Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
+  Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
    
- Staffan:
-   Buggfixat _RatingStars så den visar stjärnor åt rätt håll samt rating i siffror brevid stjärnorna
-   CSS:at like/dislike/flagga knapparna samt comments/comments
-   Lagt till partials för kommenteringsFormulär. Man behöver längre gå till en ny sida för att kommentera.
-     (Man kan även snyggt togglea fram dom så inte hela skärmen täcks av input-text rutor)
-   Gjort så att kommentarer kan toggle:as i book/details så att man bara ser reviews som tillhör boken i första skedet.
-   CSS:at Genres + reviews så dom inte ser fullt så saccflodade ut.
-   Lagt till softdelete på kommentarer så moderatorer kan moderera :D
-   lagt till sökrutor på author/genre i create-book (jquery baserade) 
+Staffan:
+  Buggfixat _RatingStars så den visar stjärnor åt rätt håll samt rating i siffror brevid stjärnorna
+  CSS:at like/dislike/flagga knapparna samt comments/comments
+  Lagt till partials för kommenteringsFormulär. Man behöver längre gå till en ny sida för att kommentera.
+    (Man kan även snyggt togglea fram dom så inte hela skärmen täcks av input-text rutor)
+  Gjort så att kommentarer kan toggle:as i book/details så att man bara ser reviews som tillhör boken i första skedet.
+  CSS:at Genres + reviews så dom inte ser fullt så saccflodade ut.
+  Lagt till softdelete på kommentarer så moderatorer kan moderera :D
+  lagt till sökrutor på author/genre i create-book (jquery baserade) 
    
 2022-05-02
-	Stefan: Blev färdig med paging funktion, förutom för kommentarer på reviews. Där behövs refaktotrering om det ska gå att lösa.
-		Lagt till description och wiki fält för authors. Samt seed-data för detta. Också gjort hantering för tomma länkar.
-
-	Staffan:	
+Stefan: 
+  Blev färdig med paging funktion, förutom för kommentarer på reviews. Där behövs refaktotrering om det ska gå att lösa.
+  Lagt till description och wiki fält för authors. Samt seed-data för detta. Också gjort hantering för tomma länkar.
+  
+Staffan:
+  Buggfixat softdelete/block på kommenterarer + tillhörande kod se det inte visas i views 
+    (Toggleknappen visades även om det inte fanns några kommentarer att se längre)
+  Css:at Moderator-del: Rapporterade Kommentarer och reviews.
+    (Javascript sortering om man trycker på tableheader så man kan lättare kan få fram det man söker)
+  Disablat like/dislike/flaggknappar om du inte är inloggad. Samt minor buggfix i funktionaliteten hos respektive funktioner.
 
