@@ -221,4 +221,9 @@ Stefan:
    Lagt till softdelete på kommentarer så moderatorer kan moderera :D
    lagt till sökrutor på author/genre i create-book (jquery baserade) 
    
+2022-05-02
+	Stefan: Blev färdig med paging funktion, förutom för kommentarer på reviews. Där behövs refaktotrering om det ska gå att lösa.
+		Lagt till description och wiki fält för authors. Samt seed-data för detta. Också gjort hantering för tomma länkar.
+
+	Staffan:	
 
