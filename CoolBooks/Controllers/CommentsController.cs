@@ -230,16 +230,20 @@ namespace CoolBooks.Controllers
         }
         public ActionResult Report(int id)
         {
+            var comment = _context.Comment.Find(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
 
             var userId = userManager.GetUserId(User);
             if (userId == null)
             {
                 return NotFound();
             }
-            if (id == 0)
-            {
-                return NotFound();
-            }
+
+
             var reportedComment = _context.ReportedComments
                 .Where(rr => rr.CommentId == id && rr.UserId == userId)
                 .FirstOrDefault();

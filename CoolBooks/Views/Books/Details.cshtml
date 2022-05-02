@@ -146,8 +146,14 @@ else {
                   
                 </div>
                 }
-
-                <partial name="_CommentReviewForm" model="@new CreateCommentViewModel{ ReviewId = item.Id }" />
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <partial name="_CommentReviewForm" model="@new CreateCommentViewModel{ ReviewId = item.Id }" />
+                }
+                else
+                {
+                    <p>Logga in för att kommentera. <a  class="link-secondary" asp-controller="account" asp-action="login" asp-route-returnurl="@routeUrl"> Logga in </a></p>
+                }
                 
         </div>
     </div>

@@ -54,93 +54,124 @@
                 </div>
                 <div>
 
-    @foreach(CommentLikes user in comment.CommentLikes)  
-    {            
-        if (user.UserId == userManager.GetUserId(User))            
+    @if (signInManager.IsSignedIn(User))
+    {
+
+        @foreach(CommentLikes user in comment.CommentLikes)  
+        {            
+            if (user.UserId == userManager.GetUserId(User))            
+            {
+                userid = user.UserId;   
+                userlike = user.IsLike;
+                break;
+            }
+        }
+
+
+        @if(userid == userManager.GetUserId(User) && userlike == true) // like som inloggad
+        {   
+            <button class="like btn btn-success btn-sm"
+            disabled data-status="true"  
+            id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+    
+            <button class="dislike btn btn-danger btn-sm"   
+            data-status ="false" 
+            id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+        } 
+    
+        else if (userid == userManager.GetUserId(User) && userlike == false) // dislike som inloggad
         {
-            userid = user.UserId;   
-            userlike = user.IsLike;
-            break;
+    
+            <button class="like btn btn-success btn-sm" 
+            data-status="true" 
+            id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+        
+            <button class="dislike btn btn-danger btn-sm"   
+            disabled data-status = "false"  
+            id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+        }
+        else // inte like/dislike:at nått ännu
+        {  
+    
+            <button class="like btn btn-success btn-sm"  
+            data-status="true"  
+            id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+    
+            <button class="dislike btn btn-danger btn-sm"   
+            data-status="false" 
+            id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
+    
         }
     }
-
-    @if(userid == userManager.GetUserId(User) && userlike == true) // like som inloggad
-    {   
-        <button class="like btn btn-success btn-sm"
-        disabled data-status="true"  
-        id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
-    
-        <button class="dislike btn btn-danger btn-sm"   
-        data-status ="false" 
-        id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
-     } 
-    
-    else if (userid == userManager.GetUserId(User) && userlike == false) // dislike som inloggad
+    else
     {
-    
-        <button class="like btn btn-success btn-sm" 
-        data-status="true" 
-        id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
-        
-        <button class="dislike btn btn-danger btn-sm"   
-        disabled data-status = "false"  
-        id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
-     }
-
-    else // inte inloggad eller inte like/dislike
-    {  
-    
         <button class="like btn btn-success btn-sm"  
-        data-status="true"  
-        id="like_@(comment.Id)"><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
+            data-status="true"  
+            id="like_@(comment.Id)" disabled><i class="fa fa-thumbs-o-up  text-light"></i> <span class="commentlikecount" id="commentlikecount_@(comment.Id)">@comment.LikeCount</span></button>
     
-        <button class="dislike btn btn-danger btn-sm"   
-        data-status="false" 
-        id="dislike_@(comment.Id)"><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
-    
+            <button class="dislike btn btn-danger btn-sm"   
+            data-status="false" 
+            id="dislike_@(comment.Id)" disabled><i class="fa fa-thumbs-o-down  text-light"></i> <span class="commentdislikecount" id="commentdislikecount_@(comment.Id)">@comment.DisLikeCount</span></button>
     }
-
 
 
     @*REPORTKNAPPAR*@
     
     @{userid = "";}
 
-
-    @foreach(var reportedComment in comment.ReportedComments)  
-    {            
-        if (reportedComment.UserId == userManager.GetUserId(User))            
+    @if (signInManager.IsSignedIn(User))
+    {
+        @foreach(var reportedComment in comment.ReportedComments)  
+        {            
+            if (reportedComment.UserId == userManager.GetUserId(User))            
+            {
+                userid = reportedComment.UserId;            
+                break;
+            }
+        }
+  
+        @if (userid == userManager.GetUserId(User))
         {
-            userid = reportedComment.UserId;            
-            break;
+            <button class="ReportComment btn btn-warning btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
+        }
+        else
+        {
+            <button class="ReportComment btn btn-primary btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
         }
     }
-
-    @if (userid == userManager.GetUserId(User))
-    {
-        <button class="ReportComment btn btn-warning btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
-    }
-    else
-    {
-        <button class="ReportComment btn btn-primary btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
-    }
-
                     </div>
                     </div>
            <div class="d-flex flex-column">
                <p>@comment.Text</p>               
-                <p>
-                  <a class="link-primary" data-bs-toggle="collapse" href="#CommentCommentFormToggle@(comment.Id)" role="button" aria-expanded="false" aria-controls="CommentCommentFormToggle@(comment.Id)">
-                    svara
-                  </a>
-                </p>
+                
+                    @if (signInManager.IsSignedIn(User))
+                    {  
+                        <p>
+                            <a class="link-primary" data-bs-toggle="collapse" href="#CommentCommentFormToggle@(comment.Id)" role="button" aria-expanded="false" aria-controls="CommentCommentFormToggle@(comment.Id)">
+                                svara
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Logga in för att svara. <a  class="link-secondary" asp-controller="account" asp-action="login" asp-route-returnurl="@routeUrl"> Logga in </a>
+                        </p>
+                    }
+
+                
                @*<a asp-controller="Comments" asp-action="Create" asp-route-id="@comment.Id" asp-route-returnUrl="@routeUrl">svara</a>*@
            </div>
            </div>
 
-           <div class="collapse" id="CommentCommentFormToggle@(comment.Id)">
-               <partial name="_CommentCommentForm" model="@new CreateCommentViewModel{ CommentId = comment.Id }" />
-           </div>
+                    @if (signInManager.IsSignedIn(User))
+                    {                        
+                        <div class="collapse" id="CommentCommentFormToggle@(comment.Id)">
+                            <partial name="_CommentCommentForm" model="@new CreateCommentViewModel{ CommentId = comment.Id }" />
+                        </div>
+                    }
+
+
    </li>
 
     @if (comment.comments.Any())
