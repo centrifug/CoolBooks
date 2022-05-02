@@ -442,7 +442,14 @@ namespace CoolBooks.Controllers
         }
 
         public ActionResult Report(int id) {
-                        
+            
+            var review = _context.Review.Find(id);
+
+            if (review == null) 
+            {
+                return NotFound(); 
+            }
+
             var userId = userManager.GetUserId(User);
             if (userId == null)
             {

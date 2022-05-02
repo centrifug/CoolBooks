@@ -4,6 +4,7 @@
     $(".ReportReview").click(function() {
 
         var id = event.target.id.split('_')[1];
+        console.log(id);
         if(id != null){
             $.get("@Url.Content("~/Reviews/Report")/?id=" + id, function(data) {
 
@@ -23,12 +24,14 @@
     $(".LikeReview").click(function() { 
 
         var id = event.target.id.split('_')[1];
+        console.log(id);
         if(id != null){
             @*ajaxGet deprecated*@
             $.get("@Url.Content("~/Reviews/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
-            
-                var counters = data.split('/');
+                
                 console.log("GET");
+                var counters = data.split('/');
+                
                 $(".ReviewsContainer").find("#Reviewslikecount_"+id).text(counters[0]);  
                 $(".ReviewsContainer").find("#Reviewsdislikecount_"+id).text(counters[1]);  
                 $(".ReviewsContainer").find("#LikeReview_"+id).attr('disabled', 'disabled');  
@@ -41,12 +44,13 @@
     $(".DislikeReview").click(function() {  
 
         var id = event.target.id.split('_')[1];
-        console.log("GET");
+        console.log(id);        
 
         if(id != null){
             @*ajaxGet deprecated*@
             $.get("@Url.Content("~/Reviews/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
-            
+                
+                console.log("GET");
                 var counters = data.split('/');  
 
                 $(".ReviewsContainer").find("#Reviewslikecount_"+id).text(counters[0]);  
@@ -65,11 +69,13 @@
     $(".like").click(function() { 
 
         var id = event.target.id.split('_')[1];
-        
+        console.log(id);
+
         if(id != null){
             @*ajaxGet deprecated*@
             $.get("@Url.Content("~/Comments/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
-            
+                
+                console.log("GET");
                 var counters = data.split('/');
             
                 $(".CommentsContainer").find("#commentlikecount_"+id).text(counters[0]);  
@@ -84,11 +90,13 @@
     $(".dislike").click(function() {  
 
         var id = event.target.id.split('_')[1];
+        console.log(id);
 
         if(id != null){
             @*ajaxGet deprecated*@
             $.get("@Url.Content("~/Comments/Like")/?id=" + id + "&status=" + $(this).data("status"), function(data) {  
-            
+                
+                console.log("GET");
                 var counters = data.split('/');  
 
                 $(".CommentsContainer").find("#commentlikecount_"+id).text(counters[0]);  
@@ -110,6 +118,8 @@
 
             if(id != null){
                 $.get("@Url.Content("~/Comments/Report")/?id=" + id, function(data) {            
+                    
+                    console.log("GET");
                     //$(".CommentsContainer").find("#ReportCommentText_"+id).text(data); 
                     $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-warning");
                     $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-primary");
