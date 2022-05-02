@@ -4,28 +4,36 @@
 }
 <h2>Rapporterade Kommentarer:</h2>
 
-<table>
+<table id="sortableTable" class="table table-striped">
+    <thead>
         <tr>
-            <th>ID</th>
-            <th>Kommentar</th>
-            <th>Rapporteringar</td>
-            <th></th>
+            <th onclick="sortTable(0, 0)" scope="col">ID</th>
+            <th onclick="sortTable(1, 1)" scope="col">Kommentar</th>
+            <th onclick="sortTable(2, 0)" scope="col">Rapporteringar</th>
+            <th onclick="sortTable(3, 1)" scope="col">Blockad/Deleted</th>
+            <th scope="col"></th>
         </tr>
-
+    </thead>
+    <tbody>
     @foreach (var comment in Model)
     {
         <tr>
-            <td>@comment.ReportedCommentId</td>
-            <td>@comment.CommentText</td>
-            <td>@comment.Total</td>
-            <td>
-                <a asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.ReportedCommentId" asp-route-returnUrl="@routeUrl">Edit</a>
+            <td scope="row">@comment.ReportedCommentId</td>
+            <td scope="row">@comment.CommentText</td>
+            <td scope="row">@comment.Total</td>
+            <td scope="row">@comment.IsDeleted</td>
+            <td scope="row">
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary me-2" asp-controller="Comments" asp-action="Edit" asp-route-id="@comment.ReportedCommentId" asp-route-returnUrl="@routeUrl">Edit</a>
                 <form asp-controller="Administration" asp-action="PurgeReportedComments" asp-route-id="@comment.ReportedCommentId" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort alla flaggningar för denna kommentar?');">
-                    <button type="submit">PURGE</button>
-                </form>    
-            </td>
-        </tr>
-    }
+                    <button class="btn btn-warning" type="submit">PURGE</button>
+                </form>  
 
+                </div>
+                  
+            </td>
+        </tr>    
+    }
+    </tbody>
 </table>
 

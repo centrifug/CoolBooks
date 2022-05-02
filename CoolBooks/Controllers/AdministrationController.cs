@@ -414,6 +414,7 @@ namespace CoolBooks.Controllers
                 {
                     ReportedCommentId = x.Key,
                     CommentText = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.Text).First(),
+                    IsDeleted = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.IsDeleted).First(),
                     Total = x.Count()
 
                 })
@@ -435,7 +436,8 @@ namespace CoolBooks.Controllers
                 .Select(x => new ReportedReviewViewModel
                 {
                     ReviewId = x.Key,
-                    ReviewName = _context.Review.Where(c => c.Id == x.Key).Select(c => c.Title).First(),
+                    ReviewName = _context.Review.Where(r => r.Id == x.Key).Select(r => r.Title).First(),
+                    IsDeleted = _context.Review.Where(r => r.Id == x.Key).Select(r => r.IsDeleted).First(),
                     Total = x.Count()
 
                 })
