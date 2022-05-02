@@ -124,9 +124,9 @@ namespace CoolBooks.Models
 
         // GET: Books/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(int? id, string sortOrder)
+        public async Task<IActionResult> Details(int? id, string sortOrder, int? pageNumber)
         {
-
+            
             BookWithReviewsViewModel vm = new BookWithReviewsViewModel();
 
             ViewBag.BookAscDescSortParam = sortOrder == "Book ASC" ? "Book DESC" : "Book ASC";
@@ -227,7 +227,8 @@ namespace CoolBooks.Models
                     reviews = reviews.OrderBy(b => b.Id);
                     break;
             }
-            vm.reviews = reviews.ToList();
+            int pageSize = 2;
+            vm.reviews = await PaginatedList<Review>.CreateAsync(reviews, pageNumber ?? 1, pageSize);
             return View(vm);
         }
 

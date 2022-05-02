@@ -30,13 +30,27 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Authors
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string sortOrder, string currentFilter, int? pageNumber)
         {
+            ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.searchString = searchString;
+
             ViewBag.FirstNameAscDescSortParam = sortOrder == "FirstName ASC" ? "FirstName DESC" : "FirstName ASC";
             ViewBag.LastNameAscDescSortParam = sortOrder == "LastName ASC" ? "LastName DESC" : "LastName ASC";
             ViewBag.BirthDateAscDescSortParam = sortOrder == "BirthDate ASC" ? "BirthDate DESC" : "BirthDate ASC";
             ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
             ViewBag.RatingAscDescSortParam = sortOrder == "Rating ASC" ? "Rating DESC" : "Rating ASC";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+
+                searchString = currentFilter;
+            }
 
             var authors = _context.Author
                                      //.Include(g => g.Genres)
@@ -79,11 +93,13 @@ namespace CoolBooks.Controllers
                     authors = authors.OrderBy(b => b.Id);
                     break;
             }
-            return View(authors.ToList());
+            int pageSize = 10;
+            //return View(await authors.ToList());
+            return View(await PaginatedList<Author>.CreateAsync(authors.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Authors/Details/5
-        public async Task<IActionResult> Details(int? id, string sortOrder)
+        public async Task<IActionResult> Details(int? id, string sortOrder, int? pageNumber)
         {
             AuthorDetailsViewModel vm = new AuthorDetailsViewModel();
             vm.Author = await _context.Author
@@ -100,7 +116,7 @@ namespace CoolBooks.Controllers
                                      .Where(b => b.IsDeleted != true)
                                      .Where(b => b.Authors.Any(g => g.Id == id))
                                      .Select(b => b);
-
+            pageNumber = 1;
             switch (sortOrder)
             {
                 case "Title DESC":
@@ -140,7 +156,8 @@ namespace CoolBooks.Controllers
                     break;
             }
 
-            vm.Books = books.ToList();
+            int pageSize = 5;
+            vm.Books = await PaginatedList<Book>.CreateAsync(books.AsNoTracking(), pageNumber ?? 1, pageSize);
             return View(vm);
         }
 
