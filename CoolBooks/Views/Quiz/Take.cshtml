@@ -1,0 +1,65 @@
+﻿@model Quiz
+
+@section Scripts{
+
+    <script>
+
+    function CheckAnswer() {
+        var myArray = [];
+        var points = 0;
+        @foreach (var question in Model.Questions)
+        {
+
+                string id = "Question_" +  question.Id.ToString();
+                @:myArray.push("@id");       
+        }
+                for (var i = 0; i < myArray.length; i++) {
+
+                    $("input[type='radio'][name=" + myArray[i] + "]").parent().removeClass("right");
+                    $("input[type='radio'][name=" + myArray[i] + "]").parent().removeClass("wrong");
+                    $("input[type='radio'][name=" + myArray[i] + "]").each(function () {
+                        if ($(this).is(":checked")) {
+                            if ($(this).val() == "True") {
+                                $(this).parent().addClass("right")
+                                points++;
+                            } else {
+                                $(this).parent().addClass("wrong");
+                            }
+                        }
+                    });
+                }
+       document.getElementById("points").innerHTML = "Poäng: " + points + "/" + myArray.length;
+    }
+    </script>
+
+}
+
+<style>
+    .right {
+        background-color: green;
+    }
+
+    .wrong {
+        background-color: red;
+    }
+</style>
+
+
+<h2>@Model.Name</h2>
+
+@foreach (var question in Model.Questions)
+{
+    <p>@question.Text</p>
+
+    <ul>
+    @foreach (var option in question.Options)
+    {
+        <li>
+            <input type="radio" id="@option.Id" name="Question_@(question.Id)" value="@option.Answer.ToString()" />
+            <label for="@option.Id">@option.Text</label>
+        </li>
+    }
+    </ul>
+}
+
+<button class="btn btn-dark" value="Rätta" onclick="CheckAnswer()">Rätta</button> <p><b id="points"></b></p>
