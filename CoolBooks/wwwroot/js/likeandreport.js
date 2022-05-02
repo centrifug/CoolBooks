@@ -5,7 +5,7 @@
 
         var id = event.target.id.split('_')[1];
 
-        $.get("@Url.Content("~/Reviews/Report")/?id=" + id, function(data) {
+        $.get("@Url.Content('~/Reviews/Report)/?id=" + id, function(data) {
 
             console.log("GET");
             $(".ReviewsContainer").find("#ReportReviewText_"+id).text(data);
