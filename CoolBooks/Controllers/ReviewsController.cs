@@ -35,8 +35,12 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Reviews
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string sortOrder, string currentFilter, int? pageNumber)
         {
+            ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.searchString = searchString;
+
             ViewBag.BookAscDescSortParam = sortOrder == "Book ASC" ? "Book DESC" : "Book ASC";
             ViewBag.TitleAscDescSortParam = sortOrder == "Title ASC" ? "Title DESC" : "Title ASC";
             ViewBag.TextAscDescSortParam = sortOrder == "Text ASC" ? "Text DESC" : "Text ASC";
@@ -46,6 +50,16 @@ namespace CoolBooks.Controllers
             ViewBag.DislikesAscDescSortParam = sortOrder == "Dislikes ASC" ? "Dislikes DESC" : "Dislikes ASC";
             //ViewBag.CreatedbyAscDescSortParam = sortOrder == "CreatedBy ASC" ? "CreatedBy DESC" : "CreatedBy ASC"; 
             // TODO CREATEDBY SORTERING??
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+
+                searchString = currentFilter;
+            }
 
             var coolBooksContext = _context.Review.Include(r => r.Book)
                                                   .Where(r => r.IsDeleted == false)
@@ -99,8 +113,9 @@ namespace CoolBooks.Controllers
                     coolBooksContext = coolBooksContext.OrderBy(b => b.Id);
                     break;
             }
-            
-            return View(await coolBooksContext.ToListAsync());
+            int pageSize = 5;
+            //return View(await authors.ToList());
+            return View(await PaginatedList<Review>.CreateAsync(coolBooksContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Reviews/Details/5

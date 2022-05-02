@@ -29,11 +29,25 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Genres
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string sortOrder, string currentFilter, int? pageNumber)
         {
+            ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.searchString = searchString;
+
             ViewBag.FirstNameAscDescSortParam = sortOrder == "Name ASC" ? "Name DESC" : "Name ASC";
             ViewBag.DescriptionAscDescSortParam = sortOrder == "Description ASC" ? "Description DESC" : "Description ASC";    
             ViewBag.CreatedAscDescSortParam = sortOrder == "Created ASC" ? "Created DESC" : "Created ASC";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+
+                searchString = currentFilter;
+            }
 
             var genres = _context.Genre
                                      //.Include(g => g.Genres)
@@ -64,12 +78,14 @@ namespace CoolBooks.Controllers
                     genres = genres.OrderBy(b => b.Id);
                     break;
             }
-            return View(genres.ToList());
+            int pageSize = 5;
+            //return View(await authors.ToList());
+            return View(await PaginatedList<Genre>.CreateAsync(genres.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Genres/Details/5
         
-        public async Task<IActionResult> Details(int? id, string sortOrder)
+        public async Task<IActionResult> Details(int? id, string sortOrder, int? pageNumber)
         {
             GenreDetailsViewModel vm = new GenreDetailsViewModel();
             vm.Genre = await _context.Genre
@@ -86,6 +102,8 @@ namespace CoolBooks.Controllers
                                      .Where(b => b.IsDeleted != true)
                                      .Where(b => b.Genres.Any(g => g.Id == id))
                                      .Select(b => b);
+                    
+           
 
             switch (sortOrder)
             {
@@ -126,7 +144,8 @@ namespace CoolBooks.Controllers
                     break;
             }
 
-            vm.Books = books.ToList();
+            int pageSize = 2;
+            vm.Books = await PaginatedList<Book>.CreateAsync(books.AsNoTracking(), pageNumber ?? 1, pageSize);
             return View(vm);
         }
 
