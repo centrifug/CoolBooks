@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CoolBooks.Models;
+using CoolBooks.Models.Quiz;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,6 +23,14 @@ namespace CoolBooks.Data
         public DbSet<CoolBooks.Models.CommentLikes> CommentLikes { get; set; }
         public DbSet<ReportedReview> ReportedReviews { get; set; }
         public DbSet<ReportedComment> ReportedComments { get; set; }
+
+        //quiz dbsets
+        public DbSet<Quiz> Quiz { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<QOption> QOption { get; set; }
+        public DbSet<QuizGenre> QuizGenre { get; set; }
+
+
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
             : base(options)
         {
@@ -72,6 +81,13 @@ namespace CoolBooks.Data
             modelBuilder.Entity<Comment>()
                         .Property(d => d.DisLikeCount).HasDefaultValue(0);
 
+            modelBuilder.Entity<Quiz>()
+                .HasMany(q => q.QuizGenres)
+                .WithMany(qg => qg.Quizzes)
+                .UsingEntity<QuizQuizGenre>
+                (qqg => qqg.HasOne<QuizGenre>().WithMany().OnDelete(DeleteBehavior.ClientSetNull),
+                qqg => qqg.HasOne<Quiz>().WithMany().OnDelete(DeleteBehavior.ClientSetNull))
+                .Property(ba => ba.Created);
 
             modelBuilder.SeedBook(); // Kör min Seed extension metod.
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.
@@ -85,7 +101,15 @@ namespace CoolBooks.Data
             modelBuilder.SeedComment();
             modelBuilder.SeedReviewLike();
 
-            
+
+            //Seed Quiztables
+            modelBuilder.SeedQuizzes();
+            modelBuilder.SeedQuestions();
+            modelBuilder.SeedOption();
+            modelBuilder.SeedQuizGenres();
+            modelBuilder.SeedQuizQuizGenres();
+
+
 
         }
 

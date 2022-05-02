@@ -1,4 +1,5 @@
 ﻿using CoolBooks.Models;
+using CoolBooks.Models.Quiz;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -329,6 +330,68 @@ namespace CoolBooks.Data
                 new ReviewLikes { UserId = "Markus", Id = 11, IsLike = true, ReviewId = 3 },
                 new ReviewLikes { UserId = "Eric", Id = 12, IsLike = false, ReviewId = 3 }
                 );
+        }
+
+
+
+        //SEED QUIZMODELS
+        public static void SeedQuizzes(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Quiz>().HasData(
+                
+                new Quiz { Id = 1, Name = "Smooth-Fighters Quizonanza!", Created = DateTime.Now, CreatedBy = "moderator"}
+
+                );
+        }
+
+        public static void SeedQuizGenres(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<QuizGenre>().HasData(
+
+                new QuizGenre { Id = 1, Name = "Smooth Fighters", Created = DateTime.Now, CreatedBy = "moderator"}
+
+                );
+        }
+
+        public static void SeedQuizQuizGenres(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<QuizQuizGenre>().HasData(
+
+                new QuizQuizGenre { QuizId = 1, QuizGenreId = 1, Created = DateTime.Now}
+
+                );
+        }
+
+        public static void SeedQuestions(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Question>().HasData(
+
+                new Question { Id = 1, QuizId = 1, Text = "Vad heter den helt nysläppta helcensurerade filmkanalen utan filmer i Ryssland?", Created = DateTime.Now, CreatedBy = "moderator" },
+                new Question { Id = 2, QuizId = 1, Text = "Varför gick bajskorven till polisen?", Created = DateTime.Now, CreatedBy = "moderator" },
+                new Question { Id = 3, QuizId = 1, Text = "Vem kan hoppa högre än Eiffeltornet?", Created = DateTime.Now, CreatedBy = "moderator" }
+
+                );
+        }
+
+        public static void SeedOption(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<QOption>().HasData(
+                
+                new QOption { Id = 1, QuestionId = 1, Text = "NJETFLIX", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 2, QuestionId = 1, Text = "Disney Plus", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 3, QuestionId = 1, Text = "HBO", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 4, QuestionId = 1, Text = "PORNHUB", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+
+                new QOption { Id = 5, QuestionId = 2, Text = "Han var kriminell", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 6, QuestionId = 2, Text = "Han kände sig utpressad", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 7, QuestionId = 2, Text = "Han trodde det skulle bjudas på dounuts", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+
+                new QOption { Id = 8, QuestionId = 3, Text = "En giraff", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 9, QuestionId = 3, Text = "Två sniglar", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 10, QuestionId = 3, Text = "En kaktus", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 11, QuestionId = 3, Text = "Alla, för Eiffeltornet kan inte hoppa!", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 12, QuestionId = 3, Text = "Carl Bildt", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" }
+            );
         }
     }
 }

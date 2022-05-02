@@ -20,6 +20,7 @@ namespace CoolBooks.Models
         [Required]
         [Range (0.00, 5.00)]
         public double Rating { get; set; }
+
         [Required]
         public bool IsDeleted { get; set; }
         
