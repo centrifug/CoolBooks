@@ -231,4 +231,4 @@ Staffan:
   Css:at Moderator-del: Rapporterade Kommentarer och reviews.
     (Javascript sortering om man trycker på tableheader så man kan lättare kan få fram det man söker)
   Disablat like/dislike/flaggknappar om du inte är inloggad. Samt minor buggfix i funktionaliteten hos respektive funktioner.
-
+  Påbörjat quizzar!. Gjort modeller, seedat ett quiz, take quizz sida med javascript rättning av quizzet och på börjat add quiz.
