@@ -22,5 +22,8 @@ namespace CoolBooks.ViewModels
         [NotMapped]
         [Display(Name = "Upload File")]
         public IFormFile? ImageFile { get; set; }
+        public string? Description { get; set; }
+        [MaxLength(50)]
+        public string? Wiki { get; set; }
     }
 }

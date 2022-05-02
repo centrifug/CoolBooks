@@ -187,6 +187,8 @@ namespace CoolBooks.Controllers
                 authorToCreate.CreatedBy = user.Id;
                 authorToCreate.Created = DateTime.Now;
                 authorToCreate.ImagePath = "";
+                authorToCreate.Description = authorInput.Description;
+                authorToCreate.Wiki = authorInput.Wiki;
 
                 _context.Add(authorToCreate);
                 await _context.SaveChangesAsync();
@@ -233,6 +235,8 @@ namespace CoolBooks.Controllers
             vm.LastName = author.LastName;
             vm.BirthDate = author.BirthDate;
             vm.ImagePath = author.ImagePath;
+            vm.Description = author.Description;
+            vm.Wiki = author.Wiki;
 
             if (author == null)
             {
@@ -265,6 +269,8 @@ namespace CoolBooks.Controllers
                 authorToUpdate.LastName = authorInput.LastName;
                 authorToUpdate.BirthDate = authorInput.BirthDate;
                 authorToUpdate.LastUpdated = DateTime.Now;
+                authorToUpdate.Description = authorInput.Description;
+                authorToUpdate.Wiki = authorInput.Wiki;
                 authorToUpdate.UpdatedBy = user.Id;
                 
 

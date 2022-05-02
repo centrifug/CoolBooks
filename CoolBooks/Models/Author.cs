@@ -52,6 +52,8 @@ namespace CoolBooks.Models
                 return FirstName + " " + LastName;
             }
         }
-
+        public string? Description { get; set; }
+        [MaxLength(50)]
+        public string? Wiki { get; set; }
     }
 }

@@ -236,11 +236,14 @@ namespace CoolBooks.Controllers
             {
                 return NotFound();
             }
-
+            if (id == 0)
+            {
+                return NotFound();
+            }
             var reportedComment = _context.ReportedComments
                 .Where(rr => rr.CommentId == id && rr.UserId == userId)
                 .FirstOrDefault();
-
+            
             if (reportedComment == null)
             {
                 reportedComment = new ReportedComment();

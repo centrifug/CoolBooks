@@ -60,8 +60,35 @@
                 
                 </div>
                 <div class="d-flex">
-                    <p class="me-2">Mer info kommer..?</p>
+                    @{
+                        string d = item.Description;
+                        if (d.Length > 50)
+                        {
+                            d = d.Substring(0, 50);
+                            d = d + "...";
+                            @d 
+                        }
+                        else
+                        {
+                            @d  
+                        }
+                    }
+                    
                
+                </div>
+                <div class ="d-flex">
+                    <a class="link-secondary" asp-controller="Authors" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </div>
+                <div class="d-flex">
+                    @if (@item.Wiki != null && @item.Wiki != "")
+                    {
+                        <a class="link-secondary" href="@item.Wiki" target="_blank">Wiki</a>
+                    }
+                    else
+                    {
+                        <p><b>Wiki länk saknas! Kontakta Admin@coolbooks.com</b></p>
+                    }
+                    @* target=_blank gör så att vi öppnar ny flik då vi inte vill att användaren försvinner från coolbooks!*@
                 </div>
 
             </div>        
