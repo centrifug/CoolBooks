@@ -61,7 +61,7 @@
                                 
                             </div>
 
-                                                    <div>
+                            <div>
                             @if (signInManager.IsSignedIn(User))
                             {
 
@@ -73,6 +73,9 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-danger" asp-area="" asp-controller="Administration" asp-action="ReportedReviews">ReportedReviews</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-danger" asp-area="" asp-controller="Quiz" asp-action="CreateGenre">Lägg till Quiz-Genre </a>
                                     </li>
                                     </ul>
                                 }

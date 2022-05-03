@@ -1,8 +1,7 @@
 ﻿@model AddQuestionViewModel
 
-<p>lägg till en fråga!</p>
+<p>Lägg till en fråga!</p>
 
-<p>@Model.QuizId</p>
 
 <form asp-action="AddQuestion">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -21,12 +20,14 @@
         <span asp-validation-for="@Model.Options[i].Text" class="text-danger"></span>
 
         <label asp-for="@Model.Options[i].Answer" class="control-label"></label>
-        <input type="radio" name="Answer" value="@i">
+        <span asp-validation-for="Answer" class="text-danger"></span>
+        <input type="radio" name="Answer" value="@(i+1)">
     </div>
     }
 
 
     <div class="form-group">
-        <input type="submit" value="Add Another Question" class="btn btn-primary" />
+        <input type="submit" value="Spara fråga" class="btn btn-primary" />
+        <a asp-action="Index" asp-controller="Quiz" class="btn btn-primary">Färdig</a>
     </div>
 </form>
