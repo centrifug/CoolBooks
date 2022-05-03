@@ -1,0 +1,45 @@
+﻿@model EditQuizQuestionViewModel
+@{
+    var returnUrl = ViewContext.HttpContext.Request.Query["returnUrl"];    
+}
+
+<h2>Editera fråga:</h2>
+<p>@returnUrl</p>
+
+<form asp-action="EditQuestion" asp-route-returnUrl="@returnUrl">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="QuestionId" />
+    <div class="form-group">
+        <label asp-for="QuestionText" class="control-label"></label>
+        <input asp-for="QuestionText" class="form-control" />
+        <span asp-validation-for="QuestionText" class="text-danger"></span>
+    </div>
+
+    @for (var i = 0; i < @Model.Options.Count; i++)
+    {
+    <div class="form-group">
+        <label asp-for="@Model.Options[i].Text" class="control-label"></label>
+        <input type="text" asp-for="@Model.Options[i].Text" class="form-control" />              
+        <span asp-validation-for="@Model.Options[i].Text" class="text-danger"></span>
+
+        <label asp-for="@Model.Options[i].Answer" class="control-label"></label>
+        <span asp-validation-for="Answer" class="text-danger"></span>
+
+        @*Checka för rätt svar*@
+            @if (@Model.Options[i].Answer == true)
+            {
+                <input type="radio" name="Answer" value="@(i+1)" checked>
+            }
+            else
+            {
+                <input type="radio" name="Answer" value="@(i+1)">
+            }
+
+    </div>
+    }
+
+
+    <div class="form-group">
+        <input type="submit" value="Spara" class="btn btn-primary" />
+            </div>
+</form>
