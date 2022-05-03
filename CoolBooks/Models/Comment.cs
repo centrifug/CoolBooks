@@ -11,6 +11,7 @@ namespace CoolBooks.Models
         public Review? Review { get; set; }
         public int? commentId { get; set; }
         public Comment? comment { get; set; }
+        public int reviewIdNested { get; set; }
 
         public List<Comment>? comments { get; set; } = new List<Comment>();
 
@@ -34,5 +35,6 @@ namespace CoolBooks.Models
         public DateTime? LastUpdated { get; set; }
         public System.Nullable<int> LikeCount { get; set; }
         public System.Nullable<int> DisLikeCount { get; set; }
+        
     }
 }

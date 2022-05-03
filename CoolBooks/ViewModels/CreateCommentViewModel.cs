@@ -8,5 +8,7 @@
 
         public int? CommentId { get; set; }
 
+        public int reviewIdNested { get; set; }
+
     }
 }

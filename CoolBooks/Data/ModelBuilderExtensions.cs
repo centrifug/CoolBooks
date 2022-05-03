@@ -278,35 +278,35 @@ namespace CoolBooks.Data
         public static void SeedComment(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comment>().HasData(
-                new Comment { Id = 1, reviewId = 1, Text = "INTE GIVANDE!", Created = DateTime.Now, CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 2, reviewId = 1, Text = "Du har sååååå fel!", Created = DateTime.Now.AddDays(-1), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 3, reviewId = 2, Text = "Snyggt skrivet!", Created = DateTime.Now.AddDays(-2), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 4, reviewId = 2, Text = "Vad är det för fel på dig?", Created = DateTime.Now.AddDays(-3), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 5, reviewId = 2, Text = "Bra review, jag kommer att läsa denna boken pga detta.", Created = DateTime.Now.AddDays(-4), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 6, reviewId = 2, Text = "Kan du vara lite mer specifik?", Created = DateTime.Now.AddDays(-5), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 7, reviewId = 2, Text = "lol", Created = DateTime.Now.AddDays(-6), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 8, reviewId = 2, Text = "wtf?", Created = DateTime.Now.AddDays(-7), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 9, reviewId = 2, Text = ":)", Created = DateTime.Now.AddDays(-8), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
-                new Comment { Id = 10, reviewId = 2, Text = "Är du seriös eller?", Created = DateTime.Now.AddDays(-9), CreatedBy = "Stefan" },
-                new Comment { Id = 11, reviewId = 2, Text = "Herregud.....", Created = DateTime.Now.AddDays(-10), CreatedBy = "Stefan" },
-                new Comment { Id = 12, reviewId = 2, Text = "Är detta en review eller ett skämt?", Created = DateTime.Now.AddDays(-11), CreatedBy = "Stefan" },
-                new Comment { Id = 13, reviewId = 2, Text = "Bästa review på min favoritbok!!", Created = DateTime.Now.AddDays(-12), CreatedBy = "Stefan" },
-                new Comment { Id = 14, reviewId = 2, Text = "fyfan vad du är dum!", Created = DateTime.Now.AddDays(-13), CreatedBy = "Stefan" },
-                new Comment { Id = 15, reviewId = 1, Text = "Skojar du med mig eller? Tänk innan du skriver!!", Created = DateTime.Now.AddDays(-14), CreatedBy = "Stefan" },
-                new Comment { Id = 16, reviewId = 3, Text = "Jag vet inte ens vad jag ska svara på det här....", Created = DateTime.Now.AddDays(-15), CreatedBy = "Stefan" },
-                new Comment { Id = 17, reviewId = 3, Text = "Jag har rapporterat din review, Skäms!!", Created = DateTime.Now.AddDays(-16), CreatedBy = "Stefan" },
-                new Comment { Id = 18, reviewId = 4, Text = "Är det här en bot eller en riktig person som har skrivit? lol", Created = DateTime.Now.AddDays(-23), CreatedBy = "Stefan" },
+                new Comment { Id = 1, reviewIdNested = 1, reviewId = 1, Text = "INTE GIVANDE!", Created = DateTime.Now, CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 2, reviewIdNested = 1, reviewId = 1, Text = "Du har sååååå fel!", Created = DateTime.Now.AddDays(-1), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 3, reviewIdNested = 2, reviewId = 2, Text = "Snyggt skrivet!", Created = DateTime.Now.AddDays(-2), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 4, reviewIdNested = 2, reviewId = 2, Text = "Vad är det för fel på dig?", Created = DateTime.Now.AddDays(-3), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 5, reviewIdNested = 2, reviewId = 2, Text = "Bra review, jag kommer att läsa denna boken pga detta.", Created = DateTime.Now.AddDays(-4), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 6, reviewIdNested = 2, reviewId = 2, Text = "Kan du vara lite mer specifik?", Created = DateTime.Now.AddDays(-5), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 7, reviewIdNested = 2, reviewId = 2, Text = "lol", Created = DateTime.Now.AddDays(-6), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 8, reviewIdNested = 2, reviewId = 2, Text = "wtf?", Created = DateTime.Now.AddDays(-7), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 9, reviewIdNested = 2, reviewId = 2, Text = ":)", Created = DateTime.Now.AddDays(-8), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" },
+                new Comment { Id = 10, reviewIdNested = 2, reviewId = 2, Text = "Är du seriös eller?", Created = DateTime.Now.AddDays(-9), CreatedBy = "Stefan" },
+                new Comment { Id = 11, reviewIdNested = 2, reviewId = 2, Text = "Herregud.....", Created = DateTime.Now.AddDays(-10), CreatedBy = "Stefan" },
+                new Comment { Id = 12, reviewIdNested = 2, reviewId = 2, Text = "Är detta en review eller ett skämt?", Created = DateTime.Now.AddDays(-11), CreatedBy = "Stefan" },
+                new Comment { Id = 13, reviewIdNested = 2, reviewId = 2, Text = "Bästa review på min favoritbok!!", Created = DateTime.Now.AddDays(-12), CreatedBy = "Stefan" },
+                new Comment { Id = 14, reviewIdNested = 2, reviewId = 2, Text = "fyfan vad du är dum!", Created = DateTime.Now.AddDays(-13), CreatedBy = "Stefan" },
+                new Comment { Id = 15, reviewIdNested = 1, reviewId = 1, Text = "Skojar du med mig eller? Tänk innan du skriver!!", Created = DateTime.Now.AddDays(-14), CreatedBy = "Stefan" },
+                new Comment { Id = 16, reviewIdNested = 3, reviewId = 3, Text = "Jag vet inte ens vad jag ska svara på det här....", Created = DateTime.Now.AddDays(-15), CreatedBy = "Stefan" },
+                new Comment { Id = 17, reviewIdNested = 3, reviewId = 3, Text = "Jag har rapporterat din review, Skäms!!", Created = DateTime.Now.AddDays(-16), CreatedBy = "Stefan" },
+                new Comment { Id = 18, reviewIdNested = 4, reviewId = 4, Text = "Är det här en bot eller en riktig person som har skrivit? lol", Created = DateTime.Now.AddDays(-23), CreatedBy = "Stefan" },
 
 
                 // Seeda icke mod/admin???
                 //nested comments
-                new Comment { Id = 19, commentId = 1, Text = "Comment on comment wuwu!", Created = DateTime.Now.AddDays(-1), CreatedBy = "Stefan" },
-                new Comment { Id = 20, commentId = 5, Text = "next level! Comment on comment wuwu!", Created = DateTime.Now.AddDays(-2), CreatedBy = "Stefan" },
-                new Comment { Id = 21, commentId = 6, Text = "Third level! Comment on comment wuwu!", Created = DateTime.Now, CreatedBy = "Stefan" },
-                new Comment { Id = 22, commentId = 1, Text = "en till kommentar på en kommentar", Created = DateTime.Now, CreatedBy = "Stefan" },
-                new Comment { Id = 23, commentId = 1, Text = "och igen", Created = DateTime.Now, CreatedBy = "Stefan" },
-                new Comment { Id = 24, commentId = 8, Text = "SPÄNNANDE!", Created = DateTime.Now, CreatedBy = "Stefan" },
-                new Comment { Id = 25, commentId = 9, Text = "gör om, gör rätt!", Created = DateTime.Now.AddDays(-60), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" }
+                new Comment { Id = 19, reviewIdNested = 1, commentId = 1, Text = "Comment on comment wuwu!", Created = DateTime.Now.AddDays(-1), CreatedBy = "Stefan" },
+                new Comment { Id = 20, reviewIdNested = 2, commentId = 5, Text = "next level! Comment on comment wuwu!", Created = DateTime.Now.AddDays(-2), CreatedBy = "Stefan" },
+                new Comment { Id = 21, reviewIdNested = 2, commentId = 6, Text = "Third level! Comment on comment wuwu!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 22, reviewIdNested = 1, commentId = 1, Text = "en till kommentar på en kommentar", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 23, reviewIdNested = 1, commentId = 1, Text = "och igen", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 24, reviewIdNested = 2, commentId = 8, Text = "SPÄNNANDE!", Created = DateTime.Now, CreatedBy = "Stefan" },
+                new Comment { Id = 25, reviewIdNested = 2, commentId = 9, Text = "gör om, gör rätt!", Created = DateTime.Now.AddDays(-60), CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" }
                 );
         }
         public static void SeedReviewLike(this ModelBuilder modelBuilder)

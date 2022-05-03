@@ -468,6 +468,17 @@ namespace CoolBooks.Controllers
                 reportedReview.ReviewId = id;
                 _context.Add(reportedReview);
                 _context.SaveChanges();
+
+                var antal = _context.ReportedReviews
+                            .Where(rr => rr.ReviewId == id)
+                            .Count();
+                if (antal == 5)
+                {
+                    // Om en review får 5 reports blir den automatiskt blockerad, men bara en gång.
+                    reportedReview.Review.IsDeleted = true;
+                    _context.SaveChanges();
+                }
+
                 return Content("Rapporterad");
             }
             else

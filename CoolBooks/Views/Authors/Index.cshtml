@@ -62,7 +62,7 @@
                 <div class="d-flex">
                     @{
                         string d = item.Description;
-                        if (d.Length > 50)
+                        if (d.Length > 50 && d != null)
                         {
                             d = d.Substring(0, 50);
                             d = d + "...";
