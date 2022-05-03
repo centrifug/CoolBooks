@@ -240,3 +240,10 @@ Staffan:
 		Länk till relevant review när en admin ska titta på rapporterade kommentarer/reviews,
 		blev tvungen att lägga till nestedReviewId fält på databasen, 
 		så vi kan följa nästlade kommentarer utan att behöva skriva extrema querys som frågar efter varje förälder från top till botten
+
+Staffan:
+  Fortsatt med quizar.
+ 	inloggade användare kan nu göra egna quiz
+	moderator/admin har nu möjlighet att lägga till fler quiz genres/tags att välja på när man gör ett quiz
+	lagt till edit quiz/questions som skaparen av quizet samt moderator/admin har tillgång till
+	Gjort så att en user kan editera sina egna kommentarer 
