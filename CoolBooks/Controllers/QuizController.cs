@@ -217,13 +217,30 @@ namespace CoolBooks.Controllers
                 return NotFound();
             }
 
-            var quiz = await _context.Quiz.FindAsync(id);
+            var quiz = await _context.Quiz
+                .Include(x => x.Questions)
+                .ThenInclude(q => q.Options)
+                .Where(q => q.Id == id)
+                .FirstOrDefaultAsync();
+
             if (quiz == null)
             {
                 return NotFound();
             }
-            ViewData["CreatedBy"] = new SelectList(_context.Users, "Id", "Id", quiz.CreatedBy);
-            return View(quiz);
+
+            if (userManager.GetUserId(User) == quiz.CreatedBy || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                EditQuizViewModel vm = new EditQuizViewModel();
+
+                vm.QuizId = quiz.Id;
+                vm.QuizName = quiz.Name;
+                vm.IsDeleted = quiz.IsDeleted;
+                vm.Questions = quiz.Questions;
+
+                return View(vm);
+            }
+
+            return RedirectToAction("Index", "Quiz");
         }
 
         // POST: Quiz/Edit/5
@@ -231,23 +248,30 @@ namespace CoolBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,IsDeleted,Created,CreatedBy,UpdatedBy,LastUpdated")] Quiz quiz)
+        public async Task<IActionResult> Edit(int id, EditQuizViewModel inputQuiz)
         {
-            if (id != quiz.Id)
+            if (id != inputQuiz.QuizId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                var quizToUpdate = _context.Quiz.Find(id);
+
+                quizToUpdate.Name = inputQuiz.QuizName;
+                quizToUpdate.IsDeleted = inputQuiz.IsDeleted;
+                quizToUpdate.LastUpdated = DateTime.Now;
+                quizToUpdate.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 try
                 {
-                    _context.Update(quiz);
+                    _context.Update(quizToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuizExists(quiz.Id))
+                    if (!QuizExists(quizToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -258,8 +282,122 @@ namespace CoolBooks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedBy"] = new SelectList(_context.Users, "Id", "Id", quiz.CreatedBy);
-            return View(quiz);
+            
+            return View(inputQuiz);
+        }
+
+
+        // GET: Quiz/EditQuestion/5
+        public async Task<IActionResult> EditQuestion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Question = await _context.Question
+                .Include(q => q.Options)
+                .Where(q => q.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (Question == null)
+            {
+                return NotFound();
+            }
+
+            if (userManager.GetUserId(User) == Question.CreatedBy || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                EditQuizQuestionViewModel vm = new EditQuizQuestionViewModel();
+
+                vm.QuestionId = Question.Id;
+                vm.QuestionText = Question.Text;
+
+                foreach (var option in Question.Options)
+                {
+                    EditQuestionOptionViewModel vmOption = new EditQuestionOptionViewModel();
+                    vmOption.Text = option.Text;
+                    vmOption.Answer = option.Answer;
+                    vm.Options.Add(vmOption);
+                }                
+
+                return View(vm);
+            }
+
+            return RedirectToAction("Index", "Quiz");
+        }
+
+        // POST: Quiz/EditQuestion/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditQuestion(int id, EditQuizQuestionViewModel inputQuestion, string? returnUrl)
+        {
+            if (inputQuestion.Answer == 0)
+            {
+                ModelState.AddModelError("Answer", "Rättsvar behövs!");
+                return View(inputQuestion);
+            }
+
+            if (id != inputQuestion.QuestionId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var questionToUpdate = _context.Question
+                    .Include(q => q.Options)
+                    .Where(q => q.Id == id)
+                    .FirstOrDefault();
+
+                questionToUpdate.Text = inputQuestion.QuestionText;
+                questionToUpdate.LastUpdated = DateTime.Now;
+                questionToUpdate.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                for (int i = 0; i < questionToUpdate.Options.Count; i++)
+                {
+                    questionToUpdate.Options[i].Text = inputQuestion.Options[i].Text;
+                    questionToUpdate.Options[i].LastUpdated = DateTime.Now;
+                    questionToUpdate.Options[i].UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    questionToUpdate.Options[i].Answer = false;
+
+                    //plus ett för att ocheckad box = 0. Radiobutton values="i+1" i view
+                    if ((i + 1) == inputQuestion.Answer)
+                    {
+                        questionToUpdate.Options[i].Answer = true;
+                    }
+                }
+
+                try
+                {
+                    _context.Update(questionToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!QuizExists(questionToUpdate.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                
+            }
+
+            return View(inputQuestion);
         }
 
         // GET: Quiz/Delete/5

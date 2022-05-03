@@ -16,8 +16,6 @@
 
             <li class="m-2">
 
-
-
         <div class="d-flex border border-2">
             <div>
                     @if (comment.comments.Any())
@@ -51,6 +49,7 @@
                 </div>
                 <div>
                     <i>@comment.Created</i>
+
                 </div>
                 <div>
 
@@ -139,6 +138,12 @@
             <button class="ReportComment btn btn-primary btn-sm" id="ReportComment_@(comment.Id)"><i class='fa fa-fa'></i><span class="ReportCommentText" id="ReportCommentText_@(comment.Id)"></span></button>
         }
     }
+
+    @if (comment.CreatedBy == userManager.GetUserId(User) || User.IsInRole("Admin") || User.IsInRole("moderator"))
+    {
+        <a class="link-secondary" asp-action="Edit" asp-controller="Comments" asp-route-id="@comment.Id">Edit</a>
+    }
+
                     </div>
                     </div>
            <div class="d-flex flex-column">

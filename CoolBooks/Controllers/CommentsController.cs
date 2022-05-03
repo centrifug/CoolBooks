@@ -120,9 +120,11 @@ namespace CoolBooks.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditCommentViewModel inputComment, string? returnUrl)
         {
+
             if (id != inputComment.Id)
             {
                 return NotFound();
