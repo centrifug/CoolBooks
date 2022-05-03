@@ -12,6 +12,7 @@ using CoolBooks.ViewModels;
 using CoolBooks.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolBooks.Controllers
 {
@@ -28,10 +29,13 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Quiz
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index(int? pageNumber)
+        {       
+
             var coolBooksContext = _context.Quiz.Include(q => q.CoolBooksUser);
-            return View(await coolBooksContext.ToListAsync());
+            int pageSize = 4;
+
+            return View(await PaginatedList<Quiz>.CreateAsync(coolBooksContext.AsNoTracking(),pageNumber ?? 1,pageSize));
         }
 
         public async Task<IActionResult> Take(int? id)
@@ -76,25 +80,63 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Quiz/Create
+        [Authorize]
         public IActionResult Create()
         {
-            return View();
+
+            CreateQuizViewModel vm = new CreateQuizViewModel();
+
+            var quizGenres = _context.QuizGenre.ToList();
+
+            foreach (QuizGenre genre in quizGenres)
+            {
+                QuizGenreViewModel QuizGenre = new QuizGenreViewModel
+                {
+                    GenreId = genre.Id,
+                    GenreName = genre.Name,
+                    IsSelected = false
+                };
+
+                vm.Genres.Add(QuizGenre);
+            }
+
+            return View(vm);
         }
 
         // POST: Quiz/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateQuizViewModel quizInput)
         {
-            if (ModelState.IsValid)
+            //Kolla så att minst en genre är vald
+            var selectedGenres = quizInput.Genres.Where(g => g.IsSelected == true).Count();
+            if ( selectedGenres == 0)
+            {
+                ModelState.AddModelError("Genres", "Du måste välja minst en genre");
+                return View(quizInput);
+            }
+
+                if (ModelState.IsValid)
             {
                 Quiz quizToCreate = new Quiz();
 
                 quizToCreate.Name = quizInput.Name;
                 quizToCreate.Created = DateTime.Now;
                 quizToCreate.CreatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                foreach (var genre in quizInput.Genres)
+                {
+                    if (genre.IsSelected)
+                    {
+                        QuizGenre quizGenre = new QuizGenre { Id = genre.GenreId };
+                        _context.QuizGenre.Attach(quizGenre);
+                        quizToCreate.QuizGenres.Add(quizGenre);
+                    }
+                }
+
 
                 _context.Add(quizToCreate);
                 await _context.SaveChangesAsync();
@@ -119,8 +161,15 @@ namespace CoolBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddQuestion(AddQuestionViewModel vmInput, int answer)
+        public async Task<IActionResult> AddQuestion(AddQuestionViewModel vmInput)
         {
+            //Kolla så att ett rättsvar är checked
+            if (vmInput.Answer == 0)
+            {
+                ModelState.AddModelError("Answer", "Rättsvar behövs!");
+                return View(vmInput);
+            }
+
             if (ModelState.IsValid)
             {
                 Question questionToCreate = new Question();
@@ -135,7 +184,8 @@ namespace CoolBooks.Controllers
                         o.Created = DateTime.Now;
                         o.CreatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                        if(i == answer)
+                        //plus ett för att ocheckad box = 0. Radiobutton values="i+1" i view
+                        if((i+1) == vmInput.Answer)
                         {
                             o.Answer = true;
                         }
@@ -246,5 +296,41 @@ namespace CoolBooks.Controllers
         {
             return _context.Quiz.Any(e => e.Id == id);
         }
+
+
+        // GET: Genres/Create
+        [Authorize(Roles = "Admin, moderator")]
+        public IActionResult CreateGenre()
+        {
+            return View();
+        }
+
+        // POST: Genres/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Admin, moderator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateGenre(CreateQuizGenreViewModel genreInput)
+        {
+
+            if (ModelState.IsValid)
+            {
+                QuizGenre genreToCreate = new QuizGenre();
+
+                var user = await userManager.GetUserAsync(User);
+
+                genreToCreate.Name = genreInput.Name;
+                genreToCreate.Created = DateTime.Now;
+                genreToCreate.CreatedBy = user.Id;
+
+                _context.Add(genreToCreate);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(genreInput);
+        }
+
+
     }
 }

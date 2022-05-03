@@ -280,7 +280,24 @@ namespace CoolBooks.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateBookViewModel inputBook)
         {
+            //Kolla så att minst en genre är vald
+            var selectedGenres = inputBook.Genres.Where(g => g.IsSelected == true).Count();
+            if (selectedGenres == 0)
+            {
+                ModelState.AddModelError("Genres", "Du måste välja minst en genre");
+            }
+            //Kolla så att minst en författare är vald
+            var selectedAuthors = inputBook.Authors.Where(a => a.IsSelected == true).Count();
+            if (selectedAuthors == 0)
+            {
+                ModelState.AddModelError("Authors", "Du måste välja minst en författare");
+            }
             
+            if (selectedAuthors == 0  || selectedGenres == 0)
+            {
+                return View(inputBook);
+            }
+
             if (ModelState.IsValid)
             {
                 Book bookToCreate = new Book();

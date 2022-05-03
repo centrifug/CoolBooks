@@ -1,34 +1,23 @@
-﻿@model IEnumerable<CoolBooks.Models.Quiz.Quiz>
-
+﻿@model PaginatedList<Quiz>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Quiz.</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="link-secondary" asp-action="Create">Skapa Quiz!</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                quiz!
+                @*@Html.DisplayNameFor(model => model.Name)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoolBooksUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastUpdated)
+                användare:
+                @*@Html.DisplayNameFor(model => model.CoolBooksUser)*@
             </th>
             <th></th>
         </tr>
@@ -37,30 +26,64 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
+                <a class="link-Secondary" asp-action="Take" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CoolBooksUser.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpdatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastUpdated)
-            </td>
-            <td>
-                <a asp-action="Take" asp-route-id="@item.Id">QUIZA!</a>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if (item.CreatedBy == userManager.GetUserId(User) || User.IsInRole("Admin" ))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }        
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+@for(int i = 1; i <= Model.TotalPages; i++){
+    bool hej = true;
+    if (Model.PageIndex == i)
+    {
+        hej = false;
+
+    } 
+    else
+    {
+        hej = true;
+
+    }
+    var currentDisabled = !hej ? "disabled" : "";
+    <a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(i)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @currentDisabled">
+    @i
+</a>
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

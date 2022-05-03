@@ -7,10 +7,13 @@ namespace CoolBooks.ViewModels
     {
         [Required]
         [MaxLength(200)]
+        [Display(Name = "Fråga:")]
         public string Text { get; set; }
 
         public int QuizId { get; set; }
 
+        [Display(Name = "Rättsvar:")]
+        public int Answer { get; set; }
         public List<AddOptionsViewModel> Options { get; set; }
 
         public AddQuestionViewModel()
