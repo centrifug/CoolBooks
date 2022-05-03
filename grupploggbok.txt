@@ -232,3 +232,11 @@ Staffan:
     (Javascript sortering om man trycker på tableheader så man kan lättare kan få fram det man söker)
   Disablat like/dislike/flaggknappar om du inte är inloggad. Samt minor buggfix i funktionaliteten hos respektive funktioner.
   Påbörjat quizzar!. Gjort modeller, seedat ett quiz, take quizz sida med javascript rättning av quizzet och på börjat add quiz.
+  
+  2022-05-03
+  
+  	Stefan: Fixat så att description på en author är required.
+		Automatisk block vid 5 flaggningar, siffran går att ändra i koden men inte för en admin
+		Länk till relevant review när en admin ska titta på rapporterade kommentarer/reviews,
+		blev tvungen att lägga till nestedReviewId fält på databasen, 
+		så vi kan följa nästlade kommentarer utan att behöva skriva extrema querys som frågar efter varje förälder från top till botten
