@@ -51,19 +51,23 @@ namespace CoolBooks.Controllers
 
             Comment commentToSave = new Comment
             {
-                Text = inputComment.Text,              
+                Text = inputComment.Text,
                 Created = DateTime.Now,
                 CreatedBy = userManager.GetUserId(User),
-                IsDeleted = false
+                IsDeleted = false,
+                reviewIdNested = (int)inputComment.ReviewId
+                
             };
 
             if (inputComment.ReviewId != null)
             {
                 commentToSave.reviewId = inputComment.ReviewId;
+                
             }
             else 
             {
                 commentToSave.reviewId = id;
+                
             }
 
             _context.Add(commentToSave);
@@ -182,15 +186,17 @@ namespace CoolBooks.Controllers
 
             Comment commentToSave = new Comment
             {
-                Text = inputComment.Text, 
+                Text = inputComment.Text,
                 Created = DateTime.Now,
                 CreatedBy = userManager.GetUserId(User),
-                IsDeleted = false
+                IsDeleted = false,
+                reviewIdNested = (int)inputComment.reviewIdNested
             };
 
             if (inputComment.CommentId != null)
             {
                 commentToSave.commentId = inputComment.CommentId;
+                
             }
             else
             {
@@ -256,6 +262,16 @@ namespace CoolBooks.Controllers
                 reportedComment.CommentId = id;
                 _context.Add(reportedComment);
                 _context.SaveChanges();
+
+                var antal = _context.ReportedComments
+                            .Where(rr => rr.CommentId == id)
+                            .Count();
+                if (antal == 5)
+                {
+                    // Om en comment får 5 reports blir den automatiskt blockerad, men bara en gång.
+                    reportedComment.Comment.IsDeleted = true;
+                    _context.SaveChanges();
+                }
                 return Content("Rapporterad");
             }
             else

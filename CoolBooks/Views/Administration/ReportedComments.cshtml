@@ -18,7 +18,18 @@
     @foreach (var comment in Model)
     {
         <tr>
-            <td scope="row">@comment.ReportedCommentId</td>
+            @if (@comment.reviewId != null)
+            {
+                <td scope="row"><a asp-controller="Reviews" asp-action="Details" asp-route-id="@comment.reviewId">@comment.reviewId</a></td>  
+            }
+            else 
+            {
+                
+                <td scope="row"><a asp-controller="Reviews" asp-action="Details" asp-route-id="@comment.reviewIdNested">@comment.reviewIdNested</a></td>
+                @*Nested reviewid i databas?*@
+                
+            }
+
             <td scope="row">@comment.CommentText</td>
             <td scope="row">@comment.Total</td>
             <td scope="row">@comment.IsDeleted</td>

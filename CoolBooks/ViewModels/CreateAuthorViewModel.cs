@@ -20,6 +20,7 @@ namespace CoolBooks.ViewModels
         [Display(Name = "Upload File")]
         public IFormFile ImageFile { get; set; }
 
+        [Required]
         public string? Description { get; set; }
         [MaxLength(50)]
         public string? Wiki { get; set; }

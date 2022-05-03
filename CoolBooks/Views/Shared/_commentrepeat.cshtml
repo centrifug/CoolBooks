@@ -167,7 +167,7 @@
                     @if (signInManager.IsSignedIn(User))
                     {                        
                         <div class="collapse" id="CommentCommentFormToggle@(comment.Id)">
-                            <partial name="_CommentCommentForm" model="@new CreateCommentViewModel{ CommentId = comment.Id }" />
+                            <partial name="_CommentCommentForm" model="@new CreateCommentViewModel{ CommentId = comment.Id, reviewIdNested = comment.reviewIdNested }" />
                         </div>
                     }
 

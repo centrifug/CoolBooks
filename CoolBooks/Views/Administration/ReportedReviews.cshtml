@@ -20,7 +20,7 @@
     @foreach (var review in Model)
     {
         <tr>
-            <td scope="row">@review.ReviewId</td>
+            <td scope="row"><a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.ReviewId">@review.ReviewId</a></td>
             <td scope="row">@review.ReviewName</td>
             <td scope="row">@review.Total</td>
             <td scope="row">@review.IsDeleted</td>

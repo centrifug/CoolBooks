@@ -412,6 +412,9 @@ namespace CoolBooks.Controllers
                 .GroupBy(rc => rc.CommentId)
                 .Select(x => new ReportedCommentViewModel
                 {
+                    reviewId = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.reviewId).First(),
+                    reviewIdNested = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.reviewIdNested).First(),
+                    commentId = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.commentId).First(),
                     ReportedCommentId = x.Key,
                     CommentText = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.Text).First(),
                     IsDeleted = _context.Comment.Where(c => c.Id == x.Key).Select(c => c.IsDeleted).First(),
@@ -419,6 +422,11 @@ namespace CoolBooks.Controllers
 
                 })
                 .OrderByDescending(x => x.Total);
+
+            var comments = _context.Comment
+                                   .Include(c => c.comment)
+                                   .Select(c => c.reviewId)
+                                   .Take(1);
 
 
             return View(reportedComments.ToList());
