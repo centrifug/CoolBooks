@@ -3,6 +3,7 @@ using CoolBooks.Models;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoolBooks.Controllers
 {
@@ -186,11 +187,10 @@ namespace CoolBooks.Controllers
 
             string userid = user.Id;
 
-            var quiz = _context.Quiz//Taken
-                                  .Where(r => r.CreatedBy == userid)
-                                  .ToList();
-
-
+            var quiz = _context.QuizTaken   
+                               .Include(q => q.Quiz)
+                               .Where(r => r.CreatedBy == userid)
+                               .ToList();
 
             return View(quiz);
         }

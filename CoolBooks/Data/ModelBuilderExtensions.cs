@@ -339,7 +339,8 @@ namespace CoolBooks.Data
         {
             modelBuilder.Entity<Quiz>().HasData(
                 
-                new Quiz { Id = 1, Name = "Smooth-Fighters Quizonanza!", Created = DateTime.Now, CreatedBy = "moderator"}
+                new Quiz { Id = 1, Name = "Smooth-Fighters Quizonanza!", Created = DateTime.Now, CreatedBy = "moderator"},
+                new Quiz { Id = 2, Name = "Admin Smooth-Fighters Quizonanza!", Created = DateTime.Now, CreatedBy = "b74ddd14-6340-4840-95c2-db12554843e5" }
 
                 );
         }
@@ -349,7 +350,7 @@ namespace CoolBooks.Data
             modelBuilder.Entity<QuizGenre>().HasData(
 
                 new QuizGenre { Id = 1, Name = "Smooth Fighters", Created = DateTime.Now, CreatedBy = "moderator"}
-
+                
                 );
         }
 
@@ -368,7 +369,11 @@ namespace CoolBooks.Data
 
                 new Question { Id = 1, QuizId = 1, Text = "Vad heter den helt nysläppta helcensurerade filmkanalen utan filmer i Ryssland?", Created = DateTime.Now, CreatedBy = "moderator" },
                 new Question { Id = 2, QuizId = 1, Text = "Varför gick bajskorven till polisen?", Created = DateTime.Now, CreatedBy = "moderator" },
-                new Question { Id = 3, QuizId = 1, Text = "Vem kan hoppa högre än Eiffeltornet?", Created = DateTime.Now, CreatedBy = "moderator" }
+                new Question { Id = 3, QuizId = 1, Text = "Vem kan hoppa högre än Eiffeltornet?", Created = DateTime.Now, CreatedBy = "moderator" },
+
+                new Question { Id = 4, QuizId = 2, Text = "Vad heter den helt nysläppta helcensurerade filmkanalen utan filmer i Ryssland?", Created = DateTime.Now, CreatedBy = "moderator" },
+                new Question { Id = 5, QuizId = 2, Text = "Varför gick bajskorven till polisen?", Created = DateTime.Now, CreatedBy = "moderator" },
+                new Question { Id = 6, QuizId = 2, Text = "Vem kan hoppa högre än Eiffeltornet?", Created = DateTime.Now, CreatedBy = "moderator" }
 
                 );
         }
@@ -390,7 +395,22 @@ namespace CoolBooks.Data
                 new QOption { Id = 9, QuestionId = 3, Text = "Två sniglar", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
                 new QOption { Id = 10, QuestionId = 3, Text = "En kaktus", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
                 new QOption { Id = 11, QuestionId = 3, Text = "Alla, för Eiffeltornet kan inte hoppa!", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
-                new QOption { Id = 12, QuestionId = 3, Text = "Carl Bildt", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" }
+                new QOption { Id = 12, QuestionId = 3, Text = "Carl Bildt", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+
+                new QOption { Id = 13, QuestionId = 4, Text = "NJETFLIX", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 14, QuestionId = 4, Text = "Disney Plus", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 15, QuestionId = 4, Text = "HBO", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 16, QuestionId = 4, Text = "PORNHUB", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+
+                new QOption { Id = 17, QuestionId = 5, Text = "Han var kriminell", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 18, QuestionId = 5, Text = "Han kände sig utpressad", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 19, QuestionId = 5, Text = "Han trodde det skulle bjudas på dounuts", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+
+                new QOption { Id = 20, QuestionId = 6, Text = "En giraff", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 21, QuestionId = 6, Text = "Två sniglar", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 22, QuestionId = 6, Text = "En kaktus", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 23, QuestionId = 6, Text = "Alla, för Eiffeltornet kan inte hoppa!", Answer = true, Created = DateTime.Now, CreatedBy = "moderator" },
+                new QOption { Id = 24, QuestionId = 6, Text = "Carl Bildt", Answer = false, Created = DateTime.Now, CreatedBy = "moderator" }
             );
         }
     }

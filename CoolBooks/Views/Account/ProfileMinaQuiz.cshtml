@@ -1,4 +1,4 @@
-﻿@model List<Quiz> // Taken
+﻿@model List<Quiz>
 @{
     ViewData["Title"] = "Index";
 }
@@ -24,7 +24,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a class="link-Secondary" asp-action="Take" asp-route-id="@item.Id">
+                <a class="link-Secondary" asp-controller="Quiz" asp-action="Take" asp-route-id="@item.Id">
                     @Html.DisplayFor(modelItem => item.Name)
                 </a>
             </td>
