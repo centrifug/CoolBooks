@@ -114,13 +114,10 @@
 
         $(".ReportComment").click(function() {
             var id = event.target.id.split('_')[1];
-            console.log(id);
 
             if(id != null){
                 $.get("@Url.Content("~/Comments/Report")/?id=" + id, function(data) {            
                     
-                    console.log("GET");
-                    //$(".CommentsContainer").find("#ReportCommentText_"+id).text(data); 
                     $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-warning");
                     $(".CommentsContainer").find("#ReportComment_"+id).toggleClass("btn-primary");
 

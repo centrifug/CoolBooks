@@ -55,8 +55,8 @@ namespace CoolBooks.Controllers
             var authors = _context.Author
                                      //.Include(g => g.Genres)
                                      //.Include(a => a.Authors)
-                                     //.Where(b => b.IsDeleted != true)
-                                     .Select(b => b);
+                                     .Where(a => a.IsDeleted != true)
+                                     .Select(a => a);
             switch (sortOrder)
             {
                 case "FirstName DESC":
@@ -351,7 +351,8 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var author = await _context.Author.FindAsync(id);
-            _context.Author.Remove(author);
+            author.IsDeleted = true;
+            _context.Author.Update(author);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

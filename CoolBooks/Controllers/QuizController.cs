@@ -427,7 +427,8 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var quiz = await _context.Quiz.FindAsync(id);
-            _context.Quiz.Remove(quiz);
+            quiz.IsDeleted = true;
+            _context.Quiz.Update(quiz);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -476,6 +477,13 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Correct(int id, Dictionary<int, int> answer)
         {
+
+            //kolla så att du svarat på minst en fråga)
+            if (answer.Count <= 0)
+            {
+                return RedirectToAction("Take", new {id = id});
+            }
+
             //hämta quizet
             var quiz = _context.Quiz
                 .Include(q => q.Questions)
@@ -500,11 +508,10 @@ namespace CoolBooks.Controllers
                 //hämta rätt svar
                 var questionAnswer = question.Options.Where(o => o.Answer == true).First();
 
-                //hämta vad som usern svarat
-                
                 //kolla om usernsvarat på frågan
                 if (answer.ContainsKey(question.Id))
                 {
+                    //hämta vad som usern svarat
                     var userAnswer = answer.Where(a => a.Key == question.Id).Select(a => a.Value).First();
 
                     //kolla att om usern svarat rätt
@@ -529,8 +536,9 @@ namespace CoolBooks.Controllers
 
                 vm.Quiz.Add(q);
 
-            } 
+            }
 
+            vm.QuizName = quiz.Name;
             vm.Score = score;
             vm.NumberOfQuestions = quiz.Questions.Count;
 

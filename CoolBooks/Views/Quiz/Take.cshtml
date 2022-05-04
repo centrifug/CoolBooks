@@ -72,20 +72,24 @@
 <button class="btn btn-dark" value="Rätta" onclick="CheckAnswer()">Rätta</button> <p><b id="points"></b></p>
 *@
 
+<h2>@Model.Name</h2>
 
 <form asp-action="Correct">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     
     <input type="hidden" asp-for="@Model.Id" />
 
+    @*kontrollern crashar om den "får" en tom dictionary. Där av denna hidden*@
+    <input type="hidden" name="Answer" value="0" />
+
     @foreach (var question in Model.Questions)
 {
-    <p>@question.Text</p>
+    <p class="mt-2"><b>@question.Text</b></p>
 
-    <ul>
+    <ul class="list-group">
     @foreach (var option in question.Options)
     {
-        <li>
+        <li class="list-group-item">
             <input type="radio" id="@option.Id" name="Answer[@question.Id]" value="@option.Id" />
             <label for="@option.Id">@option.Text</label>
         </li>
@@ -95,18 +99,16 @@
 
 @if (signInManager.IsSignedIn(User)){
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <input type="submit" value="Rätta" class="btn btn-primary" />        
     </div>
    
 }
 else {
-    <div class="form-group">
+    <div class="form-group mt-2">
         <input type="submit" value="Rätta" class="btn btn-primary" disabled/>        
     </div>
     <p>Logga in för att kunna rätta Quizet. <a  class="link-secondary" asp-controller="account" asp-action="login" asp-route-returnUrl="@returnUrl"> Logga in </a></p>
 }
-
-
-
 </form>
+<a asp-action="index" asp-controller="quiz">Tillbaka</a>

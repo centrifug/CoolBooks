@@ -1,4 +1,5 @@
 ﻿using CoolBooks.Models.Quiz;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoolBooks.ViewModels
 {
@@ -6,6 +7,7 @@ namespace CoolBooks.ViewModels
     {
         public int QuestionId { get; set; }
 
+        [Display(Name = "Fråga:")]
         public string QuestionText { get; set; }
 
         public int Answer { get; set; }

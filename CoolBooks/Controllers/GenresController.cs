@@ -52,7 +52,7 @@ namespace CoolBooks.Controllers
             var genres = _context.Genre
                                      //.Include(g => g.Genres)
                                      //.Include(a => a.Authors)
-                                     //.Where(b => b.IsDeleted != true)
+                                     .Where(b => b.IsDeleted != true)
                                      .Select(b => b);
             switch (sortOrder)
             {
@@ -278,7 +278,8 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var genre = await _context.Genre.FindAsync(id);
-            _context.Genre.Remove(genre);
+            genre.IsDeleted = true;
+            _context.Genre.Update(genre);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
