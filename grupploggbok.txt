@@ -255,5 +255,6 @@ Staffan:
 	
 	
 	Staffan:
-	
+	Forstsatt med quiz: Cssat & buggfixat
+	Fixat lite buggar med soft-Delete på olika ställen
 	Sprint review&retrospective #3 powerpoint samt slutredovisning.
