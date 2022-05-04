@@ -29,6 +29,7 @@ namespace CoolBooks.Data
         public DbSet<Question> Question { get; set; }
         public DbSet<QOption> QOption { get; set; }
         public DbSet<QuizGenre> QuizGenre { get; set; }
+        public DbSet<QuizTaken> QuizTaken { get; set; }
 
 
         public CoolBooksContext (DbContextOptions<CoolBooksContext> options)
