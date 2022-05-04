@@ -175,7 +175,12 @@ namespace CoolBooks.Models
 
 
             //Alla lager av kommentarerer inkluderas inte om vi inte gör dom ToList() i detta steg först;
-            //behöver dom "trackas"? Dom är ju redan inkluderarade i qureyn ovan?            
+            //behöver dom "trackas"? Dom är ju redan inkluderarade i qureyn ovan?
+            //
+            //En tanke! Om vi lägger till book id på varje comment så kan vi minska storleken på denna query?
+            //En tanke till! om vi hämtar comentarsdatan genom att loopa genom varje review som tillhör en book
+            //  så kan vi använda oss av nestedReviewID
+
             var comments = _context.Comment
                 .Include(c => c.comments)
                 .Include(c => c.CommentLikes)
