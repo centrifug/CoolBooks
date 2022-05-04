@@ -1,4 +1,4 @@
-﻿@model List<Quiz>
+﻿@model List<QuizTaken>
 @{
     ViewData["Title"] = "Index";
 }
@@ -15,12 +15,15 @@
     <thead>
         <tr>
             <th>
-                quiz!
-                @*@Html.DisplayNameFor(model => model.Name)*@
+                Quiz!
+                
             </th>
             <th>
-                användare:
-                @*@Html.DisplayNameFor(model => model.CoolBooksUser)*@
+                Poäng
+                
+            </th>
+            <th>
+                Datum
             </th>
             <th></th>
         </tr>
@@ -29,19 +32,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a class="link-Secondary" asp-action="Take" asp-route-id="@item.Id">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </a>
+                <a asp-controller="Quiz" asp-action="Take" asp-route-id="@item.Quiz.Id">@item.Quiz.Name</a> 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CoolBooksUser.Id)
+                @item.Score / @item.MaxScore
             </td>
             <td>
-                @if (item.CreatedBy == userManager.GetUserId(User) || User.IsInRole("Admin" ))
-                {
-                    <a asp-action="Edit" asp-controller="Quiz" asp-route-id="@item.Id">Edit</a> 
-                    <a asp-action="Delete" asp-controller="Quiz" asp-route-id="@item.Id">Delete</a>
-                }        
+                @item.Created       
             </td>
         </tr>
 }
