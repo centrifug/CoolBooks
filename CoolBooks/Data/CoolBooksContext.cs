@@ -90,7 +90,10 @@ namespace CoolBooks.Data
                 qqg => qqg.HasOne<Quiz>().WithMany().OnDelete(DeleteBehavior.ClientSetNull))
                 .Property(ba => ba.Created);
 
-            
+            modelBuilder.Entity<CoolBooksUser>()
+                        .Property(d => d.ImagePath).HasDefaultValue("");
+
+
 
             modelBuilder.SeedBook(); // Kör min Seed extension metod.
             modelBuilder.SeedAuthor(); // Kör min Seed author metod.

@@ -10,5 +10,6 @@ namespace CoolBooks.Models
         public string? Name { get; set; }
         [PersonalData]
         public DateTime DOB { get; set; }
+        public string? ImagePath { get; set; }
     }
 }
