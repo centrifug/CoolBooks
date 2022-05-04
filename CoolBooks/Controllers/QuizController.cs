@@ -32,7 +32,9 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> Index(int? pageNumber)
         {       
 
-            var coolBooksContext = _context.Quiz.Include(q => q.CoolBooksUser);
+            var coolBooksContext = _context.Quiz
+                .Include(q => q.CoolBooksUser)
+                .Where(q => q.Questions.Count > 0 && q.IsDeleted == false);
             int pageSize = 4;
 
             return View(await PaginatedList<Quiz>.CreateAsync(coolBooksContext.AsNoTracking(),pageNumber ?? 1,pageSize));
@@ -48,7 +50,7 @@ namespace CoolBooks.Controllers
             var quiz = await _context.Quiz
                 .Include(q => q.CoolBooksUser)
                 .Include(q => q.Questions)
-                    .ThenInclude(q => q.Options)
+                    .ThenInclude(q => q.Options)                
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (quiz == null)
