@@ -42,10 +42,10 @@
                 @question.Text <a asp-action="EditQuestion" asp-controller="Quiz" asp-route-id="@question.Id" asp-route-returnUrl="@routeUrl">Edit</a>
             </b>
         </p>
-        <ul>
+        <ul class="list-group">
             @foreach (var option in question.Options)
             {
-                <li>
+                <li class="list-group-item">
                     <p>@option.Text</p>
                 </li>            
             }

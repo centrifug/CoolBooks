@@ -15,6 +15,9 @@ namespace CoolBooks.Models
         public string Description { get; set; }
 
         [Required]
+        public bool IsDeleted { get; set; }
+
+        [Required]
         public DateTime Created { get; set; }
 
         [Required]

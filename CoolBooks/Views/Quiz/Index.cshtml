@@ -12,12 +12,10 @@
     <thead>
         <tr>
             <th>
-                quiz!
-                @*@Html.DisplayNameFor(model => model.Name)*@
+                quiz!                
             </th>
             <th>
-                användare:
-                @*@Html.DisplayNameFor(model => model.CoolBooksUser)*@
+                Skapare:                
             </th>
             <th></th>
         </tr>
@@ -26,12 +24,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a class="link-Secondary" asp-action="Take" asp-route-id="@item.Id">
+                <a class="link-secondary" asp-action="Take" asp-route-id="@item.Id">
                     @Html.DisplayFor(modelItem => item.Name)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CoolBooksUser.Id)
+                @Html.DisplayFor(modelItem => item.CoolBooksUser.UserName)
             </td>
             <td>
                 @if (item.CreatedBy == userManager.GetUserId(User) || User.IsInRole("Admin" ))

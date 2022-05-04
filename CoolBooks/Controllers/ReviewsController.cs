@@ -419,7 +419,8 @@ namespace CoolBooks.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Review.FindAsync(id);
-            _context.Review.Remove(review);
+            review.IsDeleted = true;
+            _context.Review.Update(review);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

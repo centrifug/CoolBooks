@@ -1,16 +1,48 @@
 ﻿@model CorrectedQuizViewModel
-
-<p>@Model.Score / @Model.NumberOfQuestions poäng</p>
-
-@foreach (var question in Model.Quiz)
-{
-    <p>fråga: @question.Name</p>
-    <p>rättsvar: @question.CorrectAnswer</p>
-    <p>usersvar: @question.UserAnswer</p>
-    <p>rätt/fel: @question.IsCorrect</p>
+@{
+    string status = ""; ;
 }
+<table class="table">
+    <thead>
+        <tr>
+            <th><b>@Model.QuizName</b></th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Model.Quiz)
+        {
+            @if (!question.IsCorrect)
+            {
+                status = "table-danger";
+            }
+            else
+            {
+                status = "table-success";
+            }
 
+            <tr>
+                <td class="@status">
+                    <div>
+                        <div>
+                            <b>@question.Name</b>
+                        </div>
+                        <div>
+                            <p class="m-0"><i>Rätt svar: </i>@question.CorrectAnswer</p>
+                            <p class="m-0"><i>Mitt svar: </i>@question.UserAnswer</p>
+                        </div>
+                    </div>
+                </td>  
+            </tr>
+
+            
+        }
+
+    </tbody>
+</table>
+
+<h3><b>@Model.Score / @Model.NumberOfQuestions poäng </b></h3>
 @if (@Model.QuizAlreadyTaken == true)
 {
-    <h3><b>Du har redan gjort detta quiz!</b></h3>
+    <h4>Du har redan gjort detta quiz och ditt resultat kommer därför inte att registreras!</h4>
 }
+<a asp-action="index" asp-controller="quiz">Tillbaka till Quizar!</a>

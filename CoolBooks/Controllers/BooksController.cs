@@ -60,8 +60,8 @@ namespace CoolBooks.Models
 
             ViewBag.CurrentFilter = searchString;
 
-            var books = _context.Book.Include(g => g.Genres)
-                                     .Include(a => a.Authors)   
+            var books = _context.Book.Include(g => g.Genres.Where(g => g.IsDeleted != true))
+                                     .Include(a => a.Authors.Where(a => a.IsDeleted != true))   
                                      .Where(b => b.IsDeleted != true)
                                      .Select(b => b);
             switch (sortOrder)
@@ -240,9 +240,9 @@ namespace CoolBooks.Models
         {
             CreateBookViewModel vm = new CreateBookViewModel();
 
-            var authors = _context.Author.ToList();
+            var authors = _context.Author.Where(a => a.IsDeleted != true).ToList();
 
-            var genres = _context.Genre.ToList();
+            var genres = _context.Genre.Where(g => g.IsDeleted != true).ToList();
 
             foreach (Author author in authors)
             {
@@ -604,7 +604,8 @@ namespace CoolBooks.Models
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Book.FindAsync(id);
-            _context.Book.Remove(book);
+            book.IsDeleted = true;
+            _context.Book.Update(book);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

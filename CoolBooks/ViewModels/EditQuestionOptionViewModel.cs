@@ -8,6 +8,7 @@ namespace CoolBooks.ViewModels
         [Display(Name = "Alternativ:")]
         public string Text { get; set; }
 
+        [Display(Name = "Svar:")]
         public bool Answer { get; set; }
     }
 }
