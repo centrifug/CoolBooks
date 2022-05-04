@@ -247,3 +247,13 @@ Staffan:
 	moderator/admin har nu möjlighet att lägga till fler quiz genres/tags att välja på när man gör ett quiz
 	lagt till edit quiz/questions som skaparen av quizet samt moderator/admin har tillgång till
 	Gjort så att en user kan editera sina egna kommentarer 
+
+
+2022-05-04
+	Stefan: Profile page, edit profile page, mina reviews, mina quiz, mina spelade quiz, samt lagt till profilbilder för users och en defaultprofilbild.
+	Sprint review&retrospective #3 powerpoint samt slutredovisning.
+	
+	
+	Staffan:
+	
+	Sprint review&retrospective #3 powerpoint samt slutredovisning.
