@@ -62,7 +62,8 @@ namespace CoolBooks.Controllers
             }
 
             var coolBooksContext = _context.Review.Include(r => r.Book)
-                                                  .Where(r => r.IsDeleted == false)
+                                                  .Where(r => r.IsDeleted != true 
+                                                  && r.Book.IsDeleted != true )
                                                   .Select(r => r);
 
             switch (sortOrder)
@@ -125,6 +126,7 @@ namespace CoolBooks.Controllers
             {
                 return NotFound();
             }
+            
 
             var userId = userManager.GetUserId(User);
 
@@ -141,12 +143,14 @@ namespace CoolBooks.Controllers
                     .ThenInclude(c => c.ReportedComments.Where(rc => rc.UserId == userId))
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            //gettolösning för att loada alla kommentarer... 
+            //gettolösning för att loada alla kommentarer...
+            //update! tack vare reviewIDNested så är den här queryn betydligt mycket mindre
             var temp = await _context.Comment
-                .Include(c => c.comments)
+                .Include(c => c.comments.Where(c => c.reviewIdNested == id))
                 .Include(c => c.CommentLikes)
                 .Include(c => c.ReportedComments)
                 .Include(c => c.CoolBooksUser)
+                .Where(c => c.reviewIdNested == id)
                 .ToListAsync();
 
             if (review == null)
