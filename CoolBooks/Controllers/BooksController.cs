@@ -177,10 +177,11 @@ namespace CoolBooks.Models
             //Alla lager av kommentarerer inkluderas inte om vi inte gör dom ToList() i detta steg först;
             //behöver dom "trackas"? Dom är ju redan inkluderarade i qureyn ovan?
             var comments = _context.Comment
-                .Include(c => c.comments)
+                .Include(c => c.comments.Where(c => c.reviewIdNested == id))
                 .Include(c => c.CommentLikes)
                 .Include(c => c.ReportedComments)
                 .Include(c => c.CoolBooksUser)
+                .Where(c => c.reviewIdNested == id)
                 .ToList();
 
 
