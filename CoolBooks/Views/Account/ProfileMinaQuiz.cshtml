@@ -1,0 +1,41 @@
+﻿@model List<Quiz> // Taken
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mina Quiz.</h1>
+
+<a asp-controller="Account" asp-action="Profile">Min Profil</a>
+<a asp-controller="Account" asp-action="ProfileEdit">Edit profil</a>     
+<a asp-controller="Account" asp-action="ProfileReviews">Mina reviews</a> 
+<a asp-controller="Account" asp-action="ProfileMinaQuiz">Mina quiz</a> 
+<a asp-controller="Account" asp-action="ProfileMinaQuizTaken">Quiz som jag har spelat</a> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Quiz!
+                @*@Html.DisplayNameFor(model => model.Name)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a class="link-Secondary" asp-action="Take" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+            <td>
+                @if (item.CreatedBy == userManager.GetUserId(User) || User.IsInRole("Admin" ))
+                {
+                    <a asp-action="Edit" asp-controller="Quiz" asp-route-id="@item.Id">Edit</a> 
+                    <a asp-action="Delete" asp-controller="Quiz" asp-route-id="@item.Id">Delete</a>
+                }        
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,4 +1,5 @@
-﻿using CoolBooks.Models;
+﻿using CoolBooks.Data;
+using CoolBooks.Models;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +8,13 @@ namespace CoolBooks.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly CoolBooksContext _context;
         private readonly UserManager<CoolBooksUser> userManager;
         private readonly SignInManager<CoolBooksUser> signInManager;
 
-        public AccountController(UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager )
+        public AccountController(UserManager<CoolBooksUser> userManager, SignInManager<CoolBooksUser> signInManager, CoolBooksContext context)
         {
+            _context = context;
             this.userManager = userManager;
             this.signInManager = signInManager;            
         }
@@ -93,14 +96,19 @@ namespace CoolBooks.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile(CoolBooksUser updatedUser)
         {
+            var user = await userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+            }
 
             return View(await userManager.GetUserAsync(User));
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Profile(CoolBooksUser updatedUser)
+        [HttpGet]
+        public async Task<IActionResult> ProfileEdit(CoolBooksUser updatedUser)
         {
             var user = await userManager.GetUserAsync(User);
 
@@ -140,6 +148,51 @@ namespace CoolBooks.Controllers
             await signInManager.RefreshSignInAsync(user);
             //StatusMessage = "Your profile has been updated";
             return RedirectToAction("Profile", "Account");
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProfileReviews(CoolBooksUser updatedUser)
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            string userid = user.Id;
+
+            var reviews = _context.Review
+                                  .Where(r => r.CreatedBy == userid)
+                                  .ToList();
+
+            
+
+            return View(reviews);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProfileMinaQuiz(CoolBooksUser updatedUser)
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            string userid = user.Id;
+
+            var quiz = _context.Quiz
+                                  .Where(r => r.CreatedBy == userid)
+                                  .ToList();
+
+
+
+            return View(quiz);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProfileMinaQuizTaken(CoolBooksUser updatedUser)
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            string userid = user.Id;
+
+            var quiz = _context.Quiz//Taken
+                                  .Where(r => r.CreatedBy == userid)
+                                  .ToList();
+
+
+
+            return View(quiz);
         }
     }
 }

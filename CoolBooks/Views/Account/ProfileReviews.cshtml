@@ -1,0 +1,61 @@
+﻿@model List<CoolBooks.Models.Review>
+@{
+    ViewData["Title"] = "Profile";
+
+}
+
+<h1>Mina Reviews</h1>
+@*<partial name="_StatusMessage" for="StatusMessage" />*@
+<a asp-controller="Account" asp-action="Profile">Min Profil</a>
+<a asp-controller="Account" asp-action="ProfileEdit">Edit profil</a>     
+<a asp-controller="Account" asp-action="ProfileReviews">Mina reviews</a> 
+<a asp-controller="Account" asp-action="ProfileMinaQuiz">Mina quiz</a> 
+<a asp-controller="Account" asp-action="ProfileMinaQuizTaken">Quiz som jag har spelat</a> 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Titel:
+            </th>
+            <th>
+                Text:
+            </th>
+            <th>
+                Rating:
+            </th>
+            <th>
+                Likes:
+            </th>
+            <th>
+                Dislikes:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model) {
+        <tr>
+            <td>
+                <a class="link-secondary" asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">@review.Title</a>
+            </td>
+            <td>
+                @review.Text
+            </td>
+            <td>
+                @review.Rating
+            </td>
+            <td>
+                @review.LikeCount
+            </td>
+            <td>
+                @review.DisLikeCount
+            </td>
+            <td>                   
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
