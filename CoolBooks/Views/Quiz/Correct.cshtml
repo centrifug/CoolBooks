@@ -1,0 +1,16 @@
+﻿@model CorrectedQuizViewModel
+
+<p>@Model.Score / @Model.NumberOfQuestions poäng</p>
+
+@foreach (var question in Model.Quiz)
+{
+    <p>fråga: @question.Name</p>
+    <p>rättsvar: @question.CorrectAnswer</p>
+    <p>usersvar: @question.UserAnswer</p>
+    <p>rätt/fel: @question.IsCorrect</p>
+}
+
+@if (@Model.QuizAlreadyTaken == true)
+{
+    <h3><b>Du har redan gjort detta quiz!</b></h3>
+}

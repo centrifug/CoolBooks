@@ -34,7 +34,7 @@ namespace CoolBooks.Controllers
 
             var coolBooksContext = _context.Quiz
                 .Include(q => q.CoolBooksUser)
-                .Where(q => q.Questions.Count > 0 && q.IsDeleted == false);
+                .Where(q => q.Questions.Count > 0 && q.IsDeleted != true);
             int pageSize = 4;
 
             return View(await PaginatedList<Quiz>.CreateAsync(coolBooksContext.AsNoTracking(),pageNumber ?? 1,pageSize));
@@ -471,6 +471,101 @@ namespace CoolBooks.Controllers
             return View(genreInput);
         }
 
+        // POST: Quiz/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Correct(int id, Dictionary<int, int> answer)
+        {
+            //hämta quizet
+            var quiz = _context.Quiz
+                .Include(q => q.Questions)
+                .ThenInclude(q => q.Options)
+                .Where(q => q.Id == id)
+                .FirstOrDefault();
+
+            int score = 0;
+
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+
+            CorrectedQuizViewModel vm = new CorrectedQuizViewModel();
+
+
+            foreach (var question in quiz.Questions)
+            {
+                CorrectedQuestionViewModel q = new CorrectedQuestionViewModel();
+
+                //hämta rätt svar
+                var questionAnswer = question.Options.Where(o => o.Answer == true).First();
+
+                //hämta vad som usern svarat
+                
+                //kolla om usernsvarat på frågan
+                if (answer.ContainsKey(question.Id))
+                {
+                    var userAnswer = answer.Where(a => a.Key == question.Id).Select(a => a.Value).First();
+
+                    //kolla att om usern svarat rätt
+                    if (questionAnswer.Id == userAnswer)
+                    {
+                        score++;
+                        q.IsCorrect = true;
+                    }
+                    q.UserAnswer = question.Options.Where(o => o.Id == userAnswer).Select(o => o.Text).First();
+                }
+                else
+                {
+                    q.UserAnswer = "OBESVARAD";
+                }
+                
+
+                //spara frågan till viewmodel          
+
+                q.Name = question.Text;
+                q.CorrectAnswer = questionAnswer.Text;
+                
+
+                vm.Quiz.Add(q);
+
+            } 
+
+            vm.Score = score;
+            vm.NumberOfQuestions = quiz.Questions.Count;
+
+
+            //spara att användaren har gjort quizet
+
+            var userTakenQuiz = _context.QuizTaken
+                .Where(qt => qt.QuizID == id && qt.CreatedBy == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .FirstOrDefault();
+
+            if (userTakenQuiz == null)
+            {
+                QuizTaken quizTaken = new QuizTaken();
+
+                quizTaken.QuizID = id;
+                quizTaken.Score = score;
+                quizTaken.MaxScore = quiz.Questions.Count;
+                quizTaken.Created = DateTime.Now;
+                quizTaken.CreatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                _context.Add(quizTaken);
+                _context.SaveChanges();
+
+                vm.QuizAlreadyTaken = false;
+                return View(vm);
+            }
+            else
+            {
+                vm.QuizAlreadyTaken = true;
+                return View(vm);
+            }
+
+
+            
+        }
 
     }
 }
