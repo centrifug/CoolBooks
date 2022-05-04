@@ -184,7 +184,8 @@ namespace CoolBooks.Data
                 NormalizedEmail = "ADMIN@COOLBOOKS.COM",
                 Name = "Admin Adminson",
                 LockoutEnabled = false,
-                PhoneNumber = "1234567890"
+                PhoneNumber = "1234567890",
+                ImagePath = "/images/Users/admin.png"
             };
 
             CoolBooksUser user1 = new CoolBooksUser()

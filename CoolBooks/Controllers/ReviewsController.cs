@@ -430,8 +430,6 @@ namespace CoolBooks.Controllers
         }
         public ActionResult Like(int id, bool status)
         {
-            //var Db = likedislike(_context, userManager, signInManager); 
-            //var Db = _context;
             var user = userManager.GetUserId(User);
             if (user == null)
             {

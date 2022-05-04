@@ -11,19 +11,28 @@
 <a asp-controller="Account" asp-action="ProfileReviews">Mina reviews</a> 
 <a asp-controller="Account" asp-action="ProfileMinaQuiz">Mina quiz</a> 
 <a asp-controller="Account" asp-action="ProfileMinaQuizTaken">Quiz som jag har spelat</a> 
+<div style="background: #FFF1F2;" class="row no-gutters">
+<div">
+@if (@Model.ImagePath == ""){
+<img src="/images/default.png" style="width: 500px" height: 500px"/> @*Standard profilbild*@
 
-<div class="d-flex flex-wrap justify-content-evenly">
-<div class="m-3 d-flex flex-column justify-content-center align-content-center">
-<p>Namn: @Model.Name</p>
+}
+else {
+
+    <img src="@Model.ImagePath" style="width: 500px" height: 500px"/> @*Profilbild om man har en.*@
+}
 </div>
-<div class="m-3 d-flex flex-column justify-content-center align-content-center">
-<p>Födelsedatum: @Model.DOB</p>
+<div class="col-md-4">
+<p><b>Namn:</b> @Model.Name</p>
 </div>
-<div class="m-3 d-flex flex-column justify-content-center align-content-center">
-<p>Email: @Model.Email</p>
+<div class="col-md-8">
+<p><b>Födelsedatum:</b> @Model.DOB</p>
 </div>
-<div class="m-3 d-flex flex-column justify-content-center align-content-center">
-<p>Telefon-Nummer: @Model.PhoneNumber</p>
+<div class="col-md-4">
+<p><b>Email:</b> @Model.Email</p>
+</div>
+<div class="col-md-8">
+<p><b>Telefon-Nummer:</b> @Model.PhoneNumber</p>
 </div>
 </div>
 @section Scripts {
