@@ -11,6 +11,7 @@ using CoolBooks.Models;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace CoolBooks.Controllers
 {
@@ -237,6 +238,7 @@ namespace CoolBooks.Controllers
             vm.ImagePath = author.ImagePath;
             vm.Description = author.Description;
             vm.Wiki = author.Wiki;
+            vm.IsDeleted = author.IsDeleted;
 
             if (author == null)
             {
@@ -272,6 +274,7 @@ namespace CoolBooks.Controllers
                 authorToUpdate.Description = authorInput.Description;
                 authorToUpdate.Wiki = authorInput.Wiki;
                 authorToUpdate.UpdatedBy = user.Id;
+                authorToUpdate.IsDeleted = authorInput.IsDeleted;
                 
 
                 //save/update image
@@ -352,6 +355,8 @@ namespace CoolBooks.Controllers
         {
             var author = await _context.Author.FindAsync(id);
             author.IsDeleted = true;
+            author.LastUpdated = DateTime.Now;
+            author.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Author.Update(author);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

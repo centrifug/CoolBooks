@@ -4,6 +4,7 @@ using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using CoolBooks.Services;
 
 namespace CoolBooks.Controllers
@@ -237,5 +238,7 @@ namespace CoolBooks.Controllers
 
             return View(quiz);
         }
+
+       
     }
 }

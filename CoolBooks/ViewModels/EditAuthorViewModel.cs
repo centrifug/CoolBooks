@@ -25,5 +25,7 @@ namespace CoolBooks.ViewModels
         public string? Description { get; set; }
         [MaxLength(50)]
         public string? Wiki { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

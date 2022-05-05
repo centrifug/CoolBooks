@@ -1,0 +1,42 @@
+﻿@model List<Quiz>
+
+
+<h1>Borttagna Quiz</h1>
+
+
+<partial name="_AdminMenu" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Quiz                
+            </th>
+            <th>
+                Uppdaterad av                
+            </th>
+            <th>
+                Senast uppdaterad
+            </th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <p>@item.Name</p>
+            </td>
+            <td>
+               <p>@item.CoolBooksUser.UserName</p> 
+            </td>
+            <td>
+                @item.LastUpdated       
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Quiz" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
