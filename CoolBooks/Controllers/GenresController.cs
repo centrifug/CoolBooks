@@ -11,7 +11,7 @@ using CoolBooks.Models;
 using CoolBooks.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Security.Claims;
 
 namespace CoolBooks.Controllers
 {
@@ -200,6 +200,7 @@ namespace CoolBooks.Controllers
             vm.Id = genre.Id;
             vm.Name = genre.Name;
             vm.Description = genre.Description;
+            vm.IsDeleted = genre.IsDeleted;
 
             if (genre == null)
             {
@@ -228,6 +229,7 @@ namespace CoolBooks.Controllers
             genreToUpdate.Description = genreInput.Description;
             genreToUpdate.UpdatedBy = user.Id;
             genreToUpdate.LastUpdated = DateTime.Now;
+            genreToUpdate.IsDeleted = genreInput.IsDeleted;
 
             if (ModelState.IsValid)
             {
@@ -279,6 +281,8 @@ namespace CoolBooks.Controllers
         {
             var genre = await _context.Genre.FindAsync(id);
             genre.IsDeleted = true;
+            genre.LastUpdated = DateTime.Now;
+            genre.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Genre.Update(genre);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

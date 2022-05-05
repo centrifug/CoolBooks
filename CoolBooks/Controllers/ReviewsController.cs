@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Security.Claims;
 
 namespace CoolBooks.Controllers
 {
@@ -424,6 +425,8 @@ namespace CoolBooks.Controllers
         {
             var review = await _context.Review.FindAsync(id);
             review.IsDeleted = true;
+            review.LastUpdated = DateTime.Now;
+            review.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Review.Update(review);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

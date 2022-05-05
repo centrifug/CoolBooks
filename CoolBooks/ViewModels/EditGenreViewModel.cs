@@ -12,5 +12,9 @@ namespace CoolBooks.ViewModels
 
         [Required]
         public string Description { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+
     }
 }

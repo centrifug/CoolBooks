@@ -481,5 +481,82 @@ namespace CoolBooks.Controllers
             //return RedirectToAction(nameof(Index));
             return RedirectToAction("ReportedComments", "Administration");
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RevokeDeletedBook()
+        {
+            var books = await _context.Book
+                .Include(b => b.CoolBooksUser)
+                .Where(b => b.IsDeleted == true)
+                .ToListAsync();
+
+
+            return View(books);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> RevokeDeletedReview()
+        {
+            var review = await _context.Review
+                .Include(b => b.CoolBooksUser)
+                .Where(b => b.IsDeleted == true)
+                .ToListAsync();
+
+
+            return View(review);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> RevokeDeletedComment()
+        {
+            var comments = await _context.Comment
+                .Include(b => b.CoolBooksUser)
+                .Where(b => b.IsDeleted == true)
+                .ToListAsync();
+
+
+            return View(comments);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RevokeDeletedAuthor()
+        {
+            var authors = await _context.Author
+                .Include(b => b.CoolBooksUser)
+                .Where(b => b.IsDeleted == true)
+                .ToListAsync();
+
+            return View(authors);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RevokeDeletedBookGenre()
+        {
+            var genres = await _context.Genre
+                .Include(b => b.CoolBooksUser)
+                .Where(b => b.IsDeleted == true)
+                .ToListAsync();
+
+            return View(genres);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> RevokeDeletedQuiz()
+        {
+            var quizzes = await _context.Quiz
+                .Include(b => b.CoolBooksUser)
+                .Where(b => b.IsDeleted == true)
+                .ToListAsync();
+
+            return View(quizzes);
+        }
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.Data.SqlClient;
 using PagedList.Mvc;
 using PagedList;
 using CoolBooks.Services;
+using System.Security.Claims;
 
 namespace CoolBooks.Models
 {
@@ -180,6 +181,7 @@ namespace CoolBooks.Models
             //En tanke! Om vi lägger till book id på varje comment så kan vi minska storleken på denna query?
             //En tanke till! om vi hämtar comentarsdatan genom att loopa genom varje review som tillhör en book
             //  så kan vi använda oss av nestedReviewID
+
 
             var comments = _context.Comment
                 .Include(c => c.comments)
@@ -610,10 +612,13 @@ namespace CoolBooks.Models
         {
             var book = await _context.Book.FindAsync(id);
             book.IsDeleted = true;
+            book.LastUpdated = DateTime.Now;
+            book.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _context.Book.Update(book);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool BookExists(int id)
         {

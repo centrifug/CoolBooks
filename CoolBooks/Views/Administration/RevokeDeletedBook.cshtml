@@ -1,40 +1,42 @@
-﻿@model List<QuizTaken>
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model List<Book>
 
-<h1>Mina Spelade Quiz.</h1>
+
+<h1>Borttagna Böcker</h1>
 
 
 <partial name="_AdminMenu" />
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                Quiz!
+                Bok
                 
             </th>
             <th>
-                Poäng
+                Uppdaterad av
                 
             </th>
             <th>
-                Datum
+                Senast uppdaterad
             </th>
-            <th></th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-controller="Quiz" asp-action="Take" asp-route-id="@item.Quiz.Id">@item.Quiz.Name</a> 
+                <p>@item.Title</p>
             </td>
             <td>
-                @item.Score / @item.MaxScore
+               <p>@item.CoolBooksUser.UserName</p> 
             </td>
             <td>
-                @item.Created       
+                @item.LastUpdated       
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Books" asp-route-id="@item.Id">Edit</a>
             </td>
         </tr>
 }

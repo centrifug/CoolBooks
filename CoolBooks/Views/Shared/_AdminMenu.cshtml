@@ -1,0 +1,25 @@
+﻿
+<div>
+    <a asp-controller="Account" asp-action="Profile">Min Profil</a>
+    <a asp-controller="Account" asp-action="ProfileEdit">Edit profil</a>     
+    <a asp-controller="Account" asp-action="ProfileReviews">Mina reviews</a> 
+    <a asp-controller="Account" asp-action="ProfileMinaQuiz">Mina quiz</a> 
+    <a asp-controller="Account" asp-action="ProfileMinaQuizTaken">Quiz som jag har spelat</a>
+</div>
+<div>
+    
+    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+    {
+        <b>Borttagna: </b>
+        <a asp-controller="Administration" asp-action="RevokeDeletedReview">Rescensioner</a>
+        <a asp-controller="Administration" asp-action="RevokeDeletedComment">Kommentarer</a>
+        <a asp-controller="Administration" asp-action="RevokeDeletedQuiz">Quiz</a>
+    }
+        @if (User.IsInRole("Admin"))
+    {
+        <a asp-controller="Administration" asp-action="RevokeDeletedBook">Böcker</a>
+        <a asp-controller="Administration" asp-action="RevokeDeletedAuthor">Författare</a>
+        <a asp-controller="Administration" asp-action="RevokeDeletedBookGenre">Bok-genre</a>
+    }
+</div>
+
