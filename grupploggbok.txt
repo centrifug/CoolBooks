@@ -1,260 +1,271 @@
 Grupplogbok
 
 2022-04-04
-Gemensamt:
-  Skapa projekt på GITHUB
-  Skapa en kanban board innuti GITHUB för att slippa trello
-  Diskutera Razor eller MVC? Valet landade på MVC + Entity Framework
-  Diskutera VG Kriterier, Individuellt men EFTER vi har kommit en lång bit eller nästan klara!
-  Rita upp Databasmodell samt diskussion kring detta
-  Skapa tomt MVC projekt samt Grupplogbok och pusha till GITHUB.
+	Gemensamt:
+		Skapa projekt på GITHUB
+		Skapa en kanban board innuti GITHUB för att slippa trello
+		Diskutera Razor eller MVC? Valet landade på MVC + Entity Framework
+		Diskutera VG Kriterier, Individuellt men EFTER vi har kommit en lång bit eller nästan klara!
+		Rita upp Databasmodell samt diskussion kring detta
+		Skapa tomt MVC projekt samt Grupplogbok och pusha till GITHUB.
 
 2022-04-05:
-Gemensamt: 
-  Förfinat userstories
-  Tidsestimerat userstories
-  Identifiera 3 spikes
-  Mobbprogrammerat delar av projektet. Bland annat databasstrukturen
-  Läst på om agilt och burndowncharts, samt github.  
-  Spreadsheet med information för att burndownchart ska skapas.
-  
+	Gemensamt: 
+		Förfinat userstories
+		Tidsestimerat userstories
+		Identifiera 3 spikes
+		Mobbprogrammerat delar av projektet. Bland annat databasstrukturen
+		Läst på om agilt och burndowncharts, samt github.  
+		Spreadsheet med information för att burndownchart ska skapas.
+
 2022-04-06:
-Stefan:
-  Fixat metod för seed-data samt stoppat in 5 böcker, authors, genres, reviews.
-  Fixat Partial View för book Viewmodel (går att återanvända kod så vi kan få mer Partial views)
-  Fixat ViewModel Mapp som vi kan använda under projektets gång.
-  
-  Börjat med random funktionen för view/index. Har felsökning kvar att göra men kommit en bra bit.
-  
-Staffan:
-  Läst på om identity i dot.net "kört en spike" och anser att det är det här vi ska använda för inloggning
-  Scaffoldade identity > login, logout, register och fick det att fungera 	
-  Efter detta landade login och registering av användare på en funktionell nivå. 
+	Stefan:
+		Fixat metod för seed-data samt stoppat in 5 böcker, authors, genres, reviews.
+		Fixat Partial View för book Viewmodel (går att återanvända kod så vi kan få mer Partial views)
+		Fixat ViewModel Mapp som vi kan använda under projektets gång.
 
-  Läst på mer om identity och har ångrat mig angånde upplägget och därför börjat konvertera dom scaffoldade 
-  razorpage-identity-delarna till MVC för att få bättre kontroll samt överblick och för att hålla samma standard genom hela projektet.
+		Börjat med random funktionen för view/index. Har felsökning kvar att göra men kommit en bra bit.
 
-  
+	Staffan:
+		Läst på om identity i dot.net "kört en spike" och anser att det är det här vi ska använda för inloggning
+		Scaffoldade identity > login, logout, register och fick det att fungera 	
+		Efter detta landade login och registering av användare på en funktionell nivå. 
+
+		Läst på mer om identity och har ångrat mig angånde upplägget och därför börjat konvertera dom scaffoldade 
+		razorpage-identity-delarna till MVC för att få bättre kontroll samt överblick och för att hålla samma standard genom hela projektet.
+
+
 2022-04-07:
-Stefan: 
-  Fixat bildhantering för våran seed-data, både books/authors.
-  Fixat random-hantering på index sida.
-  Börjat med Karusellen på index sida. Behöver felsökning! 
+	Stefan: 
+		Fixat bildhantering för våran seed-data, både books/authors.
+		Fixat random-hantering på index sida.
+		Börjat med Karusellen på index sida. Behöver felsökning! 
 
-Staffan:
-  Kollat på .gitignore. Lagt till det och rensat bort massa "oöndigt" i projektet för att minimiera storlek(Mb) och antalet konflikter.
-  Fortsatt med Identity och konverterat allt till MVC. Nu finns det möjlighet att lägga till och tabort roller på användare. 
-  (Det börjar närma sig en funktionell grund där vi kan separera content för användare med olika rättigheter :D)
+	Staffan:
+		Kollat på .gitignore. Lagt till det och rensat bort massa "oöndigt" i projektet för att minimiera storlek(Mb) och antalet konflikter.
+		Fortsatt med Identity och konverterat allt till MVC. Nu finns det möjlighet att lägga till och tabort roller på användare. 
+		(Det börjar närma sig en funktionell grund där vi kan separera content för användare med olika rättigheter :D)
 
 2022-04-08
-Stefan:
-Fixat karusellen som inte fungerade.
+	Stefan:
+		Fixat karusellen som inte fungerade.
 
-Staffan:
-  Lagt till seed data för Admin, roller och UserRole
-  Lagt till seeddata för bridgetables: BookAuthor & BookGenre
-  När man går in på en bok (/books/details/id) så listas nu tillhörande rescensioner under bokinfon
-  När man går in på en författare (/author/details/id) så listas tillhörande böcker
-  Lagt till lite funktionalitet: i /books visas endast edit och delete om du är inloggad som admin
-  Städat upp lite i _books partial och visar nu genre istället för isbn/isdeleted/created
+	Staffan:
+		Lagt till seed data för Admin, roller och UserRole
+		Lagt till seeddata för bridgetables: BookAuthor & BookGenre
+		När man går in på en bok (/books/details/id) så listas nu tillhörande rescensioner under bokinfon
+		När man går in på en författare (/author/details/id) så listas tillhörande böcker
+		Lagt till lite funktionalitet: i /books visas endast edit och delete om du är inloggad som admin
+		Städat upp lite i _books partial och visar nu genre istället för isbn/isdeleted/created
 
 2022-04-11
-Stefan:
-  Fixat sökfunktion för att söka på böcker, fixat formulär för att använda sökfunktionen.
-  Tog hela dagen då det var mycket felsökning som behövdes. Samt lite krångel med CSS för formuläret.
+	Stefan:
+		Fixat sökfunktion för att söka på böcker, fixat formulär för att använda sökfunktionen.
+		Tog hela dagen då det var mycket felsökning som behövdes. Samt lite krångel med CSS för formuläret.
 
-Staffan:
-  Fixat lite buggar med validering när man postar till en annan controller.
-  Börjat gömma funktionallitet för användare utan behörighet. Tex: skriva review formuläret syns inte om du inte är inloggad
-  Lagt till enkel "add-book" funktionalitet. Saknas ett snyggt sätt att välja genre och author samt ladda upp bild.
-      (forsatte lite till... lagt till bildupload och möjlighetat välja genre och author)
+	Staffan:
+		Fixat lite buggar med validering när man postar till en annan controller.
+		Börjat gömma funktionallitet för användare utan behörighet. Tex: skriva review formuläret syns inte om du inte är inloggad
+		Lagt till enkel "add-book" funktionalitet. Saknas ett snyggt sätt att välja genre och author samt ladda upp bild.
+		(forsatte lite till... lagt till bildupload och möjlighetat välja genre och author)
 
 2022-04-12
-Stefan:
-  Seedat 20 böcker istället för 5, tog långt tid även om det var trivialt. Var färdig vid lunch.
+	Stefan:
+		Seedat 20 böcker istället för 5, tog långt tid även om det var trivialt. Var färdig vid lunch.
 
-  Efter lunch så har jag lagt till filtrering för böcker. Originaltanken var att vi skulle filtrera efter vi har sökt.
-  Men efter att vi såg ett bra exempel online så kom vi fram till att det är bättre att filtrera det vi visar. 
-  Då kan vi filtera även om vi inte har sökt, men även om vi har sökt! 
-  Kommit ganska långt med filtreringen, det som är kvar är att se till så man kan filtrera authors,reviews,genres också. Inte bara böcker!
+		Efter lunch så har jag lagt till filtrering för böcker. Originaltanken var att vi skulle filtrera efter vi har sökt.
+		Men efter att vi såg ett bra exempel online så kom vi fram till att det är bättre att filtrera det vi visar. 
+		Då kan vi filtera även om vi inte har sökt, men även om vi har sökt! 
+		Kommit ganska långt med filtreringen, det som är kvar är att se till så man kan filtrera authors,reviews,genres också. Inte bara böcker!
 
-Staffan:
-  Arbetat med edit-book, gjort det möjligt att lägga till och ta bort authors/genres på ett smidigt sätt. Saknas bara ändring av bild.
-  + Lite små buggfixar och lite finlir
-  
-  2022-04-13
-  Stefan:
-  Fixat färdig filtreringen på samtliga sidor. 
-  Samt att man kan navigera på ett smidigare sätt. Dvs där det står att en bok har Genre: Fantasy. Kan man trycka på fantasy för att gå till Genre/Details/Fantasy etc
-  
-Staffan:
-  Visar bara edit knappar för reviews för admins och skaparen av reviewn.
-  Låst detta i viewn och controllern.
-  Forsatt låsa viss funktionalitet för olika userroles.
-  Lagt till createdby/updatedby/updated fält i modeller, uppdaterat seeddatan och sätt till att createdby sparas när man postar en review.
+	Staffan:
+		Arbetat med edit-book, gjort det möjligt att lägga till och ta bort authors/genres på ett smidigt sätt. Saknas bara ändring av bild.
+		+ Lite små buggfixar och lite finlir
+
+2022-04-13
+	Stefan:
+		Fixat färdig filtreringen på samtliga sidor. 
+		Samt att man kan navigera på ett smidigare sätt. Dvs där det står att en bok har Genre: Fantasy. Kan man trycka på fantasy för att gå till 			Genre/Details/Fantasy etc
+
+	Staffan:
+		Visar bara edit knappar för reviews för admins och skaparen av reviewn.
+		Låst detta i viewn och controllern.
+		Forsatt låsa viss funktionalitet för olika userroles.
+		Lagt till createdby/updatedby/updated fält i modeller, uppdaterat seeddatan och sätt till att createdby sparas när man postar en review.
 
 
 2022-04-14
-Stefan:
-  Sprintstart #2 
-  Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
-  Stoppa in en exempelchart som bara admins kan se för att jobba med längre in i sprinten.
+	Stefan:
+		Sprintstart #2 
+		Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
+		Stoppa in en exempelchart som bara admins kan se för att jobba med längre in i sprinten.
 
-Staffan:
-  Sprintstart #2 
-  Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
+	Staffan:
+		Sprintstart #2 
+		Göra nya userstories samt poängsätta och prioritera dem. Sätta in dem i våran burndownchart #2
 
 2022-04-19
-Stefan:
-  Börjat med like/dislike userstory. Ganska mycket kvar pga teknisk spike med att lägga till en service samt jquery.
+	Stefan:
+		Börjat med like/dislike userstory. Ganska mycket kvar pga teknisk spike med att lägga till en service samt jquery.
 
-  _Layout.cshtml script taggar i header istället för footer.
-  lägg till en service i program.cs
-  LikeDislike.cs class
-  ReviewsController.cs // details biten och längst ner kallar vi på LikeDislike classen
-  Reviews/Details.cshtml // like/dislike knapp samt Jquery som behövef felsökas!
-  Coolbookscontext dbset för dem nya tabellerna
-  Model/Review.cs nya fält
-  Model/Likes.cs ny tabell
+		_Layout.cshtml script taggar i header istället för footer.
+		lägg till en service i program.cs
+		LikeDislike.cs class
+		ReviewsController.cs // details biten och längst ner kallar vi på LikeDislike classen
+		Reviews/Details.cshtml // like/dislike knapp samt Jquery som behövef felsökas!
+		Coolbookscontext dbset för dem nya tabellerna
+		Model/Review.cs nya fält
+		Model/Likes.cs ny tabell
 
-Staffan
-  Fixat så user inte kan lägga tillböcker och gömt detta i UI:t
-  Lagt till en moderatornivå och möjligtgört för moderatorer och admins att kunna blocka reviews
-  Påbörjat kommenterings-funktionerna.
+	Staffan
+		Fixat så user inte kan lägga tillböcker och gömt detta i UI:t
+		Lagt till en moderatornivå och möjligtgört för moderatorer och admins att kunna blocka reviews
+		Påbörjat kommenterings-funktionerna.
 
 
 2022-04-20
-Stefan:
-  Pluralsight om jquery för våran spike.
-  Fixat till depricated jquery kod.
-  Felsökt like/dislike så det bara skriker om det. Nu fungerar den, css läggs på hyllan!
+	Stefan:
+		Pluralsight om jquery för våran spike.
+		Fixat till depricated jquery kod.
+		Felsökt like/dislike så det bara skriker om det. Nu fungerar den, css läggs på hyllan!
 
-Staffan
-  Fixat kommentering av kommentarer i grundutförande. 
-  Man kan kommentera både reviews och kommenterarer, men moderator funktioner samt lite annat småfix är kvar.
-  Grejjat med Foreginkey-constraints och deletebehavior för att undvika förödande cascading deletes
-  (och för att få EF att sluta skrika på mig ;) )
-  Lagt till rating på författare som uppdateras när en review postas
+	Staffan
+		Fixat kommentering av kommentarer i grundutförande. 
+		Man kan kommentera både reviews och kommenterarer, men moderator funktioner samt lite annat småfix är kvar.
+		Grejjat med Foreginkey-constraints och deletebehavior för att undvika förödande cascading deletes
+		(och för att få EF att sluta skrika på mig ;) )
+		Lagt till rating på författare som uppdateras när en review postas
 
 2022-04-21
-Stefan: 
-  Fixat så man ser likes/dislikes utan att gå in på details. Altså review/index. Samt sortering för detta.
-  Seedat 3 exempelanvändare, Paul, Erik, Markus. Dem har inga adminrättigheter och dem har like/dislikeat några reviews
-  Fixat bugg som gjorde att man ibland kunde like/dislike till infinity! :D
+	Stefan: 
+		Fixat så man ser likes/dislikes utan att gå in på details. Altså review/index. Samt sortering för detta.
+		Seedat 3 exempelanvändare, Paul, Erik, Markus. Dem har inga adminrättigheter och dem har like/dislikeat några reviews
+		Fixat bugg som gjorde att man ibland kunde like/dislike till infinity! :D
 
-Staffan:
-Redovisningar
-  Isbn kan inte längre förekomma mer än en gång och relevanta felmedelandenvisas.
-  Påbörjat att visa rating som stjärnor istället för ett textfält. 
-    -Vi har nu radiobuttons men dom ska cssas/js:as så dom blir snygga
-    
-    
+	Staffan:
+		Redovisningar
+		Isbn kan inte längre förekomma mer än en gång och relevanta felmedelandenvisas.
+		Påbörjat att visa rating som stjärnor istället för ett textfält. 
+		-Vi har nu radiobuttons men dom ska cssas/js:as så dom blir snygga
+
+
 2022-04-22
-Stefan:
-  Fixat databasen så den kan hantera likes på både reviews och kommentarer.
-  Problem med att like:a commentarer då vi loopar igenom varje kommentar i partial view. WIP
- 
-Staffan:
-  CSSat sjärnradio buttons när man postar en review.
-  
+	Stefan:
+		Fixat databasen så den kan hantera likes på både reviews och kommentarer.
+		Problem med att like:a commentarer då vi loopar igenom varje kommentar i partial view. WIP
+
+	Staffan:
+		CSSat sjärnradio buttons när man postar en review.
+
 2022-04-25
-Stefan:
-   Debuggat likes på kommentarer.
- Staffan:
-  Debuggat likes på kommentarer:
-	-Satt unika idn på alla knappar och relevanta taggar  
-	-Packeterat allt i en commentcontainer-class för att kunna söka efter respektive id på ett 
-	 enkelt sätt när vi ska uppdatera antal likes/dislikes, samt alternera enabled/disabled.
-	-lagt till en lista av commentlikes på comments (en comment kan ha många likes)
-	-Skickar med Commentlikes på varje comment med modelen(istället för i viewbag)till razorpagen, 
-	 loopar igenom och kollar om usern har dislikeat/likeat något och disablar knappar utefter det.
-  Lagt till reportfunktion för review och komentarer.
-  Refaktorerat likes och report.
-  
+	Stefan:
+		Debuggat likes på kommentarer.
+		
+	Staffan:
+		Debuggat likes på kommentarer:
+		-Satt unika idn på alla knappar och relevanta taggar  
+		-Packeterat allt i en commentcontainer-class för att kunna söka efter respektive id på ett 
+		enkelt sätt när vi ska uppdatera antal likes/dislikes, samt alternera enabled/disabled.
+		-lagt till en lista av commentlikes på comments (en comment kan ha många likes)
+		-Skickar med Commentlikes på varje comment med modelen(istället för i viewbag)till razorpagen, 
+		loopar igenom och kollar om usern har dislikeat/likeat något och disablar knappar utefter det.
+		Lagt till reportfunktion för review och komentarer.
+		Refaktorerat likes och report.
+
 2022-04-26
-Stefan:
-  Kikat på best practise viewbag/validering etc på pluralsight.
-  Fortsatt med våra charts för statistik.
-  
-Staffan:
-  Byggt en grundlägande admin/moderatorpanel för att hantera flaggade reviews/comments
-  Just nu sorteras de mest flaggade reviews/comments:en i fallande ordning.
-  Det finns möjlighet att editera/blockera(softdelete) dessa, samt att man kan "purge:a" flaggningslistan efter vidtagen åtgärd.
-  Buggfixat i like/dislike/report knapparna. Var lite strul med att enablea/disablea rätt vid olika användare.
-  
+	Stefan:
+		Kikat på best practise viewbag/validering etc på pluralsight.
+		Fortsatt med våra charts för statistik.
+
+	Staffan:
+		Byggt en grundlägande admin/moderatorpanel för att hantera flaggade reviews/comments
+		Just nu sorteras de mest flaggade reviews/comments:en i fallande ordning.
+		Det finns möjlighet att editera/blockera(softdelete) dessa, samt att man kan "purge:a" flaggningslistan efter vidtagen åtgärd.
+		Buggfixat i like/dislike/report knapparna. Var lite strul med att enablea/disablea rätt vid olika användare.
+
 2022-04-27
-  Stefan:
-    Besökt LIA plats nästan hela dagen.
-    Förberett inför sprintreview/retrospectiv.
-    
- Staffan:
-  Förberett inför sprintreview/retrospectiv.
-  Fixat att det nu visas stjärnor istället för en siffra där rating visas. 
-  Lagt till möjlighet att byta bild i edit book/author
-  Lite buggfixar; ett fel när man bytte/lade till genres på en bok, med mera...
-  Massa CSS all over the place.. :)
-  
-  
+	Stefan:
+		Besökt LIA plats nästan hela dagen.
+		Förberett inför sprintreview/retrospectiv.
+
+	Staffan:
+		Förberett inför sprintreview/retrospectiv.
+		Fixat att det nu visas stjärnor istället för en siffra där rating visas. 
+		Lagt till möjlighet att byta bild i edit book/author
+		Lite buggfixar; ett fel när man bytte/lade till genres på en bok, med mera...
+		Massa CSS all over the place.. :)
+
 2022-04-28  
-Stefan: 
-  Sprint review/retrospective #2
-  Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
- 
-Staffan:
-  Sprint review/retrospective #2
-  Skrev userstories inför sprint #3
- 
+	Stefan: 
+		Sprint review/retrospective #2
+		Fortsatt med statistikhantering ifrån sprint #2, vi tänkte ha sprintstart #3 på fredag istället för idag.
+
+	Staffan:
+		Sprint review/retrospective #2
+		Skrev userstories inför sprint #3
+
 
 2022-04-29
-Stefan:
-  Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
-  Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
+	Stefan:
+		Blivit färdig med statistikhanteringen samt lite css för den. Bakgrundsfärg, text på rubriken etc.
+		Börjat med paging funktion. Funkar på books. Behövs copy pasta i andra delan av sidan :)
    
-Staffan:
-  Buggfixat _RatingStars så den visar stjärnor åt rätt håll samt rating i siffror brevid stjärnorna
-  CSS:at like/dislike/flagga knapparna samt comments/comments
-  Lagt till partials för kommenteringsFormulär. Man behöver längre gå till en ny sida för att kommentera.
-    (Man kan även snyggt togglea fram dom så inte hela skärmen täcks av input-text rutor)
-  Gjort så att kommentarer kan toggle:as i book/details så att man bara ser reviews som tillhör boken i första skedet.
-  CSS:at Genres + reviews så dom inte ser fullt så saccflodade ut.
-  Lagt till softdelete på kommentarer så moderatorer kan moderera :D
-  lagt till sökrutor på author/genre i create-book (jquery baserade) 
-   
+	Staffan:
+		Buggfixat _RatingStars så den visar stjärnor åt rätt håll samt rating i siffror brevid stjärnorna
+		CSS:at like/dislike/flagga knapparna samt comments/comments
+		Lagt till partials för kommenteringsFormulär. Man behöver längre gå till en ny sida för att kommentera.
+		(Man kan även snyggt togglea fram dom så inte hela skärmen täcks av input-text rutor)
+		Gjort så att kommentarer kan toggle:as i book/details så att man bara ser reviews som tillhör boken i första skedet.
+		CSS:at Genres + reviews så dom inte ser fullt så saccflodade ut.
+		Lagt till softdelete på kommentarer så moderatorer kan moderera :D
+		lagt till sökrutor på author/genre i create-book (jquery baserade) 
+
 2022-05-02
-Stefan: 
-  Blev färdig med paging funktion, förutom för kommentarer på reviews. Där behövs refaktotrering om det ska gå att lösa.
-  Lagt till description och wiki fält för authors. Samt seed-data för detta. Också gjort hantering för tomma länkar.
+	Stefan: 
+	  	Blev färdig med paging funktion, förutom för kommentarer på reviews. Där behövs refaktotrering om det ska gå att lösa.
+	  	Lagt till description och wiki fält för authors. Samt seed-data för detta. Också gjort hantering för tomma länkar.
   
-Staffan:
-  Buggfixat softdelete/block på kommenterarer + tillhörande kod se det inte visas i views 
-    (Toggleknappen visades även om det inte fanns några kommentarer att se längre)
-  Css:at Moderator-del: Rapporterade Kommentarer och reviews.
-    (Javascript sortering om man trycker på tableheader så man kan lättare kan få fram det man söker)
-  Disablat like/dislike/flaggknappar om du inte är inloggad. Samt minor buggfix i funktionaliteten hos respektive funktioner.
-  Påbörjat quizzar!. Gjort modeller, seedat ett quiz, take quizz sida med javascript rättning av quizzet och på börjat add quiz.
+	Staffan:
+		Buggfixat softdelete/block på kommenterarer + tillhörande kod se det inte visas i views 
+		  (Toggleknappen visades även om det inte fanns några kommentarer att se längre)
+		Css:at Moderator-del: Rapporterade Kommentarer och reviews.
+		  (Javascript sortering om man trycker på tableheader så man kan lättare kan få fram det man söker)
+		Disablat like/dislike/flaggknappar om du inte är inloggad. Samt minor buggfix i funktionaliteten hos respektive funktioner.
+		Påbörjat quizzar!. Gjort modeller, seedat ett quiz, take quizz sida med javascript rättning av quizzet och på börjat add quiz.
   
   2022-05-03
   
-  	Stefan: Fixat så att description på en author är required.
+  	Stefan: 
+		Fixat så att description på en author är required.
 		Automatisk block vid 5 flaggningar, siffran går att ändra i koden men inte för en admin
 		Länk till relevant review när en admin ska titta på rapporterade kommentarer/reviews,
 		blev tvungen att lägga till nestedReviewId fält på databasen, 
 		så vi kan följa nästlade kommentarer utan att behöva skriva extrema querys som frågar efter varje förälder från top till botten
-
-Staffan:
-  Fortsatt med quizar.
- 	inloggade användare kan nu göra egna quiz
-	moderator/admin har nu möjlighet att lägga till fler quiz genres/tags att välja på när man gör ett quiz
-	lagt till edit quiz/questions som skaparen av quizet samt moderator/admin har tillgång till
-	Gjort så att en user kan editera sina egna kommentarer 
+	Staffan:
+  		Fortsatt med quizar.
+		inloggade användare kan nu göra egna quiz
+		moderator/admin har nu möjlighet att lägga till fler quiz genres/tags att välja på när man gör ett quiz
+		lagt till edit quiz/questions som skaparen av quizet samt moderator/admin har tillgång till
+		Gjort så att en user kan editera sina egna kommentarer 
 
 
 2022-05-04
-	Stefan: Profile page, edit profile page, mina reviews, mina quiz, mina spelade quiz, samt lagt till profilbilder för users och en defaultprofilbild.
-	Sprint review&retrospective #3 powerpoint samt slutredovisning.
+	Stefan: 
+		Profile page, edit profile page, mina reviews, mina quiz, mina spelade quiz, samt lagt till profilbilder för users och en defaultprofilbild.
+		Sprint review&retrospective #3 powerpoint samt slutredovisning.
 	
 	
 	Staffan:
-	Forstsatt med quiz: Cssat & buggfixat
-	Fixat lite buggar med soft-Delete på olika ställen
-	Sprint review&retrospective #3 powerpoint samt slutredovisning.
+		Forstsatt med quiz: Cssat & buggfixat
+		Fixat lite buggar med soft-Delete på olika ställen
+		Sprint review&retrospective #3 powerpoint samt slutredovisning.
+
+2022-05-05
+	Stefan: 
+		Redovisningar!
+	
+	Staffan:
+		Redovisningar!
+		Lagt till listnings funktion av books/author/quiz/comment/review som = isDeleted i profilesidan.
+		Här kan vi lätt hitta bortagna saker så vi kan revokea dom.
+	
